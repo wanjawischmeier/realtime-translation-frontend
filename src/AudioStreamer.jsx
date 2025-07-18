@@ -12,9 +12,8 @@ function StatusLED({ status }) {
   );
 }
 
-function AudioStreamer() {
+function AudioStreamer({ wsUrl }) {
   const [quality, setQuality] = useState(48000);
-  const [serverIp, setServerIp] = useState("http://localhost:8080");
   const [streaming, setStreaming] = useState(false);
   const [serverReachable, setServerReachable] = useState(false);
   const pcRef = useRef(null);
@@ -26,7 +25,7 @@ function AudioStreamer() {
     let interval;
     const checkServer = async () => {
       try {
-        const res = await fetch(`${serverIp}/health`, { method: "GET" });
+        const res = await fetch(`https://${wsUrl}/health`, { method: "GET", cache: 'no-cache' });
         const reachable = res.ok;
         setServerReachable(reachable);
 
@@ -49,11 +48,11 @@ function AudioStreamer() {
     interval = setInterval(checkServer, 5000);
     return () => clearInterval(interval);
     // eslint-disable-next-line
-  }, [serverIp, streaming]);
+  }, [wsUrl, streaming]);
 
   const checkServer = async () => {
     try {
-      const res = await fetch(`${serverIp}/health`, { method: "GET" });
+      const res = await fetch(`${serverIp}/health`, { method: "GET", cache: 'no-cache' });
       return res.ok;
     } catch {
       return false;

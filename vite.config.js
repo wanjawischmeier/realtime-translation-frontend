@@ -8,4 +8,15 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    allowedHosts: true // only for development
+    /*
+    allowedHosts: [
+      "dynamic-freely-chigger.ngrok-free.app"
+    ]
+    */
+  }
 })
+
+// npm dev run
+// ngrok http --url=dynamic-freely-chigger.ngrok-free.app 5173
