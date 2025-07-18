@@ -14,16 +14,18 @@ const initialRooms = [
   { id: "def456", name: "Workshop", presenter: "Bob", language: "de" }
 ];
 
+const backendUrl = "dynamic-freely-chigger.ngrok-free.app";
+
 export default function App() {
   const [rooms, setRooms] = useState(initialRooms);
   const [createdRoomIds, setCreatedRoomIds] = useState([]);
 
   return (
-    <ServerHealthProvider wsUrl={"ws://localhost:8000/asr"}>
+    <ServerHealthProvider wsUrl={ backendUrl }>
       <Router>
         <Routes>
           <Route path="/" element={<StartView />} />
-          <Route path="/ws_debug" element={<WebSocketViewer />} />
+          <Route path="/ws_debug" element={<WebSocketViewer wsUrl={ backendUrl } />} />
           <Route
             path="/rooms"
             element={

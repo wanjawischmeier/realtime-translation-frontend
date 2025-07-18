@@ -8,7 +8,7 @@ function formatTime(t) {
     return t.replace(/^0:/, ""); // Remove leading 0 if present
 }
 
-export default function WebSocketViewer() {
+export default function WebSocketViewer({ wsUrl }) {
     const [bubbles, setBubbles] = useState([]);
     const wsRef = useRef(null);
     const reconnectTimeoutRef = useRef(null);
@@ -24,7 +24,7 @@ export default function WebSocketViewer() {
             wsRef.current.close();
             wsRef.current = null;
         }
-        wsRef.current = new WebSocket("ws://localhost:8000/ws");
+        wsRef.current = new WebSocket(`ws://${wsUrl}/ws`);
 
         wsRef.current.onmessage = (event) => {
             try {
