@@ -38,62 +38,60 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-            <div className="relative bg-gray-800 rounded-xl shadow-lg p-8 max-w-md w-full">
-                <StatusLED status={serverReachable} />
-                <h2 className="text-2xl font-bold text-white mb-6 select-none">Create Room</h2>
-                {showPopup && (
-                    <PasswordPopup
-                        password={password}
-                        setPassword={setPassword}
-                        error={error}
-                        onSubmit={handlePasswordSubmit}
-                        onClose={() => navigate("/")}
+        <div>
+            <StatusLED status={serverReachable} />
+            <h2 className="text-2xl font-bold text-white mb-6 select-none">Create Room</h2>
+            {showPopup && (
+                <PasswordPopup
+                    password={password}
+                    setPassword={setPassword}
+                    error={error}
+                    onSubmit={handlePasswordSubmit}
+                    onClose={() => navigate("/")}
+                />
+            )}
+            {!showPopup && (
+                <>
+                    <input
+                        className="w-full mb-4 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
+                        placeholder="Room Name"
+                        value={roomName}
+                        onChange={e => setRoomName(e.target.value)}
                     />
-                )}
-                {!showPopup && (
-                    <>
-                        <input
-                            className="w-full mb-4 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
-                            placeholder="Room Name"
-                            value={roomName}
-                            onChange={e => setRoomName(e.target.value)}
-                        />
-                        <input
-                            className="w-full mb-4 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
-                            placeholder="Presenter Name"
-                            value={presenter}
-                            onChange={e => setPresenter(e.target.value)}
-                        />
-                        <select
-                            className="w-full mb-6 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
-                            value={language}
-                            onChange={e => setLanguage(e.target.value)}
-                        >
-                            <option value="en">English</option>
-                            <option value="de">German</option>
-                            <option value="fr">French</option>
-                        </select>
-                        <button
-                            className={`w-full mb-2 py-3 rounded-lg font-bold text-lg
+                    <input
+                        className="w-full mb-4 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
+                        placeholder="Presenter Name"
+                        value={presenter}
+                        onChange={e => setPresenter(e.target.value)}
+                    />
+                    <select
+                        className="w-full mb-6 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
+                        value={language}
+                        onChange={e => setLanguage(e.target.value)}
+                    >
+                        <option value="en">English</option>
+                        <option value="de">German</option>
+                        <option value="fr">French</option>
+                    </select>
+                    <button
+                        className={`w-full mb-2 py-3 rounded-lg font-bold text-lg
                                 ${serverReachable
-                                    ? "bg-blue-600 text-white hover:bg-blue-700"
-                                    : "bg-blue-900 text-gray-400 cursor-not-allowed"
-                                }`}
-                            onClick={handleCreate}
-                            disabled={!serverReachable}
-                        >
-                            Create
-                        </button>
-                        <button
-                            className="w-full py-2 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
-                            onClick={() => navigate("/")}
-                        >
-                            Back
-                        </button>
-                    </>
-                )}
-            </div>
+                                ? "bg-blue-600 text-white hover:bg-blue-700"
+                                : "bg-blue-900 text-gray-400 cursor-not-allowed"
+                            }`}
+                        onClick={handleCreate}
+                        disabled={!serverReachable}
+                    >
+                        Create
+                    </button>
+                    <button
+                        className="w-full py-2 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+                        onClick={() => navigate("/")}
+                    >
+                        Back
+                    </button>
+                </>
+            )}
         </div>
     );
 }
