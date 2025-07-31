@@ -9,7 +9,7 @@ export function ServerHealthProvider({ wsUrl, children }) {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch(`https://${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+        const res = await fetch(`${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
         setServerReachable(res.ok);
       } catch {
         setServerReachable(false);
