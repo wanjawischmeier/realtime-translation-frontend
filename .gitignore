@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+package-lock.json
 
 #Dev
 legacy
@@ -25,4 +26,3 @@ legacy
 *.njsproj
 *.sln
 *.sw?
-package-lock.json
