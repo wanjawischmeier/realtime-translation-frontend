@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 export function RoomsProvider(wsUrl) {
   const [rooms, setRooms] = useState([
-        { id: "abc123", name: "Demo Room 1", presenter: "Alice", language: "en" },
-        { id: "def456", name: "Workshop", presenter: "Bob", language: "de" }
+        { id: "abc123", name: "Demo Room 1", presenter: "Alice", language: "en", isActive: true },
+        { id: "def456", name: "Workshop", presenter: "Bob", language: "de", isActive: false }
       ]);
   const roomCheckInterval = useRef();
 
