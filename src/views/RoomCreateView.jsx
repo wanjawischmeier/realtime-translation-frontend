@@ -71,7 +71,7 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
                         value={language}
                         onChange={e => setLanguage(e.target.value)}
                     >
-                        {rooms.map(room => (s
+                        {rooms.map(room => (
                             <option key={room.id} value={`${room.id}`}>{room.name}</option>
                         ))}
                      
