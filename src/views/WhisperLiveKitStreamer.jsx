@@ -32,7 +32,7 @@ function WhisperLiveKitStreamer() {
 
   return (
     <div
-      className="relative bg-gray-800 rounded-xl shadow-lg flex flex-col w-full max-w-[1000px] h-[600px] mx-auto"
+      className="relative bg-gray-800 rounded-xl shadow-lg flex flex-col w-full max-w-[1000px] min-h-[400px] mx-auto"
       style={{ padding: 32 }}
     >
       {/* Title at top left */}
