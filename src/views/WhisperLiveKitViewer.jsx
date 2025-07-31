@@ -11,7 +11,6 @@ export default function WhisperLiveKitViewer({ rooms }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const room = rooms.find(r => r.id === id);
-  const [targetLang, setTargetLang] = useState("en");
   const [wsUrl, setWsUrl] = useState("ws://localhost:8000/asr");
   const serverReachable = useServerHealth();
   
@@ -47,16 +46,7 @@ export default function WhisperLiveKitViewer({ rooms }) {
         <StatusLED status={wsConnected} />
         <div className="flex items-center mb-6">
           <div className="text-2xl font-bold text-white flex-1 select-none">{room.name}</div>
-          <select
-            className="ml-4 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
-            value={targetLang}
-            onChange={e => setTargetLang(e.target.value)}
-          >
-            <option value="en">English</option>
-            <option value="de">German</option>
-            <option value="fr">French</option>
-            {/* Add more as needed */}
-          </select>
+          
         </div>
         <div
           className="w-full bg-gray-900 rounded-lg p-3 text-gray-100 text-base flex flex-col space-y-2 flex-1 overflow-y-auto"
