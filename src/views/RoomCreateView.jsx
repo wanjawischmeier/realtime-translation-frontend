@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import PasswordPopup from "../components/PasswordPopup";
 import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
+import { RoomsProvider } from "../components/RoomProvider";
 
 export default function RoomCreateView({ onCreate, validPassword = "letmein" }) {
     const [roomName, setRoomName] = useState("");
@@ -14,6 +15,7 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
+    const { rooms } = RoomsProvider("http://localhost:8000");
 
     function handlePasswordSubmit() {
         if (password === validPassword) {
@@ -69,10 +71,21 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
                         value={language}
                         onChange={e => setLanguage(e.target.value)}
                     >
+                        {rooms.map(room => (s
+                            <option key={room.id} value={`${room.id}`}>{room.name}</option>
+                        ))}
+                     
+                    </select>
+                    <select
+                        className="w-full mb-6 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"
+                        value={language}
+                        onChange={e => setLanguage(e.target.value)}
+                    >
                         <option value="en">English</option>
                         <option value="de">German</option>
                         <option value="fr">French</option>
                     </select>
+
                     <button
                         className={`w-full mb-2 py-3 rounded-lg font-bold text-lg
                                 ${serverReachable
