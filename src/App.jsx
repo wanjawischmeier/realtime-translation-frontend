@@ -28,7 +28,7 @@ export default function App() {
           return useServerHealth()
         }} />
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
-          <div className="relative bg-gray-800 rounded-none shadow-lg p-4 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
+          <div className="relative bg-gray-800 rounded-none shadow-lg p-2 sm:p-4 pt-15 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
             <Routes>
               <Route path="/" element={<StartView />} />
               <Route path="/ws_debug" element={<WebSocketViewer wsUrl={"localhost:8000"} />} />
