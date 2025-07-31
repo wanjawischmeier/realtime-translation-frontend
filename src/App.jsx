@@ -14,7 +14,7 @@ const initialRooms = [
   { id: "def456", name: "Workshop", presenter: "Bob", language: "de" }
 ];
 
-const backendUrl = "dynamic-freely-chigger.ngrok-free.app";
+const backendUrl = "http://localhost:8000";
 
 export default function App() {
   const [rooms, setRooms] = useState(initialRooms);
