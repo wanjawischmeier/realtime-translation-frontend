@@ -25,7 +25,7 @@ function AudioStreamer({ wsUrl }) {
     let interval;
     const checkServer = async () => {
       try {
-        const res = await fetch(`https://${wsUrl}/health`, { method: "GET", cache: 'no-cache' });
+        const res = await fetch(`${wsUrl}/health`, { method: "GET", cache: 'no-cache' });
         const reachable = res.ok;
         setServerReachable(reachable);
 
