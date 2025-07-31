@@ -8,18 +8,13 @@ import WhisperLiveKitViewer from "./views/WhisperLiveKitViewer";
 import { ServerHealthProvider, useServerHealth } from "./components/ServerHealthContext";
 import WebSocketViewer from "./views/WebSocketViewer";
 import StatusLED from "./components/StatusLED";
+import { RoomsProvider } from "./components/RoomProvider";
 
 // Initial example rooms
-const initialRooms = [
-  { id: "abc123", name: "Demo Room 1", presenter: "Alice", language: "en" },
-  { id: "def456", name: "Workshop", presenter: "Bob", language: "de" }
-];
-
 const backendUrl = "http://localhost:8000";
 
 export default function App() {
-  const [rooms, setRooms] = useState(initialRooms);
-  
+  const {rooms} = RoomsProvider(backendUrl);
   const [createdRoomIds, setCreatedRoomIds] = useState([]);
   return (
     <ServerHealthProvider wsUrl={backendUrl}>
