@@ -24,12 +24,11 @@ export default function WebSocketViewer({ wsUrl }) {
             wsRef.current.close();
             wsRef.current = null;
         }
-        wsRef.current = new WebSocket(`ws://${wsUrl}/ws`);
+        wsRef.current = new WebSocket(`ws://${wsUrl}/asr`);
 
         wsRef.current.onmessage = (event) => {
             try {
                 const msg = JSON.parse(event.data);
-
                 if (msg.type === "asr") {
                     // Save the full current lines array
                     asrLinesRef.current = msg.data.lines || [];
@@ -119,9 +118,10 @@ export default function WebSocketViewer({ wsUrl }) {
     }, [serverReachable]);
 
     return (
-        <div className="max-w-2xl mx-auto mt-8">
+        <div>
             <StatusLED status={serverReachable} />
-            <h1 className="text-2xl font-bold mb-4">Transcript</h1>
+
+            <h1 className="text-2xl text-white font-bold mb-8">Transcript</h1>
             <div className="bg-gray-900 rounded shadow p-4 h-96 overflow-y-auto space-y-2">
                 {bubbles.length === 0 ? (
                     <div className="text-gray-400">Waiting for transcript...</div>

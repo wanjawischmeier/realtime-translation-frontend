@@ -9,8 +9,10 @@ export function ServerHealthProvider({ wsUrl, children }) {
   useEffect(() => {
     const checkHealth = async () => {
       try {
+
         const res = await fetch(`${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
         setServerReachable(res.ok);
+
       } catch {
         setServerReachable(false);
       }
@@ -18,7 +20,6 @@ export function ServerHealthProvider({ wsUrl, children }) {
 
     checkHealth();
     healthCheckInterval.current = setInterval(checkHealth, 5000);
-
     return () => {
       clearInterval(healthCheckInterval.current);
     };
