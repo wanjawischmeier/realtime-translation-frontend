@@ -12,9 +12,10 @@ export default function WhisperLiveKitViewer() {
   const { room_id } = useParams();
   const navigate = useNavigate();
   const { rooms } = RoomsProvider();
+  const [targetLang, setTargetLang] = useState("en");
 
   const room = rooms.find(r => r.id === room_id);
-  const [wsUrl, setWsUrl] = useState(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${"de"}/${"en"}/${undefined}`);
+  const [wsUrl, setWsUrl] = useState(undefined);
   const serverReachable = useServerHealth();
 
   const { onWsMessage, lines } = WhisperLines()
@@ -26,6 +27,9 @@ export default function WhisperLiveKitViewer() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [lines]);
+  useEffect(() => {
+    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}/${undefined}`)
+  }, [targetLang])
 
   if (!room) {
     return (
@@ -53,6 +57,7 @@ export default function WhisperLiveKitViewer() {
         className="w-full bg-gray-900 rounded-lg p-3 text-gray-100 text-base flex flex-col space-y-2 flex-1 overflow-y-auto"
         style={{ minHeight: 120 }}
       >
+        <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
         <TranscriptDisplay lines={lines}></TranscriptDisplay>
 
       </div>

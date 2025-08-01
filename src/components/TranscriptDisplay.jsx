@@ -8,22 +8,8 @@ function formatTime(t) {
 
 export default function TranscriptDisplay({ lines }) {
  
-    const [targetLang, setTargetLang] = useState("en");
-
-
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-
-            <select
-                className="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 w-full"
-                value={targetLang}
-                onChange={e => setTargetLang(e.target.value)}
-            >
-                <option value="en">English</option>
-                <option value="de">German</option>
-                <option value="fr">French</option>
-                {/* Add more as needed */}
-            </select>
 
             <div
                 className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
