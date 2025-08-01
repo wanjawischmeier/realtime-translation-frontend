@@ -10,7 +10,7 @@ export function ServerHealthProvider({ wsUrl, children }) {
     const checkHealth = async () => {
       try {
 
-        const res = await fetch(`${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+        const res = await fetch(`http://${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
         setServerReachable(res.ok);
 
       } catch {

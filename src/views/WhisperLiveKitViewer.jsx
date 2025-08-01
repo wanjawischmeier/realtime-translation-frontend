@@ -11,10 +11,10 @@ import { RoomsProvider } from "../components/RoomProvider";
 export default function WhisperLiveKitViewer() {
   const { room_id } = useParams();
   const navigate = useNavigate();
-  const { rooms } = RoomsProvider("localhost:8000/");
+  const { rooms } = RoomsProvider();
 
   const room = rooms.find(r => r.id === room_id);
-  const [wsUrl, setWsUrl] = useState(`ws://localhost:8000/room/${room_id}/${"client"}/${"de"}/${"en"}/${undefined}`);
+  const [wsUrl, setWsUrl] = useState(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${"de"}/${"en"}/${undefined}`);
   const serverReachable = useServerHealth();
 
   const { onWsMessage, lines } = WhisperLines()

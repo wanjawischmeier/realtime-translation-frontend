@@ -15,10 +15,10 @@ function StartView() {
                         ? "bg-blue-600 text-white hover:bg-blue-700"
                         : "bg-blue-900 text-gray-400 cursor-not-allowed"
                     }`}
-                onClick={() => navigate("/create")}
+                onClick={() => navigate("/rooms/host")}
                 disabled={!serverReachable}
             >
-                Create a Room
+                Join as Host
             </button>
             <button
                 className={`w-full py-3 rounded-lg font-bold text-lg
@@ -29,7 +29,7 @@ function StartView() {
                 onClick={() => navigate("/rooms")}
                 disabled={!serverReachable}
             >
-                Join Existing Room
+                Join as Viewer
             </button>
         </div>
     );
