@@ -8,7 +8,8 @@ const WhisperLines = () => {
     console.log(data)
 
     if (Array.isArray(data.last_n_sents)) {
-      setLines(newLines => {
+      setLines(oldLines => {
+        const newLines = [...oldLines]
         for (let i = 0; i < data.last_n_sents.length; i++) {
           const line_idx = data.last_n_sents[i].line_idx
           while(newLines.length-1 < line_idx)
@@ -22,8 +23,8 @@ const WhisperLines = () => {
           for (let l = 0; l < data.last_n_sents[i].sentences.length; l++) {
             const sentence = data.last_n_sents[i].sentences[l];
             while(newLines[line_idx].length-1 < sentence.sent_idx)
-              newLines[line_idx].push({})
-            newLines[line_idx][sentence.sent_idx] = sentence
+              newLines[line_idx].sentences.push({})
+            newLines[line_idx].sentences[sentence.sent_idx] = sentence
           }
           
         }

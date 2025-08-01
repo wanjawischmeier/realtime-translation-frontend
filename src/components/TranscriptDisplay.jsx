@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 
 function formatTime(t) {
-    if (!t) return "";
-    const parts = t.split(":");
-    return parts.length === 3 ? `${parts[1].padStart(2, "0")}:${parts[2].padStart(2, "0")}` : t;
+    return t;
 }
 
 export default function TranscriptDisplay({ lines }) {
- 
+
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
 
@@ -30,16 +28,20 @@ export default function TranscriptDisplay({ lines }) {
                                 }`}
                         >
                             <div className="mb-1 text-xs text-gray-300">
-                                Speaker {line.speaker}
+                                Speaker {line.speaker + 1}
                                 {" · "}
                                 {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>
                             <div className="text-lg leading-relaxed">
-                                {line.sentences.map((sentence, i) => (
-                                    <span key={i}>
-                                        {sentence.sentence}
-                                    </span>
-                                ))}
+                                {line.sentences.map((sentence, i) => {
+                                    if (sentence["sentence"]) {
+                                        return (
+                                            <span key={i}>
+                                                {sentence.sentence}
+                                            </span>
+                                        )
+                                    }
+                                })}
                             </div>
                         </div>
                     </div>
