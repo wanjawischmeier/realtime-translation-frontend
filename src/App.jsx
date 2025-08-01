@@ -17,7 +17,7 @@ export default function App() {
     <ServerHealthProvider wsUrl={import.meta.env.VITE_BACKEND_URL}>
       <Router>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
-          <div className="relative bg-gray-800 rounded-none shadow-lg p-2 sm:p-4 pt-15 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
+          <div className="relative bg-gray-800 rounded-none shadow-lg sm:min-w-150 p-2 sm:p-4 pt-15 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
             <HeaderHandler></HeaderHandler>
             <Routes>
               <Route path="/" element={<StartView />} />
