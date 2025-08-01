@@ -7,21 +7,9 @@ function formatTime(t) {
 }
 
 export default function TranscriptDisplay({ lines }) {
-    const groupedLines = [];
-    let lastSpeaker = null;
-    let lastLines = [];
+ 
     const [targetLang, setTargetLang] = useState("en");
 
-    lines.forEach((line) => {
-        if (line.speaker !== lastSpeaker) {
-            if (lastLines.length) groupedLines.push({ speaker: lastSpeaker, lines: lastLines });
-            lastSpeaker = line.speaker;
-            lastLines = [line];
-        } else {
-            lastLines.push(line);
-        }
-    });
-    if (lastLines.length) groupedLines.push({ speaker: lastSpeaker, lines: lastLines });
 
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
@@ -41,30 +29,29 @@ export default function TranscriptDisplay({ lines }) {
                 className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
                 style={{ minHeight: 120 }}
             >
-                {groupedLines.length === 0 && (
+                {lines.length === 0 && (
                     <span className="text-gray-500">Transcription will appear here...</span>
                 )}
-                {groupedLines.map((group, idx) => (
+                {lines.map((line, idx) => (
                     <div
                         key={idx}
-                        className={`flex ${group.speaker % 2 === 1 ? "justify-start" : "justify-start"}`}
+                        className={`flex ${line.speaker % 2 === 1 ? "justify-start" : "justify-start"}`}
                     >
                         <div
-                            className={`rounded-xl px-4 py-3 max-w-[80%] shadow-md transition-all duration-200 ${group.speaker % 2 === 0
+                            className={`rounded-xl px-4 py-3 max-w-[80%] shadow-md transition-all duration-200 ${line.speaker % 2 === 0
                                 ? "text-white"
                                 : "text-white"
                                 }`}
                         >
                             <div className="mb-1 text-xs text-gray-300">
-                                Speaker {group.speaker}
+                                Speaker {line.speaker}
                                 {" · "}
-                                {formatTime(group.lines[0].beg)} - {formatTime(group.lines[group.lines.length - 1].end)}
+                                {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>
                             <div className="text-lg leading-relaxed">
-                                {group.lines.map((line, i) => (
+                                {line.sentences.map((sentence, i) => (
                                     <span key={i}>
-                                        {line.text}
-                                        {i < group.lines.length - 1 ? " " : ""}
+                                        {sentence.sentence}
                                     </span>
                                 ))}
                             </div>

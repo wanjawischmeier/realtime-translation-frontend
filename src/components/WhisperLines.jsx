@@ -8,20 +8,26 @@ const WhisperLines = () => {
     console.log(data)
 
     if (Array.isArray(data.last_n_sents)) {
-      setLines(prevLines => {
-        const newLines = [];
+      setLines(newLines => {
         for (let i = 0; i < data.last_n_sents.length; i++) {
-          const line = data.last_n_sents[i]
+          const line_idx = data.last_n_sents[i].line_idx
+          while(newLines.length-1 < line_idx)
+            newLines.push({
+              sentences:[],
+              speaker:line.speaker
+            })
+            newLines[line_idx].beg = data.last_n_sents[i].beg
+            newLines[line_idx].end = data.last_n_sents[i].end
+
           for (let l = 0; l < line.sentences.length; l++) {
             const sentence = line.sentences[l];
-            if(prevLines.length - 1 >= i)
-              prevLines[i] = sentence;
-            else
-              newLines.push(sentence);
+            while(newLines[line_idx].length-1 < sentence.sent_idx)
+              newLines[line_idx].push({})
+            newLines[line_idx][sentence.sent_idx] = sentence
           }
           
         }
-        return [...prevLines, ...newLines];
+        return [...newLines];
       });
     }
   }
