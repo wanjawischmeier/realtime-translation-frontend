@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 function WhisperLiveKitStreamer() {
   const { room_id } = useParams();
-  const [wsUrl, setWsUrl] = useState(`ws://localhost:8000/room/${room_id}/${"host"}/${"de"}/${"en"}/${"letmein"}`);
+  const [wsUrl, setWsUrl] = useState(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${"de"}/${"en"}/${"letmein"}`);
   const serverReachable = useServerHealth();
   
   const {onWsMessage, lines} = WhisperLines()
@@ -40,14 +40,7 @@ function WhisperLiveKitStreamer() {
 
       {/* URL input and button on one line */}
       <div className="flex items-center w-full space-x-4 mb-4 mt-2">
-        <input
-          type="text"
-          value={wsUrl}
-          onChange={e => setWsUrl(e.target.value)}
-          className="flex-1 px-4 flex-auto h-12 rounded-lg overflow-clip bg-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          disabled={streaming}
-          placeholder="ws://localhost:8000/asr"
-        />
+
 
         <button
           className={`

@@ -15,7 +15,7 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
-    const { rooms } = RoomsProvider("http://localhost:8000");
+    const { rooms } = RoomsProvider();
 
     function handlePasswordSubmit() {
         if (password === validPassword) {

@@ -7,15 +7,19 @@ const WhisperLines = () => {
     const data = JSON.parse(event.data);
     console.log(data)
 
-    if (Array.isArray(data.lines)) {
+    if (Array.isArray(data.last_n_sents)) {
       setLines(prevLines => {
         const newLines = [];
-        for (let i = 0; i < data.lines.length; i++) {
-          const line = data.lines[i]
-          if(prevLines.length - 1 >= i)
-            prevLines[i] = line;
-          else
-            newLines.push(line);
+        for (let i = 0; i < data.last_n_sents.length; i++) {
+          const line = data.last_n_sents[i]
+          for (let l = 0; l < line.sentences.length; l++) {
+            const sentence = line.sentences[l];
+            if(prevLines.length - 1 >= i)
+              prevLines[i] = sentence;
+            else
+              newLines.push(sentence);
+          }
+          
         }
         return [...prevLines, ...newLines];
       });
