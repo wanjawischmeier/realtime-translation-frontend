@@ -14,13 +14,13 @@ const WhisperLines = () => {
           while(newLines.length-1 < line_idx)
             newLines.push({
               sentences:[],
-              speaker:line.speaker
+              speaker:data.last_n_sents[i].speaker
             })
             newLines[line_idx].beg = data.last_n_sents[i].beg
             newLines[line_idx].end = data.last_n_sents[i].end
 
-          for (let l = 0; l < line.sentences.length; l++) {
-            const sentence = line.sentences[l];
+          for (let l = 0; l < data.last_n_sents[i].sentences.length; l++) {
+            const sentence = data.last_n_sents[i].sentences[l];
             while(newLines[line_idx].length-1 < sentence.sent_idx)
               newLines[line_idx].push({})
             newLines[line_idx][sentence.sent_idx] = sentence

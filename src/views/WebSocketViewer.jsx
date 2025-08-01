@@ -98,7 +98,7 @@ export default function WebSocketViewer({ wsUrl }) {
     };
 
     useEffect(() => {
-        if (serverReachable) {
+        if (serverReachable && wsUrl != undefined) {
             connectWebSocket();
         } else {
             if (wsRef.current) {
@@ -115,7 +115,7 @@ export default function WebSocketViewer({ wsUrl }) {
                 wsRef.current = null;
             }
         };
-    }, [serverReachable]);
+    }, [serverReachable,wsUrl]);
 
     return (
         <div>

@@ -6,15 +6,21 @@ import WhisperStreamerHandler from "../components/WhisperStreamHandler";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
+import LanguageSelect from "../components/LanguageSelect";
 
 function WhisperLiveKitStreamer() {
   const { room_id } = useParams();
-  const [wsUrl, setWsUrl] = useState(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${"de"}/${"en"}/${"letmein"}`);
+  const { getPassword } = useAuth();
+  const [sourceLang, setSourceLang] = useState("en");
+  const [targetLang, setTargetLang] = useState("en");
+
+  const [wsUrl, setWsUrl] = useState(undefined);
   const serverReachable = useServerHealth();
-  
-  const {onWsMessage, lines} = WhisperLines()
-  const {wsSend, wsConnected} = WebSocketHandler({wsUrl,onMessage:onWsMessage,serverReachable:serverReachable})
-  const {startStreaming, stopStreaming, streaming} = WhisperStreamerHandler({serverReachable:serverReachable,wsConnected:wsConnected,wsSend:wsSend})
+
+  const { onWsMessage, lines } = WhisperLines()
+  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable })
+  const { startStreaming, stopStreaming, streaming } = WhisperStreamerHandler({ serverReachable: serverReachable, wsConnected: wsConnected, wsSend: wsSend })
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -22,6 +28,9 @@ function WhisperLiveKitStreamer() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [lines]);
+  useEffect(() => {
+    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${sourceLang}/${targetLang}/${getPassword()}`)
+  }, [sourceLang, targetLang])
 
   const handleButtonClick = () => {
     if (streaming) {
@@ -72,6 +81,11 @@ function WhisperLiveKitStreamer() {
           )}
         </button>
       </div>
+      <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
+        <LanguageSelect lang={sourceLang} setLang={setSourceLang}></LanguageSelect>
+        <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
+      </div>
+
       <TranscriptDisplay lines={lines}></TranscriptDisplay>
     </div>
   );
