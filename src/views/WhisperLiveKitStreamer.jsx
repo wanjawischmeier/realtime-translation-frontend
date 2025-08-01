@@ -5,9 +5,11 @@ import { useServerHealth } from "../components/ServerHealthContext";
 import WhisperStreamerHandler from "../components/WhisperStreamHandler";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
+import { useParams } from "react-router-dom";
 
 function WhisperLiveKitStreamer() {
-  const [wsUrl, setWsUrl] = useState("ws://localhost:8000/asr");
+  const { room_id } = useParams();
+  const [wsUrl, setWsUrl] = useState(`ws://localhost:8000/room/${room_id}/${"host"}/${"de"}/${"en"}/${"letmein"}`);
   const serverReachable = useServerHealth();
   
   const {onWsMessage, lines} = WhisperLines()

@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
+import { RoomsProvider } from "../components/RoomProvider";
 
-export default function RoomListView({ rooms, createdRoomIds = [] }) {
+export default function RoomListView({ createdRoomIds = [] }) {
+    const { rooms } = RoomsProvider(backendUrl);
+
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
 
