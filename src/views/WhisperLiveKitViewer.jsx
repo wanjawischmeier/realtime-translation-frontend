@@ -6,16 +6,19 @@ import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useEffect } from "react";
+import { RoomsProvider } from "../components/RoomProvider";
 
-export default function WhisperLiveKitViewer({ rooms }) {
-  const { id } = useParams();
+export default function WhisperLiveKitViewer() {
+  const { room_id } = useParams();
   const navigate = useNavigate();
-  const room = rooms.find(r => r.id === id);
-  const [wsUrl, setWsUrl] = useState("ws://localhost:8000/asr");
+  const { rooms } = RoomsProvider("localhost:8000/");
+
+  const room = rooms.find(r => r.id === room_id);
+  const [wsUrl, setWsUrl] = useState(`ws://localhost:8000/room/${room_id}/${"client"}/${"de"}/${"en"}/${undefined}`);
   const serverReachable = useServerHealth();
-  
-  const {onWsMessage, lines} = WhisperLines()
-  const {wsSend, wsConnected} = WebSocketHandler({wsUrl,onMessage:onWsMessage,serverReachable:serverReachable})
+
+  const { onWsMessage, lines } = WhisperLines()
+  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable })
 
   const scrollRef = useRef(null);
   useEffect(() => {

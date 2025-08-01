@@ -8,22 +8,19 @@ import WhisperLiveKitViewer from "./views/WhisperLiveKitViewer";
 import { ServerHealthProvider, useServerHealth } from "./components/ServerHealthContext";
 import WebSocketViewer from "./views/WebSocketViewer";
 import StatusLED from "./components/StatusLED";
-import { RoomsProvider } from "./components/RoomProvider";
+import HeaderHandler from "./components/HeaderHandler";
 
 // Initial example rooms
 const backendUrl = "http://localhost:8000";
 
 export default function App() {
-  const {rooms} = RoomsProvider(backendUrl);
   const [createdRoomIds, setCreatedRoomIds] = useState([]);
   return (
     <ServerHealthProvider wsUrl={backendUrl}>
-      <Router>
-        <StatusLED status={() => {
-          return useServerHealth()
-        }} />
+      <Router>      
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
           <div className="relative bg-gray-800 rounded-none shadow-lg p-2 sm:p-4 pt-15 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
+            <HeaderHandler></HeaderHandler>
             <Routes>
               <Route path="/" element={<StartView />} />
               <Route path="/ws_debug" element={<WebSocketViewer wsUrl={"localhost:8000"} />} />
@@ -31,7 +28,6 @@ export default function App() {
                 path="/rooms"
                 element={
                   <RoomListView
-                    rooms={rooms}
                     createdRoomIds={createdRoomIds}
                     onJoin={room => {
                       // logic will be in RoomListView
@@ -52,8 +48,8 @@ export default function App() {
                   />
                 }
               />
-              <Route path="/room/:id/stream" element={<WhisperLiveKitStreamer rooms={rooms} />} />
-              <Route path="/room/:id/view" element={<WhisperLiveKitViewer rooms={rooms} />} />
+              <Route path="/room/:room_id/stream" element={<WhisperLiveKitStreamer />} />
+              <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />
             </Routes>
           </div>
         </div>

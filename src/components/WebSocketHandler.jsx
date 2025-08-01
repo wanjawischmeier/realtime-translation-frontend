@@ -24,7 +24,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen=()=>{}, onClose=()=>{}, ser
                 wsRef.current = null;
             }
         };
-    }, [serverReachable]);
+    }, [serverReachable,wsUrl]);
 
     const connectWebSocket = async () => {
         
@@ -32,11 +32,13 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen=()=>{}, onClose=()=>{}, ser
 
         wsRef.current.onopen = () => {
             setWsConnected(true)
+            console.log("WebSocket running on: ", wsUrl);
             onOpen()
         };
 
         wsRef.current.onclose = () => {
             onClose()
+            console.log("WebSocket closed");
             setWsConnected(false)
             if (serverReachable) {
                 reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
