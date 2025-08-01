@@ -1,13 +1,15 @@
 // WebSocketHandler.js
 import React, { useRef, useEffect, useState } from 'react';
 
-const WebSocketHandler = ({ wsUrl, onMessage, onOpen=()=>{}, onClose=()=>{}, serverReachable }) => {
+const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, serverReachable }) => {
     const wsRef = useRef(null);
     const [wsConnected, setWsConnected] = useState(false);
     const reconnectTimeoutRef = useRef(null);
+    const currentWsUrlRef = useRef(null);
 
     useEffect(() => {
-        if (serverReachable) {
+        currentWsUrlRef.current = wsUrl
+        if (serverReachable && wsUrl) {
             connectWebSocket();
         } else {
             if (wsRef.current) {
@@ -26,21 +28,34 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen=()=>{}, onClose=()=>{}, ser
         };
     }, [serverReachable,wsUrl]);
 
+
     const connectWebSocket = async () => {
-        
-        wsRef.current = new WebSocket(wsUrl);
+
+        const connectUrl = wsUrl;
+
+        if(connectUrl == undefined)
+            return;
+
+        if (wsRef.current) {
+            wsRef.current.close();
+            wsRef.current = null;
+        }
+
+        console.log(`Connecting to ${connectUrl}`)
+
+        wsRef.current = new WebSocket(connectUrl);
 
         wsRef.current.onopen = () => {
             setWsConnected(true)
-            console.log("WebSocket running on: ", wsUrl);
+            console.log("WebSocket running on: ", connectUrl);
             onOpen()
         };
 
-        wsRef.current.onclose = () => {
+        wsRef.current.onclose = (e) => {
             onClose()
-            console.log("WebSocket closed");
+            console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
             setWsConnected(false)
-            if (serverReachable) {
+            if (serverReachable && connectUrl == currentWsUrlRef.current) {
                 reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
             }
         };

@@ -7,6 +7,7 @@ import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useEffect } from "react";
 import { RoomsProvider } from "../components/RoomProvider";
+import LanguageSelect from "../components/LanguageSelect";
 
 export default function WhisperLiveKitViewer() {
   const { room_id } = useParams();
@@ -15,7 +16,7 @@ export default function WhisperLiveKitViewer() {
   const [targetLang, setTargetLang] = useState("en");
 
   const room = rooms.find(r => r.id === room_id);
-  const [wsUrl, setWsUrl] = useState(undefined);
+  const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
   const { onWsMessage, lines } = WhisperLines()
