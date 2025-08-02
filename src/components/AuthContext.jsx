@@ -12,13 +12,23 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  function authenticate(password) {
-    if (password == "letmein") {
+  async function checkPassword(password) {
+    const response = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/auth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password }),
+    });
+    return response.ok;
+  }
+
+  async function authenticate(password) {
+    if (checkPassword(password)) {
       setIsAuthenticated(true);
-      Cookies.set("authenticated", password, { path: "/" });
-      return true
-    }
-    else {
+      Cookies.set("authenticated", password, { path: "/",  expires: import.meta.env.VITE_COOKIE_EXPIRATION_HOURS/24 });
+      return true;
+    } else {
       return false;
     }
   }
@@ -29,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   function getPassword() {
-    return getCookie()
+    return getCookie();
   }
 
   return (
@@ -41,4 +51,4 @@ export const AuthProvider = ({ children }) => {
 
 export function useAuth() {
   return useContext(AuthContext);
-};
+}
