@@ -1,18 +1,15 @@
 import { useRef, useState, useEffect } from "react";
-import StatusLED from "../components/StatusLED";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import { useServerHealth } from "../components/ServerHealthContext";
 import WhisperStreamerHandler from "../components/WhisperStreamHandler";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../components/AuthContext";
 import LanguageSelect from "../components/LanguageSelect";
 import RecorderButton from "../components/RecorderButton";
 
 function WhisperLiveKitStreamer() {
   const { room_id } = useParams();
-  const { getPassword } = useAuth();
   const [sourceLang, setSourceLang] = useState("en");
   const [targetLang, setTargetLang] = useState("en");
 
@@ -30,7 +27,7 @@ function WhisperLiveKitStreamer() {
     }
   }, [lines]);
   useEffect(() => {
-    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${sourceLang}/${targetLang}/${getPassword()}`)
+    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${sourceLang}/${targetLang}`)
   }, [sourceLang, targetLang])
 
   return (

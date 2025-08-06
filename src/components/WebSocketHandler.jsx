@@ -70,7 +70,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             } else {
                 addToast({
                     title: "Websocket connection closed",
-                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean:\n${e.reason}`,
+                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean\n${e.reason}`,
                     type: "error",
                 });
             }
