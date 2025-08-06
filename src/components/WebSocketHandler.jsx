@@ -43,12 +43,17 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         }
 
         console.log(`Connecting to ${connectUrl}`)
-
         wsRef.current = new WebSocket(connectUrl);
 
         wsRef.current.onopen = () => {
             setWsConnected(true)
             console.log("WebSocket running on: ", connectUrl);
+            addToast({ // TODO: Remove debugging toast
+                title: "Websocket connection opened",
+                message: `WebSocket now running on: ${connectUrl}`,
+                type: "info",
+            });
+
             onOpen()
         };
 
@@ -58,14 +63,14 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             if (e.code == 1003) {
                 // Backend error message available
                 addToast({
-                    title: "Websocket connection failed",
-                    message: e.message,
+                    title: "Websocket connection closed",
+                    message: e.reason,
                     type: "error",
                 });
             } else {
                 addToast({
-                    title: "Websocket connection failed",
-                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean:\n${e.message}`,
+                    title: "Websocket connection closed",
+                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean:\n${e.reason}`,
                     type: "error",
                 });
             }
@@ -78,7 +83,11 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
         wsRef.current.onerror = (error) => {
             console.error("WebSocket error:", error);
-            alert("An error occurred with the WebSocket connection.");
+            addToast({
+                title: "Websocket connection error",
+                message: `Error ${error.code}:\n${error.message}`,
+                type: "error",
+            });
         };
 
         wsRef.current.onmessage = (event) => {
