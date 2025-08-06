@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import { useServerHealth } from "../components/ServerHealthContext";
-import WhisperStreamerHandler from "../components/WhisperStreamHandler";
+import WhisperStreamerHandler from "../components/WhisperStreamerHandler";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useParams } from "react-router-dom";
