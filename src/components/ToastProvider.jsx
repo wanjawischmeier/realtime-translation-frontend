@@ -58,7 +58,7 @@ export default function ToastProvider({ children }) {
         setToasts((prev) => prev.filter((t) => t.id !== id));
         delete timeouts.current[id];
       }, 300);
-    }, 2000);
+    }, 5000);
   }, []);
 
   // Clean up all timeouts on unmount
