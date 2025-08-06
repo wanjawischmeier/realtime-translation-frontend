@@ -22,8 +22,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<StartView />} />
               <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
-              <Route path="/rooms" element={<RoomListView />} />
-              <Route path="/rooms/host" element={<RouteProtect element={<RoomListView asHost={true} />} />} />
+              <Route path="/rooms" element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
+              <Route path="/rooms/host" element={<RouteProtect element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} asHost={true} />} />} />
               <Route path="/room/:room_id/host" element={<RouteProtect element={<WhisperLiveKitStreamer />} />} />
               <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />
             </Routes>

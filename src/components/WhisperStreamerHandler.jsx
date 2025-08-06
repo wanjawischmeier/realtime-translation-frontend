@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 const WhisperStreamerHandler = ({ serverReachable, wsConnected, wsSend }) => {
   const [streaming, setStreaming] = useState(false);
@@ -10,7 +10,7 @@ const WhisperStreamerHandler = ({ serverReachable, wsConnected, wsSend }) => {
 
   const startStreaming = async () => {
     if (!serverReachable || !wsConnected) return;
-
+    
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     micStreamRef.current = stream;
 

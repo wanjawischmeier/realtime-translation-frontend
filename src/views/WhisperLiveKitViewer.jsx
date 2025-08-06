@@ -6,7 +6,7 @@ import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";
 import WhisperLines from "../components/WhisperLines";
 import { useEffect } from "react";
-import { RoomsProvider } from "../components/RoomProvider";
+import { RoomsProvider } from "../components/RoomsProvider";
 import LanguageSelect from "../components/LanguageSelect";
 
 export default function WhisperLiveKitViewer() {
@@ -28,8 +28,8 @@ export default function WhisperLiveKitViewer() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [lines]);
-  useEffect(() => {
-    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}/${undefined}`)
+  useEffect(() => { // TODO: What do you mean ${"client"}? Same in WhisperLiveKitStreamer.jsx
+    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}`)
   }, [targetLang])
 
   if (!room) {
