@@ -1,19 +1,19 @@
-import { BrowserRouter as Router, Routes, Route, RouterProvider } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StartView from "./views/StartView";
 import RoomListView from "./views/RoomListView";
-import RoomCreateView from "./views/RoomCreateView";
 import WhisperLiveKitStreamer from "./views/WhisperLiveKitStreamer";
 import WhisperLiveKitViewer from "./views/WhisperLiveKitViewer";
-import { ServerHealthProvider, useServerHealth } from "./components/ServerHealthContext";
+import { ServerHealthProvider } from "./components/ServerHealthContext";
 import WebSocketViewer from "./views/WebSocketViewer";
 import {AuthProvider} from "./components/AuthContext";
 import HeaderHandler from "./components/HeaderHandler";
 import RouteProtect from "./components/RouteProtect"
+import ToastProvider from "./components/ToastProvider"
 
 export default function App() {
   return (
     <AuthProvider>
+    <ToastProvider>
     <ServerHealthProvider wsUrl={import.meta.env.VITE_BACKEND_URL}>
       <Router>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
@@ -31,6 +31,7 @@ export default function App() {
         </div>
       </Router>
     </ServerHealthProvider>
+    </ToastProvider>
     </AuthProvider>
   );
 }

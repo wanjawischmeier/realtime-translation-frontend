@@ -1,11 +1,12 @@
-// WebSocketHandler.js
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { useToast } from "./ToastProvider";
 
 const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, serverReachable }) => {
     const wsRef = useRef(null);
     const [wsConnected, setWsConnected] = useState(false);
     const reconnectTimeoutRef = useRef(null);
     const currentWsUrlRef = useRef(null);
+    const { addToast } = useToast();
 
     useEffect(() => {
         currentWsUrlRef.current = wsUrl
@@ -26,14 +27,14 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
                 wsRef.current = null;
             }
         };
-    }, [serverReachable,wsUrl]);
+    }, [serverReachable, wsUrl]);
 
 
     const connectWebSocket = async () => {
 
         const connectUrl = wsUrl;
 
-        if(connectUrl == undefined)
+        if (connectUrl == undefined)
             return;
 
         if (wsRef.current) {
@@ -54,6 +55,21 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         wsRef.current.onclose = (e) => {
             onClose()
             console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
+            if (e.code == 1003) {
+                // Backend error message available
+                addToast({
+                    title: "Websocket connection failed",
+                    message: e.message,
+                    type: "error",
+                });
+            } else {
+                addToast({
+                    title: "Websocket connection failed",
+                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean:\n${e.message}`,
+                    type: "error",
+                });
+            }
+
             setWsConnected(false)
             if (serverReachable && connectUrl == currentWsUrlRef.current) {
                 reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
