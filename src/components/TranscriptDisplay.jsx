@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-
 function formatTime(t) {
     return t;
 }
 
-export default function TranscriptDisplay({ lines }) {
+export default function TranscriptDisplay({ lines, incompleteSentence }) {
 
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
@@ -42,6 +40,7 @@ export default function TranscriptDisplay({ lines }) {
                                         )
                                     }
                                 })}
+                                <span className="text-gray-400">{ incompleteSentence }</span>
                             </div>
                         </div>
                     </div>
