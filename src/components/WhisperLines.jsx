@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const WhisperLines = () => {
   const [lines, setLines] = useState([]);
+  const [incompleteSentence, setIncompleteSentence] = useState("");
 
   const onWsMessage = (event) => {
     const data = JSON.parse(event.data);
@@ -31,9 +32,11 @@ const WhisperLines = () => {
         return [...newLines];
       });
     }
+
+    setIncompleteSentence(data.incomplete_sentence);
   }
 
-  return { onWsMessage, lines };
+  return { onWsMessage, lines, incompleteSentence };
 
 };
 

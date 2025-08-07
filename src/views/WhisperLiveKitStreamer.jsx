@@ -10,13 +10,13 @@ import RecorderButton from "../components/RecorderButton";
 
 function WhisperLiveKitStreamer() {
   const { room_id } = useParams();
-  const [sourceLang, setSourceLang] = useState("en");
+  const [sourceLang, setSourceLang] = useState("de");
   const [targetLang, setTargetLang] = useState("en");
 
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
-  const { onWsMessage, lines } = WhisperLines()
+  const { onWsMessage, lines, incompleteSentence } = WhisperLines()
   const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable })
   const { startStreaming, stopStreaming, streaming, monitor } = WhisperStreamerHandler({ serverReachable: serverReachable, wsConnected: wsConnected, wsSend: wsSend })
 
@@ -47,7 +47,7 @@ function WhisperLiveKitStreamer() {
         <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
       </div>
 
-      <TranscriptDisplay lines={lines}></TranscriptDisplay>
+      <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence}></TranscriptDisplay>
     </div>
   );
 }
