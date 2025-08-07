@@ -3,6 +3,9 @@ import { useServerHealth } from "./ServerHealthContext";
 
 export function RoomsProvider(wsUrl) {
   const [rooms, setRooms] = useState([]);
+  const [availableSourceLangs, setAvailableSourceLangs] = useState([]);
+  const [availableTargetLangs, setAvailableTargetLangs] = useState([]);
+  const [maxActiveRooms, setMaxActiveRooms] = useState(0);
   const roomCheckInterval = useRef();
   const serverReachable = useServerHealth();
 
@@ -14,8 +17,13 @@ export function RoomsProvider(wsUrl) {
     // TODO: error handling?
     const res = await fetch(`http://${wsUrl}/room_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
     const data = await res.json();
+    console.log('Recieved room list:')
     console.log(data);
-    setRooms(data);
+
+    setAvailableSourceLangs(data.available_source_langs);
+    setAvailableTargetLangs(data.available_target_langs);
+    setMaxActiveRooms(data.max_active_rooms);
+    setRooms(data.rooms);
   };
 
   useEffect(() => {

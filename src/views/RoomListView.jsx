@@ -4,7 +4,7 @@ import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
 
 export default function RoomListView({ wsUrl, asHost = false }) {
-    const { rooms } = RoomsProvider(wsUrl);
+    const { rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms } = RoomsProvider(wsUrl);
 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
