@@ -6,7 +6,8 @@ const WhisperLines = () => {
 
   const onWsMessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log(data)
+    console.log('Recieved transcript data:')
+    console.log(data);
 
     if (Array.isArray(data.last_n_sents)) {
       setLines(oldLines => {
