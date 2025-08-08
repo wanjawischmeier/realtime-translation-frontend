@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useToast } from "./ToastProvider";
 
-const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, serverReachable }) => {
+const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, serverReachable, isHost }) => {
     const wsRef = useRef(null);
     const [wsConnected, setWsConnected] = useState(false);
     const reconnectTimeoutRef = useRef(null);
@@ -43,16 +43,24 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         }
 
         console.log(`Connecting to ${connectUrl}`)
+        const startTime = Date.now();
         wsRef.current = new WebSocket(connectUrl);
 
         wsRef.current.onopen = () => {
+            const delayMs = Date.now() - startTime;
             setWsConnected(true)
-            console.log("WebSocket running on: ", connectUrl);
+            console.log(`WebSocket running on: ${connectUrl} (took ${delayMs}ms)`);
             addToast({ // TODO: Remove debugging toast
                 title: "Websocket connection opened",
                 message: `WebSocket now running on: ${connectUrl}`,
                 type: "info",
             });
+
+            if (delayMs < 1000) {
+                umami.track(`${isHost ? 'host' : 'client'}-joined`, { delay: delayMs });
+            } else {
+                umami.track(`${isHost ? 'host' : 'client'}-joined-slow`, { delay: delayMs });
+            }
 
             onOpen()
         };
@@ -60,6 +68,12 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         wsRef.current.onclose = (e) => {
             onClose()
             console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
+            if (e.wasClean) {
+                umami.track(`${isHost ? 'host' : 'client'}-disconnected`, { code: e.code, reason: e.reason });
+            } else {
+                umami.track(`${isHost ? 'host' : 'client'}-disconnected-unexpected`, { code: e.code, reason: e.reason });
+            }
+
             if (e.code == 1003) {
                 // Backend error message available
                 addToast({
@@ -83,6 +97,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
         wsRef.current.onerror = (error) => {
             console.error("WebSocket error:", error);
+            umami.track(`${isHost ? 'host' : 'client'}-disconnected-error`, { code: error.code, message: error.message });
             addToast({
                 title: "Websocket connection error",
                 message: `Error ${error.code}:\n${error.message}`,

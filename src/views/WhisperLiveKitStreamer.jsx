@@ -17,7 +17,7 @@ function WhisperLiveKitStreamer() {
   const serverReachable = useServerHealth();
 
   const { onWsMessage, lines, incompleteSentence } = WhisperLines()
-  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable })
+  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable, isHost: true })
   const { startStreaming, stopStreaming, streaming, monitor } = WhisperStreamerHandler({ serverReachable: serverReachable, wsConnected: wsConnected, wsSend: wsSend })
 
   const scrollRef = useRef(null);
