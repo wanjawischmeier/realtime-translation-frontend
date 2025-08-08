@@ -13,7 +13,10 @@ const WhisperLines = () => {
       console.log(data.transcription_delay);
       console.log(data.translation_delay);
       // Transcript severely delayed, send warning event
-      umami.track('transript-delay', { transcription_delay: data.transcription_delay, translation_delay: data.translation_delay });
+      umami.track('transcript-delay', {
+        transcription_delay: Math.round(data.transcription_delay),
+        translation_delay: Math.round(data.translation_delay)
+      });
     }
 
     if (Array.isArray(data.last_n_sents)) {
