@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import { useServerHealth } from "../components/ServerHealthContext";
 import WhisperStreamerHandler from "../components/WhisperStreamerHandler";
@@ -16,8 +17,12 @@ function WhisperLiveKitStreamer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
-  const { onWsMessage, lines, incompleteSentence } = WhisperLines()
-  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable, isHost: true })
+  const navigate = useNavigate();
+  const { onWsMessage, lines, incompleteSentence } = WhisperLines();
+  const { wsSend, wsConnected } = WebSocketHandler({
+    wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
+    isHost: true, onError: (code, message) => navigate('/')
+  });
   const { startStreaming, stopStreaming, streaming, monitor } = WhisperStreamerHandler({ serverReachable: serverReachable, wsConnected: wsConnected, wsSend: wsSend })
 
   const scrollRef = useRef(null);

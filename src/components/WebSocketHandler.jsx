@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useToast } from "./ToastProvider";
 
-const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, serverReachable, isHost }) => {
+const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, onError = (code, message) => { }, serverReachable, isHost }) => {
     const wsRef = useRef(null);
     const [wsConnected, setWsConnected] = useState(false);
     const reconnectTimeoutRef = useRef(null);
@@ -57,7 +57,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             });
 
             if (delayMs < 1000) {
-                umami.track(`${isHost ? 'host' : 'client'}-joined`, { delay: delayMs });
+                umami.track(`${isHost ? 'host' : 'client'}-joined`);
             } else {
                 umami.track(`${isHost ? 'host' : 'client'}-joined-slow`, { delay: delayMs });
             }
@@ -66,16 +66,18 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         };
 
         wsRef.current.onclose = (e) => {
-            onClose()
+            onClose();
             console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
             if (e.wasClean) {
                 umami.track(`${isHost ? 'host' : 'client'}-disconnected`, { code: e.code, reason: e.reason });
             } else {
                 umami.track(`${isHost ? 'host' : 'client'}-disconnected-unexpected`, { code: e.code, reason: e.reason });
+                onError(e.code, e.reason);
             }
 
             if (e.code == 1003) {
                 // Backend error message available
+                onError(e.code, e.reason);
                 addToast({
                     title: "Websocket connection closed",
                     message: e.reason,
@@ -98,6 +100,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         wsRef.current.onerror = (error) => {
             console.error("WebSocket error:", error);
             umami.track(`${isHost ? 'host' : 'client'}-disconnected-error`, { code: error.code, message: error.message });
+            onError(error.code, error.message);
             addToast({
                 title: "Websocket connection error",
                 message: `Error ${error.code}:\n${error.message}`,

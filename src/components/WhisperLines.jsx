@@ -8,7 +8,10 @@ const WhisperLines = () => {
     const data = JSON.parse(event.data);
     console.log('Recieved transcript data:')
     console.log(data);
-    if (data.transcription_delay + data.translation_delay > 5000) {
+    if (data.transcription_delay + data.translation_delay > 5) {
+      console.log('Warning: Transcription running slow');
+      console.log(data.transcription_delay);
+      console.log(data.translation_delay);
       // Transcript severely delayed, send warning event
       umami.track('transript-delay', { transcription_delay: data.transcription_delay, translation_delay: data.translation_delay });
     }
