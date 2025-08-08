@@ -19,8 +19,11 @@ export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
-  const { onWsMessage, lines } = WhisperLines()
-  const { wsSend, wsConnected } = WebSocketHandler({ wsUrl, onMessage: onWsMessage, serverReachable: serverReachable, isHost: false })
+  const { onWsMessage, lines } = WhisperLines();
+  const { wsSend, wsConnected } = WebSocketHandler({
+    wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
+    isHost: false, onError: (code, message) => navigate('/')
+  });
 
   const scrollRef = useRef(null);
   useEffect(() => {
