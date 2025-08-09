@@ -40,12 +40,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Bug: Wenn ich von nem Raum zurück zur Raumübersicht gehe, versucht sich das frontend komischerweise neu mit dem Websocket zu verbinden (als ob ich noch auf der Raumseite wäre)
     - Passiert dann auch, wenn ich zurück auf die Root-Seite gehe
     - Fixt sich durch STRG-R
-- [x] Implement umami stats
-    - `<host/client>-joined`
-    - `<host/client>-joined-slow` (if joining took >1s)
-    - `<host/client>-disconnected`
-    - `<host/client>-disconnected-unexpected` (if onclose is not clean or onerror)
-    - `transcript-delay` (if transcript recieved with combined delay >5s)
+- [x] Implement umami stats (see [umami](#umami))
 - [ ] (Some stuff appears to be fetched twice in a row)
     - `/room_list` gets recieved twice
 - [ ] Handle websocket error disconnect
