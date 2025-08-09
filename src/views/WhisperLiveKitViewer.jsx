@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";

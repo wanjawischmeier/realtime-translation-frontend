@@ -91,7 +91,7 @@ export default function ToastProvider({ children }) {
                 <div className="mb-1 font-semibold text-sm">
                   {toast.title || titleDefault}
                 </div>
-                <div className="text-sm">{toast.message}</div>
+                <div className="text-sm max-w-[310px] break-all">{toast.message}</div>
               </div>
             </Toast>
           );

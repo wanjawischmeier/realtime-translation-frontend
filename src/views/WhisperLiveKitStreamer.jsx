@@ -8,6 +8,7 @@ import WhisperLines from "../components/WhisperLines";
 import { useParams } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
 import RecorderButton from "../components/RecorderButton";
+import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 
 function WhisperLiveKitStreamer() {
   const { room_id } = useParams();
@@ -37,15 +38,11 @@ function WhisperLiveKitStreamer() {
 
   return (
     <div>
-      {/* Title at top left */}
       <h1 className="text-2xl font-bold mb-8 text-white">SSC Übersetzer</h1>
 
-
-      {/* URL input and button on one line */}
-      <div className="flex items-center w-full space-x-4 mb-4 mt-2">
-
-      <RecorderButton serverReachable={serverReachable} stopStreaming={stopStreaming} startStreaming={startStreaming} streaming={streaming} monitor={monitor}></RecorderButton>
-
+      <div className="flex items-center w-full justify-between mb-4 mt-2">
+        <RecorderButton serverReachable={serverReachable} stopStreaming={stopStreaming} startStreaming={startStreaming} streaming={streaming} monitor={monitor}></RecorderButton>
+        <TranscriptDownloadButton serverReachable={serverReachable} roomId={room_id} targetLang={targetLang}></TranscriptDownloadButton>
       </div>
       <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
         <LanguageSelect lang={sourceLang} setLang={setSourceLang}></LanguageSelect>
