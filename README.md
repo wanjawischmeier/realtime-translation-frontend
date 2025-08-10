@@ -1,6 +1,11 @@
 # Dependencies
 - react/npm
+- Do `npm install`
 
+# Run using
+```bash
+npm run dev
+```
 
 # Umami
 Used for tracking certain events and pageviews. The server is expected to be ran from the [backend](https://github.com/substratoo/realtime-translation-backend#umami). The following custom events get triggered:
@@ -8,7 +13,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - `<host/client>-joined-slow` (if joining took >1s)
 - `<host/client>-disconnected`
 - `<host/client>-disconnected-unexpected` (if onclose is not clean or onerror)
-- `transcript-delay` (if transcript chunk is recieved with combined delay >5s)
+- `transcript-delay` (if transcript chunk is recieved with combined delay >10s)
 
 # TODOs
 - [ ] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
@@ -35,7 +40,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] `TranscriptDownloadButton` widget
     - [x] Add to `WhisperLiveKitStreamer`
     - [ ] Add to `WhisperLiveKitViewer`
-- [ ] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
+- [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [ ] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
 - [ ] Bug: Wenn ich von nem Raum zurück zur Raumübersicht gehe, versucht sich das frontend komischerweise neu mit dem Websocket zu verbinden (als ob ich noch auf der Raumseite wäre)
@@ -50,3 +55,5 @@ Used for tracking certain events and pageviews. The server is expected to be ran
         - [ ] Clear password cookie if reason is invalid password (though we should in theory never get to this point in that case)
     - [ ] Handle disconnect with other codes, currently leads to nullref exeptions
         - Maybe try to reconnect if error is not 1003
+- [ ] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
+- [x] Handle initial "ready" package
