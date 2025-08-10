@@ -13,6 +13,7 @@ const useWhisperLines = () => {
       console.log('Warning: Transcription running slow');
       console.log(chunk.transcription_delay);
       console.log(chunk.translation_delay);
+      
       // Transcript severely delayed, send warning event
       umami.track('transcript-delay', {
         transcription_delay: Math.round(chunk.transcription_delay),
