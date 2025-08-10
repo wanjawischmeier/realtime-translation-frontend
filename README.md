@@ -22,7 +22,8 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - Now provides `rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms`
     - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung)
     - [ ] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
-    - [ ] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
+    - [x] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
+    - [ ] Show transcript in selected language and not in english
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
@@ -40,6 +41,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] `TranscriptDownloadButton` widget
     - [x] Add to `WhisperLiveKitStreamer`
     - [ ] Add to `WhisperLiveKitViewer`
+    - [x] Option on homescreen to show list of old transcripts
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [ ] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)

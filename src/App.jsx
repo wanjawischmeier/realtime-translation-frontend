@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StartView from "./views/StartView";
 import RoomListView from "./views/RoomListView";
+import TranscriptListView from "./views/TranscriptListView";
 import WhisperLiveKitStreamer from "./views/WhisperLiveKitStreamer";
 import WhisperLiveKitViewer from "./views/WhisperLiveKitViewer";
 import { ServerHealthProvider } from "./components/ServerHealthContext";
@@ -23,6 +24,7 @@ export default function App() {
                   <Route path="/" element={<StartView />} />
                   <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route path="/rooms" element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
+                  <Route path="/transcripts" element={<TranscriptListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route path="/rooms/host" element={<RouteProtect element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} asHost={true} />} />} />
                   <Route path="/room/:room_id/host" element={<RouteProtect element={<WhisperLiveKitStreamer />} />} />
                   <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />

@@ -34,6 +34,5 @@ export function RoomsProvider(wsUrl) {
     };
   }, [serverReachable]);
 
-  return {rooms,fetchUpdate};
+  return {rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms, fetchUpdate};
 }
-// Host: active && host or inactive && client 
