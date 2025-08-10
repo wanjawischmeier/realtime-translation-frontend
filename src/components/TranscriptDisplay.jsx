@@ -32,10 +32,10 @@ export default function TranscriptDisplay({ lines, incompleteSentence }) {
                             </div>
                             <div className="text-lg leading-relaxed">
                                 {line.sentences.map((sentence, i) => {
-                                    if (sentence["sentence"]) {
+                                    if (sentence['content']['en']) {
                                         return (
                                             <span key={i}>
-                                                {sentence.sentence}
+                                                {sentence.content.en}
                                             </span>
                                         )
                                     }

@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 export default function LanguageSelect({ lang,setLang }) {
      return (
         <select

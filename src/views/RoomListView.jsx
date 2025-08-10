@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
 import Cookies from "js-cookie";
@@ -20,7 +19,6 @@ export default function RoomListView({ wsUrl, asHost = false }) {
 
     return (
         <div>
-            <StatusLED status={serverReachable} />
             <h2 className="text-2xl font-bold text-white mb-6 select-none">Available Rooms</h2>
             <ul className="mb-6">
                 {rooms.map(room => {
