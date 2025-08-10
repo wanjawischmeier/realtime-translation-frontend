@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 const useWhisperLines = () => {
   const [lines, setLines] = useState([]);
@@ -49,17 +50,22 @@ const useWhisperLines = () => {
 
   const onWsMessage = (event) => {
     const data = JSON.parse(event.data);
-    if ('status' in data) {
-      // Recieved status message
-      switch (data.status) {
+    console.log(data)
+    if ('info' in data) {
+      // Recieved message with infos
+      Object.entries(data.info).forEach(([key, info]) => {
+      switch (key) {
         case 'ready_to_recieve_audio':
-          console.log('Recieved audio stream ready signal');
-          setReadyToRecieveAudio(true);
+          console.log(`Recieved audio stream${info ? ' ' : ' not '}ready signal`);
+          setReadyToRecieveAudio(info);
           break;
-      
+        case 'connection_id':
+          console.log(`Recieved connection id: ${info}`);
+          Cookies.set('connection_id', info); 
         default:
           break;
       }
+    });
     } else {
       // Assume transcript chunk
       onTranscriptChunk(data);

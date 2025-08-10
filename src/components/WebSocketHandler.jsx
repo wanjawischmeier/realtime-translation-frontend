@@ -66,6 +66,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
         wsRef.current.onclose = (e) => {
             onClose();
+
             console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
             if (e.wasClean) {
                 umami.track(`${isHost ? 'host' : 'client'}-disconnected`, { code: e.code, reason: e.reason });
@@ -100,6 +101,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             console.error("WebSocket error:", error);
             umami.track(`${isHost ? 'host' : 'client'}-disconnected-error`, { code: error.code, message: error.message });
             onError(error.code, error.message);
+            
             addToast({
                 title: "Websocket connection error",
                 message: `Error ${error.code}:\n${error.message}`,

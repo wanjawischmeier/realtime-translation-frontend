@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
+import Cookies from "js-cookie";
 
 export default function RoomListView({ wsUrl, asHost = false }) {
     const { rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms } = RoomsProvider(wsUrl);
@@ -23,6 +24,22 @@ export default function RoomListView({ wsUrl, asHost = false }) {
             <h2 className="text-2xl font-bold text-white mb-6 select-none">Available Rooms</h2>
             <ul className="mb-6">
                 {rooms.map(room => {
+                    const connectionId = Cookies.get('connection_id') || '';
+                    var allowedIn = false;
+                    if (asHost) {
+                        if (room.host_connection_id) {
+                            // Host already connected, only allowed if we are that host
+                            allowedIn = room.host_connection_id == connectionId;
+                        } else {
+                            // No host connected
+                            allowedIn = true;
+                        }
+                    } else {
+                        // Can join all rooms that already have a host as a client
+                        allowedIn = room.host_connection_id != '';
+                    }
+                    const canJoin = allowedIn && serverReachable;
+
                     return (
                         <li key={room.id} className="mb-4">
                             <div className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
@@ -32,16 +49,16 @@ export default function RoomListView({ wsUrl, asHost = false }) {
                                 </div>
                                 <button
                                     className={`ml-4 px-4 py-2 rounded font-bold
-                                        ${serverReachable && !(room.active === asHost)
+                                        ${canJoin
                                             ? "bg-blue-600 text-white hover:bg-blue-700"
                                             : "bg-gray-500 text-gray-300 cursor-not-allowed"
                                         }`}
                                     onClick={() => {
-                                        if (serverReachable && room.active !== asHost) {
+                                        if (canJoin) {
                                             handleJoin(room);
                                         }
                                     }}
-                                    disabled={!serverReachable || room.active === asHost}
+                                    disabled={!canJoin}
                                 >
                                     {asHost ? "Enter as Presenter" : "Join as Viewer"}
                                 </button>

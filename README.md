@@ -60,3 +60,5 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] For room list etc: refresh on connection reestablished
     - [ ] On connected callback in ServerHealthProvider
 - [x] Add restart room logic
+- [ ] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case
+- [x] Add connection_id cookie
