@@ -1,11 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function RecorderButton({ serverReachable, stopStreaming, startStreaming, streaming, monitor }) {
+// Spinner SVG using Tailwind animate-spin
+function Spinner() {
+    return (
+        // https://flowbite.com/docs/components/spinner
+        <div role="status">
+            <svg aria-hidden="true" className="w-8 h-8 animate-spin text-gray-700 fill-blue-700" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+            </svg>
+            <span className="sr-only">Loading...</span>
+        </div>
+    );
+}
+
+export default function RecorderButton({
+    disabled,
+    stopStreaming,
+    startStreaming,
+    streaming,
+    monitor,
+}) {
     const { dataArrayRef, analyserRef } = monitor;
     const [volume, setVolume] = useState(0);
 
-    const registerThresholf = 15;
-    const powerThresholf = 85;
+    const registerThreshold = 15;
+    const powerThreshold = 85;
 
     const monitorVolume = () => {
         const getVolume = () => {
@@ -13,9 +33,8 @@ export default function RecorderButton({ serverReachable, stopStreaming, startSt
                 analyserRef.current.getByteFrequencyData(dataArrayRef.current);
                 const sum = dataArrayRef.current.reduce((a, b) => a + b, 0);
                 const average = sum / dataArrayRef.current.length;
-                setVolume(average > registerThresholf ? average : 0);
-            } else
-                setVolume(0)
+                setVolume(average > registerThreshold ? average : 0);
+            } else setVolume(0);
             requestAnimationFrame(getVolume);
         };
         getVolume();
@@ -23,48 +42,57 @@ export default function RecorderButton({ serverReachable, stopStreaming, startSt
 
     const handleButtonClick = () => {
         if (streaming) {
-            setVolume(0)
+            setVolume(0);
             stopStreaming();
         } else {
             startStreaming();
-            monitorVolume()
+            monitorVolume();
         }
     };
 
+    // Spinner shown when not ready
+    if (disabled) {
+        return (
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-900">
+                <Spinner />
+            </div>
+        );
+    }
 
+    // Actual button shown when ready
     return (
         <button
+            type="button"
+            onClick={handleButtonClick}
             className={`
-          flex items-center justify-center 
-          w-12 h-12
-          transition
-          ${streaming
-                    ? "bg-gradient-to-br from-blue-700 to-blue-900 text-white"
-                    : serverReachable
-                        ? "bg-gray-700 text-white"
-                        : "bg-gray-900 text-gray-300 cursor-not-allowed"
-                }
-          rounded-lg shadow-md
-          focus:outline-none
-        `}
+                flex items-center justify-center w-12 h-12 rounded-lg shadow-md transition 
+                focus:outline-none
+                ${streaming
+                    ? 'bg-gradient-to-br from-blue-700 to-blue-900 text-white'
+                    : 'bg-gray-700 text-white'
+                }`
+            }
             style={{
-                boxShadow: streaming ? `0 0 ${Math.min((volume > powerThresholf ? volume : Math.pow(volume / powerThresholf, 2)*powerThresholf), 250)/4}px rgba(0, 0, 255, 0.7)` : 'none',
+                boxShadow: streaming
+                    ? `0 0 ${Math.min(
+                        volume > powerThreshold
+                            ? volume
+                            : Math.pow(volume / powerThreshold, 2) * powerThreshold,
+                        250
+                    ) / 4}px rgba(0, 0, 255, 0.7)`
+                    : 'none',
                 transition: 'box-shadow 0.1s ease',
             }}
-            onClick={handleButtonClick}
-            disabled={!serverReachable}
         >
             {streaming ? (
-                // Stop: blueish square with rounded corners and a stop icon
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                     <rect x="8" y="8" width="12" height="12" rx="3" fill="#fff" />
                 </svg>
             ) : (
-                // Start: red circle in the center of a square
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                     <circle cx="14" cy="14" r="8" fill="#ef4444" />
                 </svg>
             )}
         </button>
     );
-};
+}
