@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FiDownload } from "react-icons/fi";
 import { useToast } from "./ToastProvider";
 
 export default function TranscriptDownloadButton({ serverReachable, roomId, targetLang }) {
@@ -61,6 +62,7 @@ export default function TranscriptDownloadButton({ serverReachable, roomId, targ
             onClick={handleDownload}
             disabled={downloading || !serverReachable}
         >
+            <FiDownload className="inline mr-2" />
             {downloading ? 'Downloading...' : 'Download Transcript'}
         </button>
     );

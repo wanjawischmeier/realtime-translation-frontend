@@ -46,7 +46,7 @@ export default function TranscriptListView({ wsUrl }) {
         <div>
             <h2 className="text-2xl font-bold text-white mb-6 select-none">Available Transcripts</h2>
             <div className="flex items-center space-x-3 mb-6">
-                <span className="text-white font-medium select-none ">Language:</span>
+                <span className="text-white font-medium select-none">Language:</span>
                 <LanguageSelect lang={lang} setLang={setLang} />
             </div>
             <ul className="mt-4 my-6">

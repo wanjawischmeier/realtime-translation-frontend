@@ -71,8 +71,14 @@ function WhisperLiveKitStreamer() {
         />
       </div>
       <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-        <LanguageSelect lang={sourceLang} setLang={setSourceLang}></LanguageSelect>
-        <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
+        <div className="flex items-center space-x-3 mb-6">
+          <span className="text-white font-medium select-none">Source:</span>
+          <LanguageSelect lang={sourceLang} setLang={(lang) => { setSourceLang(lang); setReadyToRecieveAudio(false); }}></LanguageSelect>
+        </div>
+        <div className="flex items-center space-x-3 mb-6">
+          <span className="text-white font-medium select-none">Target:</span>
+          <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
+        </div>
       </div>
 
       <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence}></TranscriptDisplay>
