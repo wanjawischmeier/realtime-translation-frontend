@@ -53,7 +53,7 @@ export default function RecorderButton({
     // Spinner shown when not ready
     if (disabled) {
         return (
-            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-900">
+            <div className="flex items-center justify-center w-12 h-12 px-2 rounded-lg bg-gray-900">
                 <Spinner />
             </div>
         );
@@ -65,13 +65,14 @@ export default function RecorderButton({
             type="button"
             onClick={handleButtonClick}
             className={`
-                flex items-center justify-center w-12 h-12 rounded-lg shadow-md transition 
+                flex items-center justify-center
+                w-12 h-12 px-2 rounded-lg shadow-md transition
                 focus:outline-none
                 ${streaming
-                    ? 'bg-gradient-to-br from-blue-700 to-blue-900 text-white'
-                    : 'bg-gray-700 text-white'
-                }`
-            }
+                    ? "bg-gradient-to-br from-blue-700 to-blue-900 text-white"
+                    : "bg-gray-700 text-white"
+                }
+            `}
             style={{
                 boxShadow: streaming
                     ? `0 0 ${Math.min(

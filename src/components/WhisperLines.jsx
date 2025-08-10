@@ -66,7 +66,7 @@ const useWhisperLines = () => {
     }
   }
 
-  return { onWsMessage, lines, incompleteSentence, readyToRecieveAudio };
+  return { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio };
 
 };
 

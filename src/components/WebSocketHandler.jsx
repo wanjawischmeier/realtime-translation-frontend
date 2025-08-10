@@ -31,7 +31,6 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
 
     const connectWebSocket = async () => {
-
         const connectUrl = wsUrl;
 
         if (connectUrl == undefined)
@@ -117,10 +116,18 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
         wsRef.current.send(data);
     }
 
-    return {
-        wsSend: wsSend,
-        wsConnected: wsConnected
-    };
+    const sendRestartBackendSignal = () => {
+        if (!wsRef.current) {
+            return;
+        }
+
+        let data = JSON.stringify({
+            'signal': 'restart_backend_engine'
+        });
+        wsRef.current.send(data);
+    }
+
+    return { wsSend, wsConnected, sendRestartBackendSignal };
 };
 
 export default WebSocketHandler;
