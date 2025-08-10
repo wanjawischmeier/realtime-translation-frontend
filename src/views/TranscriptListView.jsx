@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { TranscriptListProvider } from "../components/TranscriptListProvider";
+import { useToast } from "../components/ToastProvider";
 
 export default function TranscriptListView({ wsUrl }) {
     const { availableTranscriptInfos } = TranscriptListProvider(wsUrl);
     const [lang, setLang] = useState("en");
 
     const navigate = useNavigate();
+    const { addToast } = useToast();
     const serverReachable = useServerHealth();
 
     // Helper function to format unix timestamp to readable date/time
@@ -71,6 +73,14 @@ export default function TranscriptListView({ wsUrl }) {
                                         // TODO: Is also defined in TranscriptDownloadButton, remove duplicate
                                         const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
                                         const text = await res.text();
+                                        if (!text) {
+                                            addToast({
+                                                title: "No transcript",
+                                                message: `Couldn't find any transcriptions for ${transcriptInfo.id} in ${lang}. Sorry :/`,
+                                                type: "warning",
+                                            });
+                                            return;
+                                        }
 
                                         const blob = new Blob([text], { type: 'text/plain' });
                                         const url = window.URL.createObjectURL(blob);
@@ -83,6 +93,10 @@ export default function TranscriptListView({ wsUrl }) {
 
                                         document.body.removeChild(link);
                                         window.URL.revokeObjectURL(url);
+                                        umami.track('transcript-downloaded', {
+                                            'room_id': transcriptInfo.id,
+                                            'lang': lang
+                                        });
                                     }}
                                     disabled={!serverReachable}
                                 >
