@@ -51,9 +51,13 @@ export default function TranscriptDownloadButton({ serverReachable, roomId, targ
 
     return (
         <button
-            className="px-4 py-2 rounded transition
-             bg-blue-700 text-white hover:bg-blue-900
-             disabled:bg-gray-900 disabled:text-gray-200 disabled:cursor-not-allowed"
+            className={`
+                flex items-center justify-center
+                h-12 px-4
+                rounded-lg shadow-md transition
+                bg-blue-700 text-white hover:bg-blue-900 font-medium
+                disabled:bg-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed
+            `}
             onClick={handleDownload}
             disabled={downloading || !serverReachable}
         >

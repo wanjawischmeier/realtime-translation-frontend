@@ -57,3 +57,6 @@ Used for tracking certain events and pageviews. The server is expected to be ran
         - Maybe try to reconnect if error is not 1003
 - [ ] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
 - [x] Handle initial "ready" package
+- [ ] For room list etc: refresh on connection reestablished
+    - [ ] On connected callback in ServerHealthProvider
+- [x] Add restart room logic

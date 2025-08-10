@@ -8,6 +8,7 @@ import useWhisperLines from "../components/WhisperLines";
 import { useParams } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
 import RecorderButton from "../components/RecorderButton";
+import RestartButton from "../components/RestartButton";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 
 function WhisperLiveKitStreamer() {
@@ -19,8 +20,8 @@ function WhisperLiveKitStreamer() {
   const serverReachable = useServerHealth();
 
   const navigate = useNavigate();
-  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio } = useWhisperLines();
-  const { wsSend, wsConnected } = WebSocketHandler({
+  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio } = useWhisperLines();
+  const { wsSend, wsConnected, sendRestartBackendSignal } = WebSocketHandler({
     wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
     isHost: true, onError: (code, message) => navigate('/')
   });
@@ -35,15 +36,39 @@ function WhisperLiveKitStreamer() {
 
   useEffect(() => {
     setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${sourceLang}/${targetLang}`)
-  }, [sourceLang, targetLang])
+  }, [sourceLang, targetLang]);
+
+  const restartBackend = () => {
+    setReadyToRecieveAudio(false);
+    stopStreaming();
+    sendRestartBackendSignal();
+  };
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-8 text-white">SSC Übersetzer</h1>
-
       <div className="flex items-center w-full justify-between mb-4 mt-2">
-        <RecorderButton disabled={!serverReachable || !readyToRecieveAudio} stopStreaming={stopStreaming} startStreaming={startStreaming} streaming={streaming} monitor={monitor}></RecorderButton>
-        <TranscriptDownloadButton serverReachable={serverReachable} roomId={room_id} targetLang={targetLang}></TranscriptDownloadButton>
+        {/* Left side: Recorder and Restart */}
+        <div className="flex items-center gap-2">
+          <RecorderButton
+            disabled={!serverReachable || !readyToRecieveAudio}
+            stopStreaming={stopStreaming}
+            startStreaming={startStreaming}
+            streaming={streaming}
+            monitor={monitor}
+          />
+          <RestartButton
+            disabled={!serverReachable}
+            onClick={restartBackend}
+          />
+        </div>
+
+        {/* Right side: Download */}
+        <TranscriptDownloadButton
+          serverReachable={serverReachable}
+          roomId={room_id}
+          targetLang={targetLang}
+        />
       </div>
       <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
         <LanguageSelect lang={sourceLang} setLang={setSourceLang}></LanguageSelect>
