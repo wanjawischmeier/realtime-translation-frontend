@@ -45,81 +45,85 @@ export default function TranscriptListView({ wsUrl }) {
     }
 
     return (
-        <div className="p-4">
+        <div className="h-full flex flex-col p-4 bg-gray-800 text-white">
             {/* Header */}
-            <h1 className="text-3xl font-bold text-white mb-6 select-none">Available Translation</h1>
-            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+            <h1 className="text-3xl font-bold mb-4 select-none text-center">
+                Available Transcripts
+            </h1>
+            <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
-            <div className="flex items-center space-x-3 mb-6">
-                <span className="text-white font-medium select-none">Language:</span>
+            {/* Language Selector */}
+            <div className="flex items-center space-x-3 mb-4">
+                <span className="font-medium select-none">Language:</span>
                 <LanguageSelect lang={lang} setLang={setLang} languages={availableTargetLangs} />
             </div>
-            <ul className="mt-4 my-6">
-                {availableTranscriptInfos.map(transcriptInfo => {
-                    return (
-                        <li key={transcriptInfo.id} className="mb-4">
-                            <div className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
-                                <div>
-                                    <div className="text-lg font-semibold text-white">{transcriptInfo.id}</div>
-                                    <div className="text-gray-300 text-sm">
-                                        First recording: {formatTimestamp(transcriptInfo.firstChunkTimestamp)}
-                                    </div>
-                                    <div className="text-gray-300 text-sm">
-                                        Last recording: {formatTimestamp(transcriptInfo.lastChunkTimestamp)}
-                                    </div>
-                                </div>
-                                <button
-                                    className={`ml-4 px-4 py-2 rounded font-bold
-                                        ${serverReachable
-                                            ? "bg-blue-600 text-white hover:bg-blue-700"
-                                            : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                                        }`}
-                                    onClick={async () => {
-                                        // TODO: Is also defined in TranscriptDownloadButton, remove duplicate
-                                        const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
-                                        const text = await res.text();
-                                        if (!text) {
-                                            addToast({
-                                                title: "No transcript",
-                                                message: `Couldn't find any transcriptions for ${transcriptInfo.id} in ${lang}. Sorry :/`,
-                                                type: "warning",
-                                            });
-                                            return;
-                                        }
 
-                                        const blob = new Blob([text], { type: 'text/plain' });
-                                        const url = window.URL.createObjectURL(blob);
-
-                                        const link = document.createElement('a');
-                                        link.href = url;
-                                        link.download = getTimestampedTranscriptFilename(transcriptInfo.id, lang);
-                                        document.body.appendChild(link);
-                                        link.click();
-
-                                        document.body.removeChild(link);
-                                        window.URL.revokeObjectURL(url);
-                                        umami.track('transcript-downloaded', {
-                                            'room_id': transcriptInfo.id,
-                                            'lang': lang
-                                        });
-                                    }}
-                                    disabled={!serverReachable}
-                                >
-                                    <FiDownload className="inline mr-2" />
-                                    Download
-                                </button>
-
+            {/* Scrollable List Area */}
+            <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
+                {availableTranscriptInfos.map((transcriptInfo) => (
+                    <div
+                        key={transcriptInfo.id}
+                        className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
+                    >
+                        <div>
+                            <div className="text-lg font-semibold">{transcriptInfo.id}</div>
+                            <div className="text-gray-300 text-sm">
+                                First recording: {formatTimestamp(transcriptInfo.firstChunkTimestamp)}
                             </div>
-                        </li>
-                    );
-                })}
-            </ul>
+                            <div className="text-gray-300 text-sm">
+                                Last recording: {formatTimestamp(transcriptInfo.lastChunkTimestamp)}
+                            </div>
+                        </div>
+                        <button
+                            className={`ml-4 px-4 py-2 rounded font-bold
+              ${serverReachable
+                                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                                    : "bg-gray-500 text-gray-300 cursor-not-allowed"
+                                }`}
+                            onClick={async () => {
+                                const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
+                                const text = await res.text();
+                                if (!text) {
+                                    addToast({
+                                        title: "No transcript",
+                                        message: `Couldn't find any transcriptions for ${transcriptInfo.id} in ${lang}. Sorry :/`,
+                                        type: "warning",
+                                    });
+                                    return;
+                                }
+
+                                const blob = new Blob([text], { type: 'text/plain' });
+                                const url = window.URL.createObjectURL(blob);
+
+                                const link = document.createElement('a');
+                                link.href = url;
+                                link.download = getTimestampedTranscriptFilename(transcriptInfo.id, lang);
+                                document.body.appendChild(link);
+                                link.click();
+
+                                document.body.removeChild(link);
+                                window.URL.revokeObjectURL(url);
+                                umami.track('transcript-downloaded', {
+                                    'room_id': transcriptInfo.id,
+                                    'lang': lang
+                                });
+                            }}
+                            disabled={!serverReachable}
+                        >
+                            <FiDownload className="inline mr-2" />
+                            Download
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {/* Back Button */}
             <button
-                className="w-full py-2 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+                className="mt-4 py-3 w-full rounded bg-gray-600 hover:bg-gray-700 font-bold"
                 onClick={() => navigate("/")}
             >
                 Back
             </button>
-        </div >
+        </div>
     );
 }
