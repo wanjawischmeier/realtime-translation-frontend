@@ -21,6 +21,7 @@ export default function RoomSetupGuard({ children }) {
             setCurrentPopup(2);
         }
         else {
+            Cookies.set(allowClientDownloadCookieName, 'false'); // Just to be sure
             setCurrentPopup(0); // Nothing to show
         }
     }, []);
