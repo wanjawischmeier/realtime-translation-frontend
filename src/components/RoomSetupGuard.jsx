@@ -35,7 +35,8 @@ export default function RoomSetupGuard({ children }) {
             if (isConfirmed && !allowClientDownload) {
                 setCurrentPopup(2);
             } else {
-                setCurrentPopup(0); // Skip second popup if deny
+                Cookies.set(allowClientDownloadCookieName, 'false');
+                setCurrentPopup(0); // Default to no on second popup if deny
             }
         } else if (cookieName === allowClientDownloadCookieName) {
             setCurrentPopup(0);
