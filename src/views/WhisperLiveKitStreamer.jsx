@@ -22,10 +22,17 @@ function WhisperLiveKitStreamer() {
   const navigate = useNavigate();
   const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio } = useWhisperLines();
   const { wsSend, wsConnected, sendRestartBackendSignal } = WebSocketHandler({
-    wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
-    isHost: true, onError: (code, message) => navigate('/')
+    wsUrl,
+    onMessage: onWsMessage,
+    serverReachable: serverReachable,
+    isHost: true,
+    onError: (code, message) => navigate('/')
   });
-  const { startStreaming, stopStreaming, streaming, monitor } = WhisperStreamerHandler({ serverReachable: serverReachable, wsConnected: wsConnected, wsSend: wsSend })
+  const { startStreaming, stopStreaming, streaming, monitor } = WhisperStreamerHandler({
+    serverReachable: serverReachable,
+    wsConnected: wsConnected,
+    wsSend: wsSend
+  })
 
   const scrollRef = useRef(null);
   useEffect(() => {
