@@ -85,7 +85,10 @@ function WhisperLiveKitStreamer() {
   if (!wsUrl) {
     return (
       <div className="h-100 flex flex-col p-4">
-        <h1 className="text-2xl font-bold mb-8 text-white text-center">SCC Übersetzer</h1>
+        {/* Header */}
+        <h1 className="text-3xl font-bold text-white mb-6 select-none">Host</h1>
+        <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+
         <div className="flex-grow flex justify-center items-center">
           {/* https://flowbite.com/docs/components/spinner */}
           <div role="status">
@@ -122,8 +125,11 @@ function WhisperLiveKitStreamer() {
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-8 text-white">SCC Übersetzer</h1>
+    <div className="p-4">
+      {/* Header */}
+      <h1 className="text-3xl font-bold text-white mb-6 select-none">Host</h1>
+      <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+
       <div className="flex items-center w-full justify-between mb-4 mt-2">
         {/* Left side: Recorder and Restart */}
         <div className="flex items-center gap-2">
