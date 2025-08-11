@@ -2,8 +2,7 @@ function formatTime(t) {
     return t;
 }
 
-export default function TranscriptDisplay({ lines, incompleteSentence }) {
-
+export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
 
@@ -32,15 +31,15 @@ export default function TranscriptDisplay({ lines, incompleteSentence }) {
                             </div>
                             <div className="text-lg leading-relaxed">
                                 {line.sentences.map((sentence, i) => {
-                                    if (sentence['content']['en']) {
+                                    if (sentence['content'][targetLang]) {
                                         return (
                                             <span key={i}>
-                                                {sentence.content.en}
+                                                {sentence.content[targetLang]}
                                             </span>
                                         )
                                     }
                                 })}
-                                <span className="text-gray-400">{ incompleteSentence }</span>
+                                <span className="text-gray-400">{incompleteSentence}</span>
                             </div>
                         </div>
                     </div>

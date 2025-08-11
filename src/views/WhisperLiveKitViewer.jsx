@@ -3,10 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useServerHealth } from "../components/ServerHealthContext";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";
-import WhisperLines from "../components/WhisperLines";
+import useWhisperLines from "../components/WhisperLines";
 import { useEffect } from "react";
 import { RoomsProvider } from "../components/RoomsProvider";
 import LanguageSelect from "../components/LanguageSelect";
+import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 
 export default function WhisperLiveKitViewer() {
   const { room_id } = useParams();
@@ -18,10 +19,11 @@ export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
-  const { onWsMessage, lines } = WhisperLines();
+  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio } = useWhisperLines();
   const { wsSend, wsConnected } = WebSocketHandler({
     wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
-    isHost: false, onError: (code, message) => navigate('/')
+    isHost: false,
+    onError: (code, message) => navigate('/')
   });
 
   const scrollRef = useRef(null);
@@ -34,36 +36,26 @@ export default function WhisperLiveKitViewer() {
     setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}`)
   }, [targetLang]);
 
-  if (!room) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <div className="bg-gray-800 rounded-xl shadow-lg p-8 max-w-md w-full text-white text-center">
-          Room not found.
-          <button
-            className="mt-6 w-full py-2 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
-            onClick={() => navigate("/rooms")}
-          >
-            Back to Rooms
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <div className="flex items-center mb-6">
-        <div className="text-2xl font-bold text-white flex-1 select-none">{room.name}</div>
-
+      <h1 className="text-2xl font-bold mb-8 text-white">SCC Übersetzer</h1>
+      <div className="flex items-center w-full justify-end mb-4 mt-2">
+        {/* Right side: Download */}
+        <TranscriptDownloadButton
+          serverReachable={serverReachable}
+          roomId={room_id}
+          targetLang={targetLang}
+        />
       </div>
-      <div
-        className="w-full bg-gray-900 rounded-lg p-3 text-gray-100 text-base flex flex-col space-y-2 flex-1 overflow-y-auto"
-        style={{ minHeight: 120 }}
-      >
-        <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
-        <TranscriptDisplay lines={lines}></TranscriptDisplay>
-
+      <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
+        <div className="flex items-center space-x-3 mb-6">
+          <span className="text-white font-medium select-none">Target:</span>
+          <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
+        </div>
       </div>
+
+      <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence} targetLang={targetLang}></TranscriptDisplay>
+
       <button
         className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
         onClick={() => navigate("/rooms")}
