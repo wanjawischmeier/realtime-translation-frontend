@@ -47,7 +47,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
         - [ ] Make the list a scrollview
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
-    - [ ] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
+    - [x] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
 - [ ] Bug: Wenn ich von nem Raum zurück zur Raumübersicht gehe, versucht sich das frontend komischerweise neu mit dem Websocket zu verbinden (als ob ich noch auf der Raumseite wäre)
     - Passiert dann auch, wenn ich zurück auf die Root-Seite gehe
     - Fixt sich durch STRG-R
@@ -69,3 +69,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add connection_id cookie
 - [x] Ask if transcripts can be saved/downloaded by users (@subtratoo)
 - [x] Fix: room viewer not rendering properly
+- [x] Add help section

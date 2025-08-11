@@ -18,8 +18,11 @@ export default function RoomListView({ asHost = false }) {
     }
 
     return (
-        <div>
-            <h2 className="text-2xl font-bold text-white mb-6 select-none">Available Rooms</h2>
+        <div className="p-4">
+            {/* Header */}
+            <h1 className="text-3xl font-bold text-white mb-6 select-none">Available rooms</h1>
+            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+
             <ul className="mb-6">
                 {rooms.map(room => {
                     const connectionId = Cookies.get('connection_id') || '';

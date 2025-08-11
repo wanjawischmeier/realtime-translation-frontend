@@ -5,14 +5,16 @@ import LanguageSelect from "../components/LanguageSelect";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import { useToast } from "../components/ToastProvider";
+import { RoomsProvider } from "../components/RoomsProvider";
 
 export default function TranscriptListView({ wsUrl }) {
     const { availableTranscriptInfos } = TranscriptListProvider(wsUrl);
-    const [lang, setLang] = useState("en");
+    const [lang, setLang] = useState(null);
 
     const navigate = useNavigate();
     const { addToast } = useToast();
     const serverReachable = useServerHealth();
+    const { availableTargetLangs } = RoomsProvider();
 
     // Helper function to format unix timestamp to readable date/time
     const formatTimestamp = (ts) => {
@@ -43,11 +45,14 @@ export default function TranscriptListView({ wsUrl }) {
     }
 
     return (
-        <div>
-            <h2 className="text-2xl font-bold text-white mb-6 select-none">Available Transcripts</h2>
+        <div className="p-4">
+            {/* Header */}
+            <h1 className="text-3xl font-bold text-white mb-6 select-none">Available Translation</h1>
+            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+
             <div className="flex items-center space-x-3 mb-6">
                 <span className="text-white font-medium select-none">Language:</span>
-                <LanguageSelect lang={lang} setLang={setLang} />
+                <LanguageSelect lang={lang} setLang={setLang} languages={availableTargetLangs} />
             </div>
             <ul className="mt-4 my-6">
                 {availableTranscriptInfos.map(transcriptInfo => {

@@ -11,6 +11,7 @@ import HeaderHandler from "./components/HeaderHandler";
 import AuthGuard from "./components/AuthGuard"
 import RoomSetupGuard from "./components/RoomSetupGuard"
 import ToastProvider from "./components/ToastProvider"
+import HelpView from "./views/HelpView";
 
 export default function App() {
   return (
@@ -19,8 +20,8 @@ export default function App() {
         <ServerHealthProvider wsUrl={import.meta.env.VITE_BACKEND_URL}>
           <Router>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
-              <div className="relative bg-gray-800 rounded-none shadow-lg sm:min-w-150 p-2 sm:p-4 pt-15 w-full min-h-screen sm:min-h-100 sm:w-auto sm:rounded-xl">
-                <HeaderHandler></HeaderHandler>
+              <div className="relative bg-gray-800 shadow-lg w-full sm:w-auto min-h-screen sm:min-h-[600px] sm:rounded-xl sm:min-w-[600px] p-4">
+                <HeaderHandler />
                 <Routes>
                   <Route path="/" element={<StartView />} />
                   <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
@@ -45,6 +46,7 @@ export default function App() {
                     }
                   />
                   <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />
+                  <Route path="/help" element={<HelpView />} />
                 </Routes>
               </div>
             </div>
