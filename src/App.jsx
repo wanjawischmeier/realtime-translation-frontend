@@ -8,7 +8,8 @@ import { ServerHealthProvider } from "./components/ServerHealthContext";
 import WebSocketViewer from "./views/WebSocketViewer";
 import { AuthProvider } from "./components/AuthContext";
 import HeaderHandler from "./components/HeaderHandler";
-import RouteProtect from "./components/RouteProtect"
+import AuthGuard from "./components/AuthGuard"
+import RoomSetupGuard from "./components/RoomSetupGuard"
 import ToastProvider from "./components/ToastProvider"
 
 export default function App() {
@@ -25,8 +26,24 @@ export default function App() {
                   <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route path="/rooms" element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route path="/transcripts" element={<TranscriptListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
-                  <Route path="/rooms/host" element={<RouteProtect element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} asHost={true} />} />} />
-                  <Route path="/room/:room_id/host" element={<RouteProtect element={<WhisperLiveKitStreamer />} />} />
+                  <Route
+                    path="/rooms/host"
+                    element={
+                      <AuthGuard>
+                        <RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} asHost={true} />
+                      </AuthGuard>
+                    }
+                  />
+                  <Route
+                    path="/room/:room_id/host"
+                    element={
+                      <AuthGuard>
+                        <RoomSetupGuard>
+                          <WhisperLiveKitStreamer />
+                        </RoomSetupGuard>
+                      </AuthGuard>
+                    }
+                  />
                   <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />
                 </Routes>
               </div>

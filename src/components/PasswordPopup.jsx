@@ -13,6 +13,10 @@ export default function PasswordPopup({ password, setPassword, error, onSubmit, 
           onClick={onClose}
           aria-label="Close"
         >×</button>
+        
+        {/* Title */}
+        <div className="text-white text-lg mb-4">Test</div>
+
         <div className="text-white text-lg mb-4">Enter password to create a room:</div>
         <input
           type="password"

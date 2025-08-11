@@ -88,7 +88,6 @@ function WhisperLiveKitStreamer() {
           <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
         </div>
       </div>
-      <h1>{targetLang}</h1>
       <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence} targetLang={targetLang}></TranscriptDisplay>
 
       <button

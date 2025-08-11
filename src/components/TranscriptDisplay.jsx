@@ -5,7 +5,6 @@ function formatTime(t) {
 export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-
             <div
                 className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
                 style={{ minHeight: 120 }}
