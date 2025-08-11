@@ -32,7 +32,7 @@ export default function WhisperLiveKitViewer() {
   }, [lines]);
   useEffect(() => { // TODO: What do you mean ${"client"}? Same in WhisperLiveKitStreamer.jsx
     setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}`)
-  }, [targetLang])
+  }, [targetLang]);
 
   if (!room) {
     return (

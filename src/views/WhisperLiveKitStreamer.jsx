@@ -32,7 +32,7 @@ function WhisperLiveKitStreamer() {
     serverReachable: serverReachable,
     wsConnected: wsConnected,
     wsSend: wsSend
-  })
+  });
 
   const scrollRef = useRef(null);
   useEffect(() => {
