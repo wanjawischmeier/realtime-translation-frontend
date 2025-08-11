@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function Login ({ authenticate,redirectPath,sourcePath }) {
   const [password, setPassword] = useState("");
@@ -34,6 +33,8 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
           onClick={onClose}
           aria-label="Close"
         >×</button>
+
+        <div className="text-white text-2xl mb-4">Verification</div>
         <div className="text-white text-lg mb-4">Enter password to create a room:</div>
         <input
           type="password"
