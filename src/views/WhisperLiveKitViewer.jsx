@@ -10,21 +10,50 @@ import LanguageSelect from "../components/LanguageSelect";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 
 export default function WhisperLiveKitViewer() {
-  const { room_id } = useParams();
-  const navigate = useNavigate();
-  const { rooms } = RoomsProvider();
-  const [targetLang, setTargetLang] = useState("en");
-
-  const room = rooms.find(r => r.id === room_id);
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
 
-  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio } = useWhisperLines();
-  const { wsSend, wsConnected } = WebSocketHandler({
+  const navigate = useNavigate();
+  const { onWsMessage, lines, incompleteSentence } = useWhisperLines();
+  const { } = WebSocketHandler({
     wsUrl, onMessage: onWsMessage, serverReachable: serverReachable,
     isHost: false,
     onError: (code, message) => navigate('/')
   });
+
+  const { room_id } = useParams();
+  const { rooms, availableTargetLangs } = RoomsProvider();
+  const [targetLang, setTargetLang] = useState(null);
+
+  useEffect(() => {
+    if (targetLang) {
+      // Target language already initialized
+      return;
+    }
+
+    const room = rooms.find(r => r.id === room_id);
+    if (room && availableTargetLangs.length > 0) {
+      var initialTargetLang = null;
+      if (room.source_lang && availableTargetLangs.includes(room.source_lang)) {
+        // Room already initialized with a language
+        initialTargetLang = room.source_lang;
+      } else {
+        // Otherwise just default to the first one
+        initialTargetLang = availableTargetLangs[0];
+      }
+
+      if (initialTargetLang) {
+        setTargetLang(initialTargetLang);
+      }
+    }
+  }, [rooms]);
+
+  useEffect(() => {
+    if (!targetLang) {
+      return;
+    }
+    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/client/${undefined}/${targetLang}`)
+  }, [targetLang]);
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -32,9 +61,6 @@ export default function WhisperLiveKitViewer() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [lines]);
-  useEffect(() => { // TODO: What do you mean ${"client"}? Same in WhisperLiveKitStreamer.jsx
-    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"client"}/${undefined}/${targetLang}`)
-  }, [targetLang]);
 
   return (
     <div>
@@ -50,7 +76,11 @@ export default function WhisperLiveKitViewer() {
       <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
         <div className="flex items-center space-x-3 mb-6">
           <span className="text-white font-medium select-none">Target:</span>
-          <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
+          <LanguageSelect
+            lang={targetLang}
+            setLang={setTargetLang}
+            languages={availableTargetLangs}
+          />
         </div>
       </div>
 

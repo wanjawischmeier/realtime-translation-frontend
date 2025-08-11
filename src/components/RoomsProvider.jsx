@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerHealth } from "./ServerHealthContext";
 
-export function RoomsProvider(wsUrl) {
+export function RoomsProvider() {
   const [rooms, setRooms] = useState([]);
   const [availableSourceLangs, setAvailableSourceLangs] = useState([]);
   const [availableTargetLangs, setAvailableTargetLangs] = useState([]);
@@ -9,13 +9,13 @@ export function RoomsProvider(wsUrl) {
   const roomCheckInterval = useRef();
   const serverReachable = useServerHealth();
 
-  const fetchUpdate = async (wsUrl, serverReachable) => {
+  const fetchUpdate = async (serverReachable) => {
     if (!serverReachable) {
       return;
     }
 
     // TODO: error handling?
-    const res = await fetch(`http://${wsUrl}/room_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+    const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
     const data = await res.json();
     console.log('Recieved room list:')
     console.log(data);
@@ -27,7 +27,7 @@ export function RoomsProvider(wsUrl) {
   };
 
   useEffect(() => {
-    fetchUpdate(wsUrl, serverReachable);
+    fetchUpdate(serverReachable);
     roomCheckInterval.current = setInterval(fetchUpdate, 5000);
     return () => {
       clearInterval(roomCheckInterval.current);

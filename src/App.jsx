@@ -24,13 +24,13 @@ export default function App() {
                 <Routes>
                   <Route path="/" element={<StartView />} />
                   <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
-                  <Route path="/rooms" element={<RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
+                  <Route path="/rooms" element={<RoomListView />} />
                   <Route path="/transcripts" element={<TranscriptListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route
                     path="/rooms/host"
                     element={
                       <AuthGuard>
-                        <RoomListView wsUrl={import.meta.env.VITE_BACKEND_URL} asHost={true} />
+                        <RoomListView asHost={true} />
                       </AuthGuard>
                     }
                   />

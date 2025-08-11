@@ -3,8 +3,8 @@ import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
 import Cookies from "js-cookie";
 
-export default function RoomListView({ wsUrl, asHost = false }) {
-    const { rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms } = RoomsProvider(wsUrl);
+export default function RoomListView({ asHost = false }) {
+    const { rooms, maxActiveRooms } = RoomsProvider();
 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
@@ -25,6 +25,7 @@ export default function RoomListView({ wsUrl, asHost = false }) {
                     const connectionId = Cookies.get('connection_id') || '';
                     var allowedIn = false;
                     if (asHost) {
+                        // TODO: only allow if max active connections not exceeded
                         if (room.host_connection_id) {
                             // Host already connected, only allowed if we are that host
                             allowedIn = room.host_connection_id == connectionId;
