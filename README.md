@@ -65,3 +65,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add restart room logic
 - [ ] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case
 - [x] Add connection_id cookie
+- [ ] Ask if transcripts can be saved/downloaded by users (@subtratoo)
