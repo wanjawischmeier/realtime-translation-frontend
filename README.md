@@ -22,9 +22,10 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] RoomsProvider parses information to be used in RoomListView
     - Now provides `rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms`
     - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung)
-    - [ ] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
+    - [x] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
     - [x] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
     - [x] Show transcript in selected language and not in english
+    - [x] Start host with current target lang if room already active
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
