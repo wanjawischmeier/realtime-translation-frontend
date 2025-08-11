@@ -71,3 +71,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Fix: room viewer not rendering properly
 - [x] Add help section
 - [x] Fix: make lists scrollable
+- [ ] Cleanup: Generalize loading spinners into a widget
