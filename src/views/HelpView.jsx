@@ -25,7 +25,7 @@ export default function HelpView() {
     return (
         <div className='h-full flex flex-col p-4 bg-gray-800 text-white'>
             {/* Header */}
-            <h1 className="text-3xl font-bold text-white mb-6 select-none">Help</h1>
+            <h1 className="text-3xl font-bold mb-4 select-none text-center">Help</h1>
             <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
             {/* Scrollable Main Content */}

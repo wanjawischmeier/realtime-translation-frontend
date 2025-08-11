@@ -70,3 +70,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Ask if transcripts can be saved/downloaded by users (@subtratoo)
 - [x] Fix: room viewer not rendering properly
 - [x] Add help section
+- [x] Fix: make lists scrollable
