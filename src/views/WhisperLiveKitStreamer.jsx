@@ -39,7 +39,8 @@ function WhisperLiveKitStreamer() {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [lines, incompleteSentence]);
+    console.log(targetLang)
+  }, [lines, incompleteSentence, targetLang]);
 
   useEffect(() => {
     setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/${"host"}/${sourceLang}/${targetLang}`)
@@ -87,8 +88,15 @@ function WhisperLiveKitStreamer() {
           <LanguageSelect lang={targetLang} setLang={setTargetLang}></LanguageSelect>
         </div>
       </div>
+      <h1>{targetLang}</h1>
+      <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence} targetLang={targetLang}></TranscriptDisplay>
 
-      <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence}></TranscriptDisplay>
+      <button
+        className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+        onClick={() => navigate("/rooms/host")}
+      >
+        Back
+      </button>
     </div>
   );
 }
