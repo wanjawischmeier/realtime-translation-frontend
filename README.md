@@ -24,14 +24,14 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung)
     - [ ] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
     - [x] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
-    - [ ] Show transcript in selected language and not in english
+    - [x] Show transcript in selected language and not in english
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
     - [ ] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
 - [ ] Fehlgeschlagene /auth buggy, muss gefixt werden
     - Auch wenn das backend sagt, dass das Passwort falsch ist, verhält sich das Frontend so, als ob alles ok wäre (speichert pw in cookie und geht zur Raumübersicht und versucht als host mit falschem PW zu joinen)
-- [ ] Back Button bei Streamer/Viewer
+- [x] Back Button bei Streamer/Viewer
 - [ ] Show proper room info, show if room is active (status led?)
 - [ ] Fix: Weirdes scaling des Streaming/Viewing Fensters basierend darauf, wie viel Text im Transkript steht
 - [x] (Incomplete sentence buffer auch anzeigen (ausgegraut?) für responsiveres Gefühl)
@@ -41,8 +41,9 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - Assume this endpoint: `@app.get("/room/{room_id}/transcript/{target_lang}")` (returns placeholder transcript rn)
     - [x] `TranscriptDownloadButton` widget
     - [x] Add to `WhisperLiveKitStreamer`
-    - [ ] Add to `WhisperLiveKitViewer`
+    - [x] Add to `WhisperLiveKitViewer`
     - [x] Option on homescreen to show list of old transcripts
+        - [ ] Make the list a scrollview
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [ ] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
@@ -66,3 +67,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case
 - [x] Add connection_id cookie
 - [ ] Ask if transcripts can be saved/downloaded by users (@subtratoo)
+- [x] Fix: room viewer not rendering properly
