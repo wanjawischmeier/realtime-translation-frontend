@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerHealth } from "./ServerHealthContext";
 
-export function TranscriptListProvider(wsUrl) {
+export function TranscriptListProvider() {
   const [availableTranscriptInfos, setAvailableTranscriptInfos] = useState([]);
   const CheckInterval = useRef();
   const serverReachable = useServerHealth();
 
-  const fetchUpdate = async (wsUrl, serverReachable) => {
+  const fetchUpdate = async (serverReachable) => {
     if (!serverReachable) {
       return;
     }
 
     // TODO: error handling?
-    const res = await fetch(`http://${wsUrl}/transcript_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transcript_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
     const data = await res.json();
     console.log('Recieved available transcript list:')
     console.log(data);
@@ -21,7 +21,7 @@ export function TranscriptListProvider(wsUrl) {
   };
 
   useEffect(() => {
-    fetchUpdate(wsUrl, serverReachable);
+    fetchUpdate(serverReachable);
     CheckInterval.current = setInterval(fetchUpdate, 5000);
     return () => {
       clearInterval(CheckInterval.current);

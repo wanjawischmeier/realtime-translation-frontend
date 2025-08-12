@@ -31,7 +31,7 @@ export default function RoomListView({ role = 'client' }) {
             });
         }
 
-        fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${room.id}/close`, {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${room.id}/close`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

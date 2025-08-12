@@ -52,7 +52,7 @@ export default function WhisperLiveKitViewer() {
     if (!targetLang) {
       return;
     }
-    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/client/${undefined}/${targetLang}`)
+    setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/client/${undefined}/${targetLang}`)
   }, [targetLang]);
 
   const scrollRef = useRef(null);

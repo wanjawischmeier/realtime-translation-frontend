@@ -66,7 +66,7 @@ function WhisperLiveKitStreamer() {
       return;
     }
 
-    setWsUrl(`ws://${import.meta.env.VITE_BACKEND_URL}/room/${room_id}/host/${sourceLang}/${targetLang}`)
+    setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/host/${sourceLang}/${targetLang}`)
   }, [sourceLang, targetLang]);
 
   const scrollRef = useRef(null);

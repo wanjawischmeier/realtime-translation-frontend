@@ -20,7 +20,7 @@ export default function TranscriptDownloadButton({ serverReachable, roomId, targ
     const handleDownload = async () => {
         setDownloading(true);
         try {
-            const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${roomId}/transcript/${targetLang}`);
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${roomId}/transcript/${targetLang}`);
             const text = await res.text();
 
             const blob = new Blob([text], { type: 'text/plain' });
