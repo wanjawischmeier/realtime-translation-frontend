@@ -5,7 +5,7 @@ export function RoomsProvider() {
   const [rooms, setRooms] = useState([]);
   const [availableSourceLangs, setAvailableSourceLangs] = useState([]);
   const [availableTargetLangs, setAvailableTargetLangs] = useState([]);
-  const [maxActiveRooms, setMaxActiveRooms] = useState(0);
+  const [roomCapacityReached, setRoomCapacityReached] = useState(true);
   const roomCheckInterval = useRef();
   const serverReachable = useServerHealth();
 
@@ -20,9 +20,10 @@ export function RoomsProvider() {
     console.log('Recieved room list:')
     console.log(data);
 
+    const activeRoomCount = data.rooms.filter(room => room.host_connection_id !== '').length;
     setAvailableSourceLangs(data.available_source_langs);
     setAvailableTargetLangs(data.available_target_langs);
-    setMaxActiveRooms(data.max_active_rooms);
+    setRoomCapacityReached(activeRoomCount >= data.max_active_rooms);
     setRooms(data.rooms);
   };
 
@@ -34,5 +35,5 @@ export function RoomsProvider() {
     };
   }, [serverReachable]);
 
-  return {rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms, fetchUpdate};
+  return {rooms, availableSourceLangs, availableTargetLangs, roomCapacityReached, fetchUpdate};
 }

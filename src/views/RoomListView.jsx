@@ -5,7 +5,7 @@ import { useToast } from "../components/ToastProvider";
 import Cookies from "js-cookie";
 
 export default function RoomListView({ role = 'client' }) {
-    const { rooms, maxActiveRooms, fetchUpdate } = RoomsProvider();
+    const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
@@ -69,13 +69,14 @@ export default function RoomListView({ role = 'client' }) {
 
                             if (role != 'client') {
                                 if (room.host_connection_id == '') {
-                                    allowedIn = true;
+                                    allowedIn = !roomCapacityReached; // Can only open new room if there's capacity for it
                                 } else {
                                     allowedIn = room.host_connection_id == connectionId;
                                 }
                             } else {
                                 allowedIn = room.host_connection_id != '';
                             }
+
                             const canJoin = serverReachable && allowedIn;
                             const canClose = serverReachable && role == 'admin' && room.host_connection_id != '';
 
