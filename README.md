@@ -20,10 +20,10 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 
 # TODOs
 - [ ] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
-- [ ] Sprachauswahl nutzen um Übersetzung anzuzeigen (Backend sendet jetzt nötige Daten über RoomsProvider)
+- [x] Sprachauswahl nutzen um Übersetzung anzuzeigen (Backend sendet jetzt nötige Daten über RoomsProvider)
     - [x] RoomsProvider parses information to be used in RoomListView
     - Now provides `rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms`
-    - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung) (@substratoo)
+    - [x] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung) (@substratoo)
     - [x] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
     - [x] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
     - [x] Show transcript in selected language and not in english
@@ -55,7 +55,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - Passiert dann auch, wenn ich zurück auf die Root-Seite gehe
     - Fixt sich durch STRG-R
 - [x] Implement umami stats (see [umami](#umami))
-- [ ] (Some stuff appears to be fetched twice in a row)
+- [x] (Some stuff appears to be fetched twice in a row)
     - `/room_list` gets recieved twice
 - [ ] Handle websocket error disconnect
     - [x] Revert back to home screen and show error message toast if error code is 1003
