@@ -31,7 +31,15 @@ export default function App() {
                     path="/rooms/host"
                     element={
                       <AuthGuard>
-                        <RoomListView asHost={true} />
+                        <RoomListView role={'host'} />
+                      </AuthGuard>
+                    }
+                  />
+                  <Route
+                    path="/rooms/admin"
+                    element={
+                      <AuthGuard>
+                        <RoomListView role={'admin'} />
                       </AuthGuard>
                     }
                   />

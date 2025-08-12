@@ -26,9 +26,10 @@ export const AuthProvider = ({ children }) => {
   async function authenticate(password) {
     if (checkPassword(password)) {
       setIsAuthenticated(true);
-      Cookies.set("authenticated", password, { path: "/",  expires: import.meta.env.VITE_COOKIE_EXPIRATION_HOURS/24 });
+      Cookies.set("authenticated", password, { expires: import.meta.env.VITE_COOKIE_EXPIRATION_HOURS/24 });
       return true;
     } else {
+      Cookies.remove("authenticated");
       return false;
     }
   }

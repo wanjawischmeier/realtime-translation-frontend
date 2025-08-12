@@ -72,3 +72,5 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add help section
 - [x] Fix: make lists scrollable
 - [ ] Cleanup: Generalize loading spinners into a widget
+- [x] Admin role
+    - [x] Ability to force close rooms
