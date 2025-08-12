@@ -23,7 +23,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Sprachauswahl nutzen um Übersetzung anzuzeigen (Backend sendet jetzt nötige Daten über RoomsProvider)
     - [x] RoomsProvider parses information to be used in RoomListView
     - Now provides `rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms`
-    - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung)
+    - [ ] `maxActiveRooms` respektieren und nicht mehr Räume aktivieren (sonst verweigert Backend Verbindung) (@substratoo)
     - [x] Use `availableSourceLangs, availableTargetLangs` for lang dropdowns
     - [x] Adapt to new [transcript chunk](https://github.com/substratoo/realtime-translation-backend#transcript-chunk) structure (no longer provides a default language)
     - [x] Show transcript in selected language and not in english
@@ -38,7 +38,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Show proper room info, show if room is active (status led?)
 - [ ] Fix: Weirdes scaling des Streaming/Viewing Fensters basierend darauf, wie viel Text im Transkript steht
 - [x] (Incomplete sentence buffer auch anzeigen (ausgegraut?) für responsiveres Gefühl)
-- [ ] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
+- [x] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
 - [ ] (Animate in new text of transcript?)
 - [ ] Option to download transcript (filename could for example be timestamp of download)
     - Assume this endpoint: `@app.get("/room/{room_id}/transcript/{target_lang}")` (returns placeholder transcript rn)
@@ -46,7 +46,8 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Add to `WhisperLiveKitStreamer`
     - [x] Add to `WhisperLiveKitViewer`
     - [x] Option on homescreen to show list of old transcripts
-        - [ ] Make the list a scrollview
+        - [x] Make the list a scrollview
+    - [ ] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [x] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
@@ -69,7 +70,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add restart room logic
 - [ ] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case
 - [x] Add connection_id cookie
-- [x] Ask if transcripts can be saved/downloaded by users (@subtratoo)
+- [x] Ask if transcripts can be saved/downloaded by users (@substratoo)
 - [x] Fix: room viewer not rendering properly
 - [x] Add help section
 - [x] Fix: make lists scrollable
