@@ -45,7 +45,7 @@ export default function TranscriptListView({ wsUrl }) {
     }
 
     return (
-        <div className="h-full flex flex-col p-4 bg-gray-800 text-white">
+        <div className="h-full flex flex-col p-4 text-white">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center">
                 Available Transcripts

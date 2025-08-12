@@ -1,11 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import StartView from "./views/StartView";
 import RoomListView from "./views/RoomListView";
 import TranscriptListView from "./views/TranscriptListView";
 import WhisperLiveKitStreamer from "./views/WhisperLiveKitStreamer";
 import WhisperLiveKitViewer from "./views/WhisperLiveKitViewer";
 import { ServerHealthProvider } from "./components/ServerHealthContext";
-import WebSocketViewer from "./views/WebSocketViewer";
 import { AuthProvider } from "./components/AuthContext";
 import HeaderHandler from "./components/HeaderHandler";
 import AuthGuard from "./components/AuthGuard"
@@ -19,12 +18,12 @@ export default function App() {
       <ToastProvider>
         <ServerHealthProvider wsUrl={import.meta.env.VITE_BACKEND_URL}>
           <Router>
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 svg-bg">
               <div className="relative bg-gray-800 shadow-lg w-full sm:w-auto min-h-screen sm:min-h-[600px] sm:rounded-xl sm:min-w-[600px] p-4">
                 <HeaderHandler />
                 <Routes>
                   <Route path="/" element={<StartView />} />
-                  <Route path="/ws_debug" element={<WebSocketViewer wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
+                  <Route path="*" element={<Navigate to="/" />} />
                   <Route path="/rooms" element={<RoomListView />} />
                   <Route path="/transcripts" element={<TranscriptListView wsUrl={import.meta.env.VITE_BACKEND_URL} />} />
                   <Route
