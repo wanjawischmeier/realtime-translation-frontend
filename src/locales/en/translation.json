@@ -1,0 +1,50 @@
+{
+  "Common": {
+    "create_button": "Create",
+    "back_button": "Back",
+    "submit_button": "Submit",
+    "download_button": "Download",
+    "loading": "Loading...",
+    "start_button": "Start",
+    "restart_button": "Restart",
+    "select_language": "Select your Language:"
+  },
+  "StartView": {
+    "header": "Realtime Translation",
+    "host_button": "Join as a Host",
+    "viewer_button": "Join as a Viewer",
+    "transcript_button": "Download a transcript",
+    "help_button": "Help"
+  },
+  "RoomCreateView": {
+    "header": "Create Room",
+    "subtitle": "Enter password to create a room:",
+    "invalid_password": "Invalid password",
+    "valid_password": "Let me in",
+    "Popup": {
+      "room_name": "Room Name",
+      "presenter": "Presenter Name"
+    }
+  },
+  "RoomListView": {
+    "header": "Available Rooms",
+    "close_button": "Close Room",
+    "join_button": "Join as a Viewer"
+  },
+  "TranscriptListView": {
+    "header": "Available Transcripts",
+    "select_language": "Select Language:",
+    "first_recording": "Transcript started at:",
+    "last_recording": "Transcript ended at:",
+    "no_transcript": "No transcript",
+    "error_msg": "Couldn't find any transcriptions for {{id}} in {{lang}}. Sorry :/ "
+  },
+  "WhisperLiveKitStreamer": {
+    "header": "Host",
+    "source_lang": "Select spoken language:",
+    "target_lang": "Select language to translate to:"
+  },
+  "WhisperLiveKitViewer": {
+    "header": "Follow Along"
+  }
+}
