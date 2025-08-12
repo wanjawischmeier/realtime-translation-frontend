@@ -41,7 +41,9 @@ export default function RoomListView({ role = 'client' }) {
             if (response.ok) {
                 console.log('Closed room');
                 fetchUpdate(serverReachable);
+                umami.track('closed-room-admin');
             } else {
+                umami.track('closed-room-admin-failed');
                 addToast({
                     title: "Failed to close",
                     message: 'Internal server error',

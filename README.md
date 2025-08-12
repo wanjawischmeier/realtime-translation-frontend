@@ -15,6 +15,8 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - `<host/client>-disconnected-unexpected` (if onclose is not clean or onerror)
 - `transcript-delay` (if transcript chunk is recieved with combined delay >10s)
 - `transcript-downloaded`
+- `closed-room-admin`
+- `closed-room-admin-failed`
 
 # TODOs
 - [ ] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
