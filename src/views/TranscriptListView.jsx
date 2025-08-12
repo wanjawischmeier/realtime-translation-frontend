@@ -7,8 +7,8 @@ import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import { useToast } from "../components/ToastProvider";
 import { RoomsProvider } from "../components/RoomsProvider";
 
-export default function TranscriptListView({ wsUrl }) {
-    const { availableTranscriptInfos } = TranscriptListProvider(wsUrl);
+export default function TranscriptListView() {
+    const { availableTranscriptInfos } = TranscriptListProvider();
     const [lang, setLang] = useState(null);
 
     const navigate = useNavigate();
@@ -83,7 +83,7 @@ export default function TranscriptListView({ wsUrl }) {
                                             : "bg-gray-500 text-gray-300 cursor-not-allowed"
                                         }`}
                                     onClick={async () => {
-                                        const res = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
+                                        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
                                         const text = await res.text();
                                         if (!text) {
                                             addToast({

@@ -2,14 +2,14 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 const ServerHealthContext = createContext();
 
-export function ServerHealthProvider({ wsUrl, children }) {
+export function ServerHealthProvider({ children }) {
   const [serverReachable, setServerReachable] = useState(false);
   const healthCheckInterval = useRef();
 
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch(`http://${wsUrl}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
         setServerReachable(res.ok);
 
       } catch {
@@ -22,7 +22,7 @@ export function ServerHealthProvider({ wsUrl, children }) {
     return () => {
       clearInterval(healthCheckInterval.current);
     };
-  }, [wsUrl]);
+  });
 
   return (
     <ServerHealthContext.Provider value={serverReachable}>

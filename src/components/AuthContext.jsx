@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   async function checkPassword(password) {
-    const response = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/auth`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
