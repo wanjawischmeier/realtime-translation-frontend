@@ -66,7 +66,7 @@ export default function WhisperLiveKitViewer() {
     return (
       <div className="h-100 flex flex-col p-4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center">View</h1>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">View</h1>
         <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex-grow flex justify-center items-center">
@@ -107,7 +107,7 @@ export default function WhisperLiveKitViewer() {
   return (
     <div className="p-4">
       {/* Header */}
-      <h1 className="text-3xl font-bold mb-4 select-none text-center">View</h1>
+      <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">View</h1>
       <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
       <div className="flex items-center w-full justify-end mb-4 mt-2">

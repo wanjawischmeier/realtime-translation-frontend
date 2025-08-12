@@ -17,7 +17,7 @@ function WhisperLiveKitStreamer() {
   const serverReachable = useServerHealth();
 
   const navigate = useNavigate();
-  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio } = useWhisperLines();
+  const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio, reset } = useWhisperLines();
   const { wsSend, wsConnected, sendRestartBackendSignal } = WebSocketHandler({
     wsUrl,
     onMessage: onWsMessage,
@@ -78,6 +78,7 @@ function WhisperLiveKitStreamer() {
 
   const restartBackend = () => {
     setReadyToRecieveAudio(false);
+    reset();
     stopStreaming();
     sendRestartBackendSignal();
   };
@@ -86,7 +87,7 @@ function WhisperLiveKitStreamer() {
     return (
       <div className="h-100 flex flex-col p-4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center">Host</h1>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">Host</h1>
         <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex-grow flex justify-center items-center">
@@ -127,7 +128,7 @@ function WhisperLiveKitStreamer() {
   return (
     <div className="p-4">
       {/* Header */}
-      <h1 className="text-3xl font-bold mb-4 select-none text-center">Host</h1>
+      <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">Host</h1>
       <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
       <div className="flex items-center w-full justify-between mb-4 mt-2">
@@ -161,6 +162,7 @@ function WhisperLiveKitStreamer() {
             setLang={(lang) => {
               setSourceLang(lang);
               setReadyToRecieveAudio(false);
+              reset();
             }}
             languages={availableSourceLangs}
           />
@@ -169,7 +171,10 @@ function WhisperLiveKitStreamer() {
           <span className="text-white font-medium select-none">Target:</span>
           <LanguageSelect
             lang={targetLang}
-            setLang={setTargetLang}
+            setLang={(lang) => {
+              setTargetLang(lang);
+              reset();
+            }}
             languages={availableTargetLangs}
           />
         </div>

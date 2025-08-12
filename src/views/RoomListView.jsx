@@ -1,20 +1,54 @@
 import { useNavigate } from "react-router-dom";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
+import { useToast } from "../components/ToastProvider";
 import Cookies from "js-cookie";
 
-export default function RoomListView({ asHost = false }) {
-    const { rooms, maxActiveRooms } = RoomsProvider();
+export default function RoomListView({ role = 'client' }) {
+    const { rooms, maxActiveRooms, fetchUpdate } = RoomsProvider();
 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
+    const { addToast } = useToast();
+
+    const password = Cookies.get("authenticated");
 
     function handleJoin(room) {
-        if (asHost) {
-            navigate(`/room/${room.id}/host`);
-        } else {
+        if (role == 'client') {
             navigate(`/room/${room.id}/view`);
+        } else {
+            navigate(`/room/${room.id}/host`);
         }
+    }
+
+    function handleClose(room) {
+        if (role != 'admin') {
+            console.log('Insufficient permissions to close room');
+            addToast({
+                title: "Failed to close",
+                message: 'Insufficient permissions to close room',
+                type: "error",
+            });
+        }
+
+        fetch(`http://${import.meta.env.VITE_BACKEND_URL}/room/${room.id}/close`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password }),
+        }).then((response) => {
+            if (response.ok) {
+                console.log('Closed room');
+                fetchUpdate(serverReachable);
+            } else {
+                addToast({
+                    title: "Failed to close",
+                    message: 'Internal server error',
+                    type: "error",
+                });
+            }
+        });
     }
 
     return (
@@ -31,15 +65,17 @@ export default function RoomListView({ asHost = false }) {
                             const connectionId = Cookies.get('connection_id') || '';
                             let allowedIn = false;
 
-                            if (asHost) {
-                                allowedIn = room.host_connection_id
-                                    ? room.host_connection_id === connectionId
-                                    : true;
+                            if (role != 'client') {
+                                if (room.host_connection_id == '') {
+                                    allowedIn = true;
+                                } else {
+                                    allowedIn = room.host_connection_id == connectionId;
+                                }
                             } else {
-                                allowedIn = !!room.host_connection_id;
+                                allowedIn = room.host_connection_id != '';
                             }
-
-                            const canJoin = allowedIn && serverReachable;
+                            const canJoin = serverReachable && allowedIn;
+                            const canClose = serverReachable && role == 'admin' && room.host_connection_id != '';
 
                             return (
                                 <div key={room.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
@@ -51,16 +87,21 @@ export default function RoomListView({ asHost = false }) {
                                     </div>
                                     <button
                                         className={`ml-4 px-4 py-2 rounded font-bold
-                                    ${canJoin
-                                                ? "bg-blue-600 text-white hover:bg-blue-700"
-                                                : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                                            }`}
+                                            ${canClose ? "bg-red-600 hover:bg-red-700 text-white" : (
+                                                canJoin
+                                                    ? "bg-blue-600 hover:bg-blue-700 text-white"
+                                                    : "bg-gray-500 text-gray-300 cursor-not-allowed"
+                                            )}`}
                                         onClick={() => {
-                                            if (canJoin) handleJoin(room);
+                                            if (canClose) {
+                                                handleClose(room);
+                                            } else if (canJoin) {
+                                                handleJoin(room);
+                                            }
                                         }}
-                                        disabled={!canJoin}
+                                        disabled={!canJoin && role != 'admin'}
                                     >
-                                        {asHost ? "Enter as Presenter" : "Join as Viewer"}
+                                        {canClose ? "Close room" : (role == 'client' ? "Join as Viewer" : "Enter as Presenter")}
                                     </button>
                                 </div>
                             );
