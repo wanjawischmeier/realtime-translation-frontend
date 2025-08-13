@@ -4,13 +4,8 @@
       "title": "Login",
       "input-label": "Enter your credentials",
       "back": "Back",
-      "submit": "Submit"
-    },
-    "password-prompt": {
-      "title": "Password Required",
-      "input-label": "Please enter your password",
-      "back": "Back",
-      "submit": "Submit"
+      "submit": "Submit",
+      "wrong-password": "Wrong password entered."
     }
   },
   "component": {

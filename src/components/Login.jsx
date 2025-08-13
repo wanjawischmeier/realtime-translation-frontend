@@ -13,7 +13,7 @@ export default function Login ({ login,redirectPath,sourcePath }) {
     if (await login(password)) {
       navigate(redirectPath);
     } else {
-      alert("Incorrect password");
+      alert(t("popup.login.wrong-password"));
     }
   };
 
@@ -38,7 +38,7 @@ export default function Login ({ login,redirectPath,sourcePath }) {
         >×</button>
 
         <div className="text-white text-2xl mb-4">{t("popup.login.title")}</div>
-        <div className="text-white text-lg mb-4">{t("popup.login.input-labal")}:</div>
+        <div className="text-white text-lg mb-4">{t("popup.login.input-label")}:</div>
         <input
           type="password"
           className="w-full mb-2 px-4 py-2 rounded-lg bg-gray-800 text-gray-100"
