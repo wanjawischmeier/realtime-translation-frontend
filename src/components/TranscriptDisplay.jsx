@@ -1,13 +1,22 @@
 import { useTranslation } from "react-i18next";
 
 function formatTime(t) {
-    return t;
+    const hours = Math.floor(t / 3600);
+    const minutes = Math.floor((t % 3600) / 60);
+    const seconds = t % 60;
+
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
+
 
 export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
     const { t } = useTranslation();
     return (
-        <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
+        <div className="w-full mb-4 mt-2">
             <div
                 className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
                 style={{ minHeight: 120 }}
@@ -27,21 +36,20 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                 }`}
                         >
                             <div className="mb-1 text-xs text-gray-300">
-                                {t("component.transcript-display.speaker")} {line.speaker + 1}
-                                {" · "}
+                                {line.speaker == -1 ? "" : t("component.transcript-display.speaker") + (line.speaker + 1) + " · "}
                                 {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>
-                            <div className="text-lg leading-relaxed">
+                            <div className="text-lg leading-relaxed flex flex-col">
                                 {line.sentences.map((sentence, i) => {
                                     if (sentence['content'][targetLang]) {
                                         return (
-                                            <span key={i}>
+                                            <span style={{ lineHeight: '1.2' }} className="text-white-400" key={i}>
                                                 {sentence.content[targetLang]}
                                             </span>
                                         )
                                     }
                                 })}
-                                <span className="text-gray-400">{incompleteSentence}</span>
+                                <span style={{ lineHeight: '1.2' }} className="text-gray-400">{incompleteSentence}</span>
                             </div>
                         </div>
                     </div>
