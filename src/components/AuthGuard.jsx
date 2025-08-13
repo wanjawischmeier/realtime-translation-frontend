@@ -11,7 +11,7 @@ export default function AuthGuard({ children,needAdmin=false }) {
         redirectPath={location.pathname}
         sourcePath={location.state?.from || "/"}
         login={(password) => {
-          login(password,role)
+          return login(password,needAdmin ? "admin" : null)
         }}
       />
     );

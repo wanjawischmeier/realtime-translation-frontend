@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     };
   });
 
-  async function login(password,role="host") {
+  async function login(password,role=null) {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
       method: "POST",
       headers: {

@@ -40,7 +40,7 @@ export default function App() {
                   <Route
                     path="/rooms/admin"
                     element={
-                      <AuthGuard needAdmin={false}>
+                      <AuthGuard needAdmin={true}>
                         <RoomListView role={'admin'} />
                       </AuthGuard>
                     }
