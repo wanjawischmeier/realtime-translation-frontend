@@ -17,7 +17,7 @@ export default function RoomListView({ role = 'client' }) {
     const serverReachable = useServerHealth();
     const { addToast } = useToast();
 
-    const { isAuthenticated, authenticate, getPassword } = useAuth();
+    const { isAuthenticated, authenticate, getKey } = useAuth();
 
     function handleJoin(room) {
         if (role == 'client') {
@@ -42,7 +42,7 @@ export default function RoomListView({ role = 'client' }) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ password: getPassword() }),
+            body: JSON.stringify({ key: getKey() }),
         }).then((response) => {
             if (response.ok) {
                 console.log('Closed room');
