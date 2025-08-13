@@ -19,7 +19,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - `closed-room-admin-failed`
 
 # TODOs
-- [ ] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
+- [x] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
 - [x] Sprachauswahl nutzen um Übersetzung anzuzeigen (Backend sendet jetzt nötige Daten über RoomsProvider)
     - [x] RoomsProvider parses information to be used in RoomListView
     - Now provides `rooms, availableSourceLangs, availableTargetLangs, maxActiveRooms`
@@ -61,7 +61,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Revert back to home screen and show error message toast if error code is 1003
         - 1003 means that backend consciously disconnected the client from that room (propably a good reason for the client not to be in the room, e.g. incorrect password)
         - [ ] Clear password cookie if reason is invalid password (though we should in theory never get to this point in that case)
-    - [ ] Handle disconnect with other codes, currently leads to nullref exeptions
+    - [x] Handle disconnect with other codes, currently leads to nullref exeptions
         - Maybe try to reconnect if error is not 1003
 - [x] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
 - [x] Handle initial "ready" package
