@@ -51,7 +51,7 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
           className="w-full py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700"
           onClick={handleLogin}
         >
-          {t("popup.login.back")}
+          {t("popup.login.submit")}
         </button>
       </div>
     </div>
