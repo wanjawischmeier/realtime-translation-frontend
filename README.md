@@ -78,3 +78,8 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Admin role
     - [x] Ability to force close rooms
 - [x] Add background svg :)
+- [ ] Language switcher somewhere
+    - `import { useTranslation } from "react-i18next";`
+    - `const { t, i18n } = useTranslation();`
+    - `i18n.changeLanguage("es")`
+    - `t("meta.title")` to acess tags

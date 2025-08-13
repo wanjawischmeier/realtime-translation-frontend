@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 
 function StartView() {
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <div className="h-full flex flex-col p-4 text-white">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 text-center select-none">
-                {t("greeting")}
+                {t("meta.title")}
             </h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
