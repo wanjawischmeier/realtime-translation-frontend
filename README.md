@@ -36,7 +36,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - Auch wenn das backend sagt, dass das Passwort falsch ist, verhält sich das Frontend so, als ob alles ok wäre (speichert pw in cookie und geht zur Raumübersicht und versucht als host mit falschem PW zu joinen)
 - [x] Back Button bei Streamer/Viewer
 - [ ] Show proper room info, show if room is active (status led?)
-- [ ] Fix: Weirdes scaling des Streaming/Viewing Fensters basierend darauf, wie viel Text im Transkript steht
+- [x] Fix: Weirdes scaling des Streaming/Viewing Fensters basierend darauf, wie viel Text im Transkript steht
 - [x] (Incomplete sentence buffer auch anzeigen (ausgegraut?) für responsiveres Gefühl)
 - [x] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
 - [ ] (Animate in new text of transcript?)
@@ -68,7 +68,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] For room list etc: refresh on connection reestablished
     - [ ] On connected callback in ServerHealthProvider
 - [x] Add restart room logic
-- [ ] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case
+- [x] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case. Implement new system for authentication
 - [x] Add connection_id cookie
 - [x] Ask if transcripts can be saved/downloaded by users (@substratoo)
 - [x] Fix: room viewer not rendering properly
