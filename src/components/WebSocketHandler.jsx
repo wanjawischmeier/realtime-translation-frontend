@@ -84,10 +84,16 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
                     message: e.reason,
                     type: "error",
                 });
+            } else if(e.wasClean) {
+                addToast({
+                    title: "Websocket connection closed",
+                    message: `Clean disconnect with code: ${e.code}\n${e.reason}`,
+                    type: "info",
+                });
             } else {
                 addToast({
                     title: "Websocket connection closed",
-                    message: `Error ${e.code}, disconnect was${e.wasClean ? " " : " not "}clean\n${e.reason}`,
+                    message: `Non clean disconnect with code: ${e.code}\n${e.reason}`,
                     type: "error",
                 });
             }
