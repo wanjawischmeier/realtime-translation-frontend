@@ -23,13 +23,13 @@ export const AuthProvider = ({ children }) => {
     };
   });
 
-  async function login(password) {
+  async function login(password,role="host") {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ password,role }),
     });
 
     if (response.ok) {

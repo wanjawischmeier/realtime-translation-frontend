@@ -10,7 +10,9 @@ export default function AuthGuard({ children,needAdmin=false }) {
       <Login
         redirectPath={location.pathname}
         sourcePath={location.state?.from || "/"}
-        login={login}
+        login={(password) => {
+          login(password,role)
+        }}
       />
     );
 
