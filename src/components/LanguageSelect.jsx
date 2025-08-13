@@ -53,10 +53,10 @@ const languageNames = {
   "zh-Hant": "Chinese (Traditional)",
 };
 
-export default function LanguageSelect({ lang, setLang, languages }) {
+export default function LanguageSelect({customClassName=false, lang, setLang, languages }) {
   return (
     <select
-      className="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 w-full"
+      className={customClassName ? customClassName : "px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 w-full"}
       value={lang}
       onChange={e => setLang(e.target.value)}
     >
