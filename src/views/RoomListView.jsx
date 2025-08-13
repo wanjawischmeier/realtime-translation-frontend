@@ -4,9 +4,13 @@ import { RoomsProvider } from "../components/RoomsProvider";
 import { useToast } from "../components/ToastProvider";
 import Spinner from "../components/Spinner";
 import { useAuth } from "../components/AuthContext";
+import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
@@ -57,7 +61,7 @@ export default function RoomListView({ role = 'client' }) {
     return (
         <div className="h-full flex flex-col p-4 text-white">
             {/* Header */}
-            <h1 className="text-3xl font-bold mb-4 select-none text-center">Available rooms</h1>
+            <h1 className="text-3xl font-bold mb-4 select-none text-center">{t("page.room-list.title")}</h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
             {
@@ -89,7 +93,7 @@ export default function RoomListView({ role = 'client' }) {
                                         <div>
                                             <div className="text-lg font-semibold">{room.title}</div>
                                             <div className="text-gray-300 text-sm">
-                                                Presenter: {room.presenter} · Location: {room.location}
+                                                {t("page.room-list.list.presenter-label")}: {room.presenter} · {t("page.room-list.list.location-label")}: {room.location}
                                             </div>
                                         </div>
                                         <button
@@ -127,7 +131,7 @@ export default function RoomListView({ role = 'client' }) {
                 className="mt-4 py-3 w-full rounded bg-gray-600 hover:bg-gray-700 font-bold"
                 onClick={() => navigate("/")}
             >
-                Back
+                {t("page.room-list.back")}
             </button>
         </div>
     );

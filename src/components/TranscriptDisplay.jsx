@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 function formatTime(t) {
     return t;
 }
 
 export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
+    const { t } = useTranslation();
     return (
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
             <div
@@ -10,7 +13,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                 style={{ minHeight: 120 }}
             >
                 {lines.length === 0 && (
-                    <span className="text-gray-500">Transcription will appear here...</span>
+                    <span className="text-gray-500">{t("component.transcript-display.teaser")}</span>
                 )}
                 {lines.map((line, idx) => (
                     <div
@@ -24,7 +27,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                 }`}
                         >
                             <div className="mb-1 text-xs text-gray-300">
-                                Speaker {line.speaker + 1}
+                                {t("component.transcript-display.speaker")} {line.speaker + 1}
                                 {" · "}
                                 {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>

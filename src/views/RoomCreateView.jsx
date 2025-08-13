@@ -5,6 +5,7 @@ import PasswordPopup from "../components/PasswordPopup";
 import StatusLED from "../components/StatusLED";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomProvider";
+import { useTranslation } from "react-i18next";
 
 export default function RoomCreateView({ onCreate, validPassword = "letmein" }) {
     const [roomName, setRoomName] = useState("");
@@ -16,6 +17,8 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
     const navigate = useNavigate();
     const serverReachable = useServerHealth();
     const { rooms } = RoomsProvider();
+
+    const { t } = useTranslation();
 
     function handlePasswordSubmit() {
         if (password === validPassword) {
@@ -74,7 +77,7 @@ export default function RoomCreateView({ onCreate, validPassword = "letmein" }) 
                         {rooms.map(room => (
                             <option key={room.id} value={`${room.id}`}>{room.name}</option>
                         ))}
-                     
+
                     </select>
                     <select
                         className="w-full mb-6 px-4 py-2 rounded-lg bg-gray-700 text-gray-100"

@@ -7,10 +7,13 @@ import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import { useToast } from "../components/ToastProvider";
 import { RoomsProvider } from "../components/RoomsProvider";
 import Spinner from "../components/Spinner";
+import { useTranslation } from "react-i18next";
 
 export default function TranscriptListView() {
     const { availableTranscriptInfos } = TranscriptListProvider();
     const [lang, setLang] = useState(null);
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const { addToast } = useToast();
@@ -49,13 +52,13 @@ export default function TranscriptListView() {
         <div className="h-full flex flex-col p-4 text-white">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center">
-                Available Transcripts
+                {t("page.transcript.title")}
             </h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
             {/* Language Selector */}
             <div className="flex items-center space-x-3 mb-4">
-                <span className="font-medium select-none">Language:</span>
+                <span className="font-medium select-none">{t("page.transcript.language-select-label")}:</span>
                 <LanguageSelect lang={lang} setLang={setLang} languages={availableTargetLangs} />
             </div>
 
@@ -71,10 +74,10 @@ export default function TranscriptListView() {
                                 <div>
                                     <div className="text-lg font-semibold">{transcriptInfo.id}</div>
                                     <div className="text-gray-300 text-sm">
-                                        First recording: {formatTimestamp(transcriptInfo.firstChunkTimestamp)}
+                                        {t("page.transcript.timestamp.first-title")}: {formatTimestamp(transcriptInfo.firstChunkTimestamp)}
                                     </div>
                                     <div className="text-gray-300 text-sm">
-                                        Last recording: {formatTimestamp(transcriptInfo.lastChunkTimestamp)}
+                                        {t("page.transcript.timestamp.last-title")}: {formatTimestamp(transcriptInfo.lastChunkTimestamp)}
                                     </div>
                                 </div>
                                 <button
@@ -114,7 +117,7 @@ export default function TranscriptListView() {
                                     disabled={!serverReachable}
                                 >
                                     <FiDownload className="inline mr-2" />
-                                    Download
+                                    {t("page.transcript.download")}
                                 </button>
                             </div>
                         )) : (

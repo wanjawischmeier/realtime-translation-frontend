@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 export default function PasswordPopup({ password, setPassword, error, onSubmit, onClose }) {
+  const { t } = useTranslation();
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-gray-900 z-50"
@@ -15,9 +18,9 @@ export default function PasswordPopup({ password, setPassword, error, onSubmit, 
         >×</button>
         
         {/* Title */}
-        <div className="text-white text-lg mb-4">Test</div>
+        <div className="text-white text-lg mb-4">{t("popup.password-prompt.title")}</div>
 
-        <div className="text-white text-lg mb-4">Enter password to create a room:</div>
+        <div className="text-white text-lg mb-4">{t("popup.password-prompt.input-labal")}:</div>
         <input
           type="password"
           className="w-full mb-2 px-4 py-2 rounded-lg bg-gray-800 text-gray-100"
@@ -30,7 +33,7 @@ export default function PasswordPopup({ password, setPassword, error, onSubmit, 
           className="w-full py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700"
           onClick={onSubmit}
         >
-          Submit
+          {t("popup.password-prompt.submit")}
         </button>
       </div>
     </div>

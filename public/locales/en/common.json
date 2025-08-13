@@ -1,7 +1,67 @@
 {
-  "greeting": "Hello",
-  "meta": {
-    "title": "Welcome to my website",
-    "description": "This is a Remix + Vite + i18next example website."
+  "popup": {
+    "login": {
+      "title": "Login",
+      "input-label": "Enter your credentials",
+      "back": "Back",
+      "submit": "Submit"
+    },
+    "password-prompt": {
+      "title": "Password Required",
+      "input-label": "Please enter your password",
+      "back": "Back",
+      "submit": "Submit"
+    }
+  },
+  "component": {
+    "transcript-display": {
+      "teaser": "Transcript Preview",
+      "speaker": "Speaker"
+    }
+  },
+  "page": {
+    "help": {
+      "title": "Help Center",
+      "back": "Back"
+    },
+    "startpage": {
+      "title": "Welcome to the Platform",
+      "join-host": "Join as Host",
+      "join-viewer": "Join as Viewer",
+      "download-transcript": "Download Transcript",
+      "help": "Help"
+    },
+    "room-list": {
+      "title": "Available Rooms",
+      "list": {
+        "presenter-label": "Presenter",
+        "location-label": "Location",
+        "back": "Back"
+      }
+    },
+    "transcript": {
+      "title": "Transcript",
+      "language-select-label": "Select Language",
+      "timestamp": {
+        "first-title": "First Recording",
+        "last-title": "Last Recording"
+      },
+      "download": "Download"
+    },
+    "host": {
+      "title": "Host",
+      "language-select": {
+        "source-label": "Source Language",
+        "target-label": "Target Language"
+      },
+      "back": "Back"
+    },
+    "room-view": {
+      "title": "View",
+      "language-select": {
+        "target-label": "Select Target Language"
+      },
+      "back": "Back"
+    }
   }
 }

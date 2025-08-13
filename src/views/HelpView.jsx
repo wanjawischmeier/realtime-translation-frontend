@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Spinner from '../components/Spinner';
+import { useTranslation } from 'react-i18next';
 
 export default function HelpView() {
     const [markdown, setMarkdown] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const url = import.meta.env.VITE_HELP_MARKDOWN_URL;
@@ -26,7 +29,7 @@ export default function HelpView() {
     return (
         <div className='h-full flex flex-col p-4 bg-gray-800 text-white'>
             {/* Header */}
-            <h1 className="text-3xl font-bold mb-4 select-none text-center">Help</h1>
+            <h1 className="text-3xl font-bold mb-4 select-none text-center">{t("page.help.title")}</h1>
             <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
             {/* Scrollable Main Content */}
@@ -95,7 +98,7 @@ export default function HelpView() {
                 className='mt-4 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700'
                 onClick={() => navigate('/')}
             >
-                Back
+                {t("page.help.back")}
             </button>
         </div>
     );

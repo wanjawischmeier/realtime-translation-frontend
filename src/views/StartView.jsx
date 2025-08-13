@@ -3,13 +3,14 @@ import { useTranslation } from "react-i18next";
 
 function StartView() {
     const navigate = useNavigate();
+    
     const { t } = useTranslation();
 
     return (
         <div className="h-full flex flex-col p-4 text-white">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 text-center select-none">
-                {t("meta.title")}
+                {t("page.startpage.title")}
             </h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
@@ -19,28 +20,28 @@ function StartView() {
                     className="w-full py-3 rounded-lg font-bold text-lg bg-blue-600 text-white hover:bg-blue-700"
                     onClick={() => navigate("/rooms/host")}
                 >
-                    Join as Host
+                    {t("page.startpage.join-host")}
                 </button>
 
                 <button
                     className="w-full py-3 rounded-lg font-bold text-lg bg-green-600 text-white hover:bg-green-700"
                     onClick={() => navigate("/rooms")}
                 >
-                    Join as Viewer
+                    {t("page.startpage.join-viewer")}
                 </button>
 
                 <button
                     className="w-full py-3 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700 text-white"
                     onClick={() => navigate("/transcripts")}
                 >
-                    Download a transcript
+                    {t("page.startpage.download-transcript")}
                 </button>
 
                 <button
                     className="w-full py-3 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700 text-white"
                     onClick={() => navigate("/help")}
                 >
-                    Help
+                    {t("page.startpage.help")}
                 </button>
             </div>
         </div>

@@ -41,7 +41,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
 - [ ] (Animate in new text of transcript?)
 - [ ] Option to download transcript (filename could for example be timestamp of download)
-    - Assume this endpoint: `@app.get("/room/{room_id}/transcript/{target_lang}")` (returns placeholder transcript rn)
+    - Assume this endpoint: `@app.get("page./room/{room_id}/transcript/{target_lang}")` (returns placeholder transcript rn)
     - [x] `TranscriptDownloadButton` widget
     - [x] Add to `WhisperLiveKitStreamer`
     - [x] Add to `WhisperLiveKitViewer`

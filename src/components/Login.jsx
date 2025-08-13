@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function Login ({ authenticate,redirectPath,sourcePath }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   function handleLogin () {
     // Replace with your actual authentication logic
@@ -34,8 +37,8 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
           aria-label="Close"
         >×</button>
 
-        <div className="text-white text-2xl mb-4">Verification</div>
-        <div className="text-white text-lg mb-4">Enter password to create a room:</div>
+        <div className="text-white text-2xl mb-4">{t("popup.login.title")}</div>
+        <div className="text-white text-lg mb-4">{t("popup.login.input-labal")}:</div>
         <input
           type="password"
           className="w-full mb-2 px-4 py-2 rounded-lg bg-gray-800 text-gray-100"
@@ -48,7 +51,7 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
           className="w-full py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700"
           onClick={handleLogin}
         >
-          Submit
+          {t("popup.login.back")}
         </button>
       </div>
     </div>

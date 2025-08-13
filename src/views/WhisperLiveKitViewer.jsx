@@ -10,10 +10,13 @@ import LanguageSelect from "../components/LanguageSelect";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import Spinner from "../components/Spinner";
 import LoadHandler from "../components/LoadHandler";
+import { useTranslation } from "react-i18next";
 
 export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { onWsMessage, lines, incompleteSentence } = useWhisperLines();
@@ -66,13 +69,13 @@ export default function WhisperLiveKitViewer() {
 
   if (!wsUrl) {
     return (
-      <LoadHandler title={"View"} backNavigation={"/rooms/view"}></LoadHandler>
+      <LoadHandler title={t("page.room-view.title")} backNavigation={"/rooms/view"}></LoadHandler>
     );
   } else {
     return (
       <div className="p-4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">View</h1>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.room-view.title")}</h1>
         <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex items-center w-full justify-end mb-4 mt-2">
@@ -85,7 +88,7 @@ export default function WhisperLiveKitViewer() {
         </div>
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
           <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">Target:</span>
+            <span className="text-white font-medium select-none">{t("page.room-view.language-select.target-label")}:</span>
             <LanguageSelect
               lang={targetLang}
               setLang={setTargetLang}
@@ -100,7 +103,7 @@ export default function WhisperLiveKitViewer() {
           className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms")}
         >
-          Back
+          {t("page.room-view.back")}
         </button>
       </div>
     );

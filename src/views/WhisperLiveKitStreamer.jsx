@@ -12,10 +12,13 @@ import RestartButton from "../components/RestartButton";
 import { RoomsProvider } from "../components/RoomsProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
+import { useTranslation } from "react-i18next";
 
 function WhisperLiveKitStreamer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { onWsMessage, lines, incompleteSentence, readyToRecieveAudio, setReadyToRecieveAudio, reset } = useWhisperLines();
@@ -86,14 +89,14 @@ function WhisperLiveKitStreamer() {
 
   if (!wsUrl) {
     return (
-      <LoadHandler title={"Host"} backNavigation={"/rooms/host"}></LoadHandler>
+      <LoadHandler title={t("page.host.title")} backNavigation={"/rooms/host"}></LoadHandler>
     );
   } else {
 
     return (
       <div className="p-4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">Host</h1>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.host.title")}</h1>
         <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex items-center w-full justify-between mb-4 mt-2">
@@ -121,7 +124,7 @@ function WhisperLiveKitStreamer() {
         </div>
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
           <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">Source:</span>
+            <span className="text-white font-medium select-none">{t("page.host.language-select.source-label")}:</span>
             <LanguageSelect
               lang={sourceLang}
               setLang={(lang) => {
@@ -133,7 +136,7 @@ function WhisperLiveKitStreamer() {
             />
           </div>
           <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">Target:</span>
+            <span className="text-white font-medium select-none">{t("page.host.language-select.target-label")}:</span>
             <LanguageSelect
               lang={targetLang}
               setLang={(lang) => {
@@ -150,7 +153,7 @@ function WhisperLiveKitStreamer() {
           className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms/host")}
         >
-          Back
+          {t("page.host.back")}
         </button>
       </div>
     );
