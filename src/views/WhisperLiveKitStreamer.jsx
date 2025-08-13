@@ -103,7 +103,7 @@ function WhisperLiveKitStreamer() {
           {/* Left side: Recorder and Restart */}
           <div className="flex items-center gap-2">
             <RecorderButton
-              disabled={!serverReachable || !readyToRecieveAudio}
+              disabled={!serverReachable || !wsConnected || !readyToRecieveAudio}
               stopStreaming={stopStreaming}
               startStreaming={startStreaming}
               streaming={streaming}
