@@ -30,7 +30,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                         className={`flex ${line.speaker % 2 === 1 ? "justify-start" : "justify-start"}`}
                     >
                         <div
-                            className={`rounded-xl px-4 py-3 max-w-[80%] shadow-md transition-all duration-200 ${line.speaker % 2 === 0
+                            className={`rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 ${line.speaker % 2 === 0
                                 ? "text-white"
                                 : "text-white"
                                 }`}
@@ -43,15 +43,19 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                 {line.sentences.map((sentence, i) => {
                                     if (sentence['content'][targetLang]) {
                                         return (
-                                            <span style={{ lineHeight: '1.2' }} className="text-white-400" key={i}>
+                                            <span style={{ lineHeight: '1.2' }} className="text-white-400 fade-in" key={i}>
                                                 {sentence.content[targetLang]}
                                             </span>
                                         )
                                     }
                                 })}
-                                <span style={{ lineHeight: '1.2' }} className="text-gray-400">{incompleteSentence}</span>
+                                {
+                                    (incompleteSentence && (<span style={{ lineHeight: '1.2' }} className="text-gray-300 fade-in">{incompleteSentence}</span>))
+                                }
+                                
                             </div>
                         </div>
+
                     </div>
                 ))}
             </div>
