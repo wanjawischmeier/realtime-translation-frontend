@@ -11,7 +11,7 @@
   },
   "StartView": {
     "header": "Realtime Translation",
-    "host_button": "Join as a Host",
+    "host_button": "Join as a Speaker",
     "viewer_button": "Join as a Viewer",
     "transcript_button": "Download a transcript",
     "help_button": "Help"
@@ -23,11 +23,11 @@
     "valid_password": "Let me in",
     "Popup": {
       "room_name": "Room Name",
-      "presenter": "Presenter Name"
+      "presenter": "Your Name"
     }
   },
   "RoomListView": {
-    "header": "Available Rooms",
+    "header": "Current Rooms",
     "close_button": "Close Room",
     "join_button": "Join as a Viewer"
   },

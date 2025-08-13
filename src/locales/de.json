@@ -1,0 +1,50 @@
+{
+  "Common": {
+    "create_button": "Erstellen",
+    "back_button": "Zurück",
+    "submit_button": "Weiter",
+    "download_button": "Download",
+    "loading": "Lade...",
+    "start_button": "Start",
+    "restart_button": "Neustart",
+    "select_language": "Wähle deine Sprache:"
+  },
+  "StartView": {
+    "header": "Echtzeit-Übersetzung",
+    "host_button": "Als Sprecher*in beitreten",
+    "viewer_button": "Als Zuhörende*r beitreten",
+    "transcript_button": "Transkripte herunterladen",
+    "help_button": "Hilfe"
+  },
+  "RoomCreateView": {
+    "header": "Raum erstellen",
+    "subtitle": "Gib ein Passwort zum erstellen des Raumes ein:",
+    "invalid_password": "Ungültiges Passwort",
+    "valid_password": "Lass mich rein",
+    "Popup": {
+      "room_name": "Raum-Name",
+      "presenter": "Dein Name"
+    }
+  },
+  "RoomListView": {
+    "header": "Aktuelle Räume",
+    "close_button": "Raum schließen",
+    "join_button": "Als Zuhörende*r beitreten"
+  },
+  "TranscriptListView": {
+    "header": "Verfügbare Transkripte",
+    "select_language": "Sprache wählen:",
+    "first_recording": "Beginn des Transkripts:",
+    "last_recording": "Ende des Transkripts:",
+    "no_transcript": "Kein Transkript",
+    "error_msg": "Leider ist für {{id}} auf {{lang}} kein Transkript verfügbar."
+  },
+  "WhisperLiveKitStreamer": {
+    "header": "Sprecher",
+    "source_lang": "Wähle die gesprochene Sprache:",
+    "target_lang": "Wähle die Sprache in die übersetzt werden soll:"
+  },
+  "WhisperLiveKitViewer": {
+    "header": "Lies mit"
+  }
+}
