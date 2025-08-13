@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../components/AuthContext";
 
 function StartView() {
     const navigate = useNavigate();
-    
+
     const { t } = useTranslation();
+    const { role } = useAuth();
 
     return (
         <div className="h-full flex flex-col p-4 text-white">
@@ -43,6 +45,22 @@ function StartView() {
                 >
                     {t("page.startpage.help")}
                 </button>
+
+                {
+                    (role == "admin" &&
+                        (
+                            <button
+                                className="w-full py-3 font-size-20 rounded-lg font-bold text-lg bg-red-800 hover:bg-red-900 text-white"
+                                onClick={() => navigate("/rooms/admin")}
+                            >
+                                {t("page.startpage.admin")}
+                            </button>
+                        )
+                    )
+                }
+
+
+
             </div>
         </div>
     );

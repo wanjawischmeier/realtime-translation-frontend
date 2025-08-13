@@ -87,7 +87,8 @@ export default function RoomListView({ role = 'client' }) {
                                 }
 
                                 const canJoin = serverReachable && allowedIn;
-                                const canClose = serverReachable && role == 'admin' && room.host_connection_id != '';
+                                const isAdmin = serverReachable && role == 'admin';
+                                const canClose = isAdmin && room.host_connection_id != '';
 
                                 return (
                                     <div key={room.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
@@ -99,7 +100,9 @@ export default function RoomListView({ role = 'client' }) {
                                         </div>
                                         <button
                                             className={`ml-4 px-4 py-2 rounded font-bold
-                                            ${canClose ? "bg-red-600 hover:bg-red-700 text-white" : (
+                                            ${isAdmin ? 
+                                                (canClose ?
+                                                "bg-red-600 hover:bg-red-700 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed") : (
                                                     canJoin
                                                         ? "bg-blue-600 hover:bg-blue-700 text-white"
                                                         : "bg-gray-500 text-gray-300 cursor-not-allowed"
@@ -113,7 +116,7 @@ export default function RoomListView({ role = 'client' }) {
                                             }}
                                             disabled={!canJoin && role != 'admin'}
                                         >
-                                            {canClose ? "Close room" : (role == 'client' ? "Join as Viewer" : "Enter as Presenter")}
+                                            {isAdmin ? "Close room" : (role == 'client' ? "Join as Viewer" : "Enter as Presenter")}
                                         </button>
                                     </div>
                                 );

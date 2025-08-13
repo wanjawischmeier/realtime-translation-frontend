@@ -2,15 +2,15 @@ import { useAuth } from "./AuthContext";
 import Login from "./Login";
 import { useLocation } from "react-router-dom";
 
-export default function AuthGuard({ children }) {
-  const { isAuthenticated, authenticate } = useAuth();
+export default function AuthGuard({ children,needAdmin=false }) {
+  const { isAuthenticated, login, role } = useAuth();
   const location = useLocation();
-  if (!isAuthenticated)
+  if (!isAuthenticated || (needAdmin && role != "admin"))
     return (
       <Login
         redirectPath={location.pathname}
         sourcePath={location.state?.from || "/"}
-        authenticate={authenticate}
+        login={login}
       />
     );
 

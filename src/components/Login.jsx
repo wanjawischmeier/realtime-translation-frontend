@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export default function Login ({ authenticate,redirectPath,sourcePath }) {
+export default function Login ({ login,redirectPath,sourcePath }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
 
   async function handleLogin () {
     // Replace with your actual authentication logic
-    if (await authenticate(password)) {
+    if (await login(password)) {
       navigate(redirectPath);
     } else {
       alert("Incorrect password");

@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const authCheckInterval = useRef();
 
@@ -22,8 +23,8 @@ export const AuthProvider = ({ children }) => {
     };
   });
 
-  async function authenticate(password) {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
+  async function login(password) {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +35,9 @@ export const AuthProvider = ({ children }) => {
     if (response.ok) {
       setIsAuthenticated(true);
       const json = await response.json()
+      setRole(json.power)
       Cookies.set("authenticated", json.key, { expires: json.expire_hours / 24 });
+
       return true;
     } else {
       Cookies.remove("authenticated");
@@ -54,7 +57,7 @@ export const AuthProvider = ({ children }) => {
   async function validate() {
     const key = getKey()
     if (key) {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/validate`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,9 +66,12 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.ok) {
+        const json = await response.json()
         setIsAuthenticated(true);
+        setRole(json.power)
       } else {
         setIsAuthenticated(false);
+        setRole(null)
         Cookies.remove("authenticated");
       }
     }
@@ -76,7 +82,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, authenticate, getKey }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, getKey, role }}>
       {loading ? "Loading ..." : children}
     </AuthContext.Provider>
   );
