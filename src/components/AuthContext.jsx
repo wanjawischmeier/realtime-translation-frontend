@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
+import Spinner from "./Spinner";
 
 const AuthContext = createContext();
 
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const runValidation = async () => {
       await validate()
       setLoading(false);
-      authCheckInterval.current = setInterval(validate, 1000*60);
+      authCheckInterval.current = setInterval(validate, 1000 * (isAuthenticated ? 60 : 120));
     };
 
     runValidation();
@@ -23,13 +24,13 @@ export const AuthProvider = ({ children }) => {
     };
   });
 
-  async function login(password,role=null) {
+  async function login(password, role = null) {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ password,role }),
+      body: JSON.stringify({ password, role }),
     });
 
     if (response.ok) {
@@ -83,10 +84,18 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, getKey, role }}>
-      {loading ? "Loading ..." : children}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 svg-bg">
+          <div className="relative bg-gray-800 shadow-lg w-full sm:w-auto min-h-screen sm:min-h-[600px] sm:rounded-xl sm:min-w-[600px] p-4">
+            <Spinner></Spinner>
+          </div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
-};
+}
 
 export function useAuth() {
   return useContext(AuthContext);
