@@ -32,7 +32,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
     - [ ] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
-- [ ] Fehlgeschlagene /auth buggy, muss gefixt werden
+- [x] Fehlgeschlagene /auth buggy, muss gefixt werden
     - Auch wenn das backend sagt, dass das Passwort falsch ist, verhält sich das Frontend so, als ob alles ok wäre (speichert pw in cookie und geht zur Raumübersicht und versucht als host mit falschem PW zu joinen)
 - [x] Back Button bei Streamer/Viewer
 - [ ] Show proper room info, show if room is active (status led?)
@@ -51,7 +51,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [x] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
-- [ ] Bug: Wenn ich von nem Raum zurück zur Raumübersicht gehe, versucht sich das frontend komischerweise neu mit dem Websocket zu verbinden (als ob ich noch auf der Raumseite wäre)
+- [x] Bug: Wenn ich von nem Raum zurück zur Raumübersicht gehe, versucht sich das frontend komischerweise neu mit dem Websocket zu verbinden (als ob ich noch auf der Raumseite wäre)
     - Passiert dann auch, wenn ich zurück auf die Root-Seite gehe
     - Fixt sich durch STRG-R
 - [x] Implement umami stats (see [umami](#umami))
@@ -63,7 +63,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
         - [ ] Clear password cookie if reason is invalid password (though we should in theory never get to this point in that case)
     - [ ] Handle disconnect with other codes, currently leads to nullref exeptions
         - Maybe try to reconnect if error is not 1003
-- [ ] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
+- [x] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
 - [x] Handle initial "ready" package
 - [ ] For room list etc: refresh on connection reestablished
     - [ ] On connected callback in ServerHealthProvider

@@ -8,9 +8,9 @@ export default function Login ({ authenticate,redirectPath,sourcePath }) {
 
   const { t } = useTranslation();
 
-  function handleLogin () {
+  async function handleLogin () {
     // Replace with your actual authentication logic
-    if (authenticate(password)) {
+    if (await authenticate(password)) {
       navigate(redirectPath);
     } else {
       alert("Incorrect password");
