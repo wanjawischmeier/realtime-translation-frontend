@@ -58,19 +58,25 @@ export const AuthProvider = ({ children }) => {
   async function validate() {
     const key = getKey()
     if (key) {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ key: key }),
-      });
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ key: key }),
+        });
 
-      if (response.ok) {
-        const json = await response.json()
-        setIsAuthenticated(true);
-        setRole(json.power)
-      } else {
+        if (response.ok) {
+          const json = await response.json()
+          setIsAuthenticated(true);
+          setRole(json.power)
+        } else {
+          setIsAuthenticated(false);
+          setRole(null)
+          Cookies.remove("authenticated");
+        }
+      } catch (error) {
         setIsAuthenticated(false);
         setRole(null)
         Cookies.remove("authenticated");
