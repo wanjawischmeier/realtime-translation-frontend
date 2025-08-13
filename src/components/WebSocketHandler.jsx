@@ -128,7 +128,8 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
     };
 
     const wsSend = (data) => {
-        wsRef.current.send(data);
+        if(wsRef.current)
+            wsRef.current.send(data);
     }
 
     const sendRestartBackendSignal = () => {
