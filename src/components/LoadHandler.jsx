@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 
-export default function LoadHandler({title,backNavigation}) {
+export default function LoadHandler({ title, backNavigation }) {
+    const navigate = useNavigate();
+
     return (
         <div className="h-100 flex flex-col p-4">
             {/* Header */}
@@ -11,8 +14,8 @@ export default function LoadHandler({title,backNavigation}) {
 
             {/* Back button at bottom */}
             <button
-                className="mt-auto w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
-                onClick={() => navigate({backNavigation})}
+                className="mt-20 mb-20 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+                onClick={() => navigate(`"${backNavigation}"`)}
             >
                 Back
             </button>
