@@ -1,16 +1,20 @@
 import { useRef, useEffect, useState } from 'react';
 import { useToast } from "./ToastProvider";
 import trackUmami from '../help/umamiHelper';
+import { useLocation } from 'react-router-dom';
 
 const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, onError = (code, message) => { }, serverReachable, isHost }) => {
     const wsRef = useRef(null);
     const [wsConnected, setWsConnected] = useState(false);
     const reconnectTimeoutRef = useRef(null);
     const currentWsUrlRef = useRef(null);
+    const currentPathName = useRef(null);
     const { addToast } = useToast();
+    const location = useLocation();
 
     useEffect(() => {
         currentWsUrlRef.current = wsUrl
+        currentPathName.current = location.pathname
         if (serverReachable && wsUrl) {
             connectWebSocket();
         } else {
@@ -20,6 +24,8 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             }
         }
         return () => {
+            currentPathName.current = null
+            currentWsUrlRef.current = null
             if (reconnectTimeoutRef.current) {
                 clearTimeout(reconnectTimeoutRef.current);
             }
@@ -28,7 +34,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
                 wsRef.current = null;
             }
         };
-    }, [serverReachable, wsUrl]);
+    }, [serverReachable, wsUrl, location.pathname]);
 
 
     const connectWebSocket = async () => {
@@ -99,7 +105,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             }
 
             setWsConnected(false)
-            if (serverReachable && connectUrl == currentWsUrlRef.current) {
+            if (serverReachable && connectUrl == currentWsUrlRef.current && currentPathName == location.pathname) {
                 reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
             }
         };
