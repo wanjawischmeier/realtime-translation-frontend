@@ -60,59 +60,67 @@ export default function RoomListView({ role = 'client' }) {
             <h1 className="text-3xl font-bold mb-4 select-none text-center">Available rooms</h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />
 
-            {/* Scrollable Room List */}
-            <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
-                {
-                    (rooms.length > 0) ?
-                        rooms.map(room => {
-                            const connectionId = Cookies.get('connection_id') || '';
-                            let allowedIn = false;
+            {
+                (rooms.length > 0) ? (
+                    <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
+                        {/* Scrollable Room List */}
 
-                            if (role != 'client') {
-                                if (room.host_connection_id == '') {
-                                    allowedIn = !roomCapacityReached; // Can only open new room if there's capacity for it
+                        {
+
+                            rooms.map(room => {
+                                const connectionId = Cookies.get('connection_id') || '';
+                                let allowedIn = false;
+
+                                if (role != 'client') {
+                                    if (room.host_connection_id == '') {
+                                        allowedIn = !roomCapacityReached; // Can only open new room if there's capacity for it
+                                    } else {
+                                        allowedIn = room.host_connection_id == connectionId;
+                                    }
                                 } else {
-                                    allowedIn = room.host_connection_id == connectionId;
+                                    allowedIn = room.host_connection_id != '';
                                 }
-                            } else {
-                                allowedIn = room.host_connection_id != '';
-                            }
 
-                            const canJoin = serverReachable && allowedIn;
-                            const canClose = serverReachable && role == 'admin' && room.host_connection_id != '';
+                                const canJoin = serverReachable && allowedIn;
+                                const canClose = serverReachable && role == 'admin' && room.host_connection_id != '';
 
-                            return (
-                                <div key={room.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
-                                    <div>
-                                        <div className="text-lg font-semibold">{room.title}</div>
-                                        <div className="text-gray-300 text-sm">
-                                            Presenter: {room.presenter} · Location: {room.location}
+                                return (
+                                    <div key={room.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
+                                        <div>
+                                            <div className="text-lg font-semibold">{room.title}</div>
+                                            <div className="text-gray-300 text-sm">
+                                                Presenter: {room.presenter} · Location: {room.location}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button
-                                        className={`ml-4 px-4 py-2 rounded font-bold
+                                        <button
+                                            className={`ml-4 px-4 py-2 rounded font-bold
                                             ${canClose ? "bg-red-600 hover:bg-red-700 text-white" : (
-                                                canJoin
-                                                    ? "bg-blue-600 hover:bg-blue-700 text-white"
-                                                    : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                                            )}`}
-                                        onClick={() => {
-                                            if (canClose) {
-                                                handleClose(room);
-                                            } else if (canJoin) {
-                                                handleJoin(room);
-                                            }
-                                        }}
-                                        disabled={!canJoin && role != 'admin'}
-                                    >
-                                        {canClose ? "Close room" : (role == 'client' ? "Join as Viewer" : "Enter as Presenter")}
-                                    </button>
-                                </div>
-                            );
-                        }) : (
-                            <Spinner></Spinner>
-                        )}
-            </div>
+                                                    canJoin
+                                                        ? "bg-blue-600 hover:bg-blue-700 text-white"
+                                                        : "bg-gray-500 text-gray-300 cursor-not-allowed"
+                                                )}`}
+                                            onClick={() => {
+                                                if (canClose) {
+                                                    handleClose(room);
+                                                } else if (canJoin) {
+                                                    handleJoin(room);
+                                                }
+                                            }}
+                                            disabled={!canJoin && role != 'admin'}
+                                        >
+                                            {canClose ? "Close room" : (role == 'client' ? "Join as Viewer" : "Enter as Presenter")}
+                                        </button>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                ) : (
+                    <Spinner></Spinner>
+                )
+            }
+
+
 
             {/* Back Button */}
             <button
