@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useToast } from "./ToastProvider";
+import trackUmami from '../help/umamiHelper';
 
 const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, onError = (code, message) => { }, serverReachable, isHost }) => {
     const wsRef = useRef(null);
@@ -56,9 +57,9 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             });
 
             if (delayMs < 1000) {
-                umami.track(`${isHost ? 'host' : 'client'}-joined`);
+                trackUmami(`${isHost ? 'host' : 'client'}-joined`);
             } else {
-                umami.track(`${isHost ? 'host' : 'client'}-joined-slow`, { delay: delayMs });
+                trackUmami(`${isHost ? 'host' : 'client'}-joined-slow`, { delay: delayMs });
             }
 
             onOpen()
@@ -69,9 +70,9 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
             console.log(`WebSocket closed ${e.wasClean ? "clean" : "not clean"} with code ${e.code}`);
             if (e.wasClean) {
-                umami.track(`${isHost ? 'host' : 'client'}-disconnected`, { code: e.code, reason: e.reason });
+                trackUmami(`${isHost ? 'host' : 'client'}-disconnected`, { code: e.code, reason: e.reason });
             } else {
-                umami.track(`${isHost ? 'host' : 'client'}-disconnected-unexpected`, { code: e.code, reason: e.reason });
+                trackUmami(`${isHost ? 'host' : 'client'}-disconnected-unexpected`, { code: e.code, reason: e.reason });
                 onError(e.code, e.reason);
             }
 
@@ -99,7 +100,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
 
         wsRef.current.onerror = (error) => {
             console.error("WebSocket error:", error);
-            umami.track(`${isHost ? 'host' : 'client'}-disconnected-error`, { code: error.code, message: error.message });
+            trackUmami(`${isHost ? 'host' : 'client'}-disconnected-error`, { code: error.code, message: error.message });
             onError(error.code, error.message);
             
             addToast({

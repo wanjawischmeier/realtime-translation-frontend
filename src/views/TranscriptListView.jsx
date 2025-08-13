@@ -8,6 +8,7 @@ import { useToast } from "../components/ToastProvider";
 import { RoomsProvider } from "../components/RoomsProvider";
 import Spinner from "../components/Spinner";
 import { useTranslation } from "react-i18next";
+import trackUmami from "../help/umamiHelper";
 
 export default function TranscriptListView() {
     const { availableTranscriptInfos } = TranscriptListProvider();
@@ -109,10 +110,10 @@ export default function TranscriptListView() {
 
                                         document.body.removeChild(link);
                                         window.URL.revokeObjectURL(url);
-                                        umami.track('transcript-downloaded', {
-                                            'room_id': transcriptInfo.id,
-                                            'lang': lang
-                                        });
+                                        trackUmami('transcript-downloaded', {
+                                                'room_id': transcriptInfo.id,
+                                                'lang': lang
+                                            });
                                     }}
                                     disabled={!serverReachable}
                                 >

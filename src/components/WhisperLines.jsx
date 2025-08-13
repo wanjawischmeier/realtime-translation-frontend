@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
+import trackUmami from "../help/umamiHelper";
 
 const useWhisperLines = () => {
   const [lines, setLines] = useState([]);
@@ -15,10 +16,10 @@ const useWhisperLines = () => {
       console.log(chunk.translation_delay);
 
       // Transcript severely delayed, send warning event
-      umami.track('transcript-delay', {
-        transcription_delay: Math.round(chunk.transcription_delay),
-        translation_delay: Math.round(chunk.translation_delay)
-      });
+      trackUmami('transcript-delay', {
+          transcription_delay: Math.round(chunk.transcription_delay),
+          translation_delay: Math.round(chunk.translation_delay)
+        });
     }
 
     if (Array.isArray(chunk.last_n_sents)) {

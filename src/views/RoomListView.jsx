@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import { useAuth } from "../components/AuthContext";
 import { useTranslation } from "react-i18next";
 import Cookies from "js-cookie";
+import trackUmami from "../help/umamiHelper";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
@@ -46,9 +47,9 @@ export default function RoomListView({ role = 'client' }) {
             if (response.ok) {
                 console.log('Closed room');
                 fetchUpdate(serverReachable);
-                umami.track('closed-room-admin');
+                trackUmami('closed-room-admin');
             } else {
-                umami.track('closed-room-admin-failed');
+                trackUmami('closed-room-admin-failed');
                 addToast({
                     title: "Failed to close",
                     message: 'Internal server error',

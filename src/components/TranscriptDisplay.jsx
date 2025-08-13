@@ -12,7 +12,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                 className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
                 style={{ minHeight: 120 }}
             >
-                {lines.length === 0 && (
+                {lines.length === 0 && incompleteSentence != null && (
                     <span className="text-gray-500">{t("component.transcript-display.teaser")}</span>
                 )}
                 {lines.map((line, idx) => (
