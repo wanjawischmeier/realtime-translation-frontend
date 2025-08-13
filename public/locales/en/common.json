@@ -29,15 +29,17 @@
       "join-host": "Join as Host",
       "join-viewer": "Join as Viewer",
       "download-transcript": "Download Transcript",
-      "help": "Help"
+      "help": "Help",
+      "admin": "Admin Page"
     },
     "room-list": {
       "title": "Available Rooms",
       "list": {
         "presenter-label": "Presenter",
-        "location-label": "Location",
-        "back": "Back"
-      }
+        "location-label": "Location"
+      },
+      "back": "Back"
+      
     },
     "transcript": {
       "title": "Transcript",
@@ -53,13 +55,6 @@
       "language-select": {
         "source-label": "Source Language",
         "target-label": "Target Language"
-      },
-      "back": "Back"
-    },
-    "room-view": {
-      "title": "View",
-      "language-select": {
-        "target-label": "Select Target Language"
       },
       "back": "Back"
     }
