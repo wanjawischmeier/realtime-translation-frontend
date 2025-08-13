@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useServerHealth } from "../components/ServerHealthContext";
 import { RoomsProvider } from "../components/RoomsProvider";
 import { useToast } from "../components/ToastProvider";
-import Cookies from "js-cookie";
 import Spinner from "../components/Spinner";
+import { useAuth } from "../components/AuthContext";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
@@ -12,7 +12,7 @@ export default function RoomListView({ role = 'client' }) {
     const serverReachable = useServerHealth();
     const { addToast } = useToast();
 
-    const password = Cookies.get("authenticated");
+    const { isAuthenticated, authenticate, getPassword } = useAuth();
 
     function handleJoin(room) {
         if (role == 'client') {
@@ -37,7 +37,7 @@ export default function RoomListView({ role = 'client' }) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ password }),
+            body: JSON.stringify({ password: getPassword() }),
         }).then((response) => {
             if (response.ok) {
                 console.log('Closed room');
