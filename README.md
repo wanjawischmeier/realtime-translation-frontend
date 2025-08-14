@@ -47,6 +47,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Add to `WhisperLiveKitViewer`
     - [x] Option on homescreen to show list of old transcripts
         - [x] Make the list a scrollview
+        - [x] Add room info
     - [ ] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive

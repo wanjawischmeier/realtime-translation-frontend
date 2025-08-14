@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
@@ -21,21 +21,11 @@ export default function TranscriptListView() {
     const serverReachable = useServerHealth();
     const { availableTargetLangs } = RoomsProvider();
 
-    // Helper function to format unix timestamp to readable date/time
-    const formatTimestamp = (ts) => {
-        if (!ts) return "N/A";
-        // Convert seconds to ms, create Date
-        const d = new Date(ts * 1000);
-        // Options: full date, weekday, etc.
-        return d.toLocaleString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-        });
-    }
+    useEffect(() => {
+        if (availableTargetLangs) {
+            setLang(availableTargetLangs[0]);
+        }
+    }, [availableTargetLangs]);
 
     // TODO: Is also defined in TranscriptDownloadButton, remove duplicate
     const getTimestampedTranscriptFilename = (roomId, targetLang) => {
@@ -86,12 +76,12 @@ export default function TranscriptListView() {
                                             : "bg-gray-500 text-gray-300 cursor-not-allowed"
                                         }`}
                                     onClick={async () => {
-                                        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.id}/transcript/${lang}`);
+                                        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.code}/transcript/${lang}`);
                                         const text = await res.text();
                                         if (!text) {
                                             addToast({
                                                 title: "No transcript",
-                                                message: `Couldn't find any transcriptions for ${transcriptInfo.id} in ${lang}. Sorry :/`,
+                                                message: `Couldn't find any transcriptions for ${transcriptInfo.code} in ${lang}. Sorry :/`,
                                                 type: "warning",
                                             });
                                             return;
@@ -102,7 +92,7 @@ export default function TranscriptListView() {
 
                                         const link = document.createElement('a');
                                         link.href = url;
-                                        link.download = getTimestampedTranscriptFilename(transcriptInfo.id, lang);
+                                        link.download = getTimestampedTranscriptFilename(transcriptInfo.code, lang);
                                         document.body.appendChild(link);
                                         link.click();
 
