@@ -22,7 +22,7 @@ export default function RestartButton({ disabled, onClick }) {
             `}
             aria-label="Restart">
             <FaSync className={`w-6 h-6 ${disabled ? "opacity-50" : ""}`} />
-            <span className="font-medium select-none text-white">{t("component.restart-room-button")}</span>
+            <span className="font-medium select-none text-white">{t("component.restart-room-button.label")}</span>
         </button>
     );
 }
