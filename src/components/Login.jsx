@@ -7,7 +7,6 @@ export default function Login({ login, redirectPath, sourcePath }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const serverReachable = useServerHealth();
-
   const { t } = useTranslation();
 
   async function handleLogin() {
@@ -21,7 +20,6 @@ export default function Login({ login, redirectPath, sourcePath }) {
   function onClose() {
     navigate(sourcePath);
   };
-
 
   return (
     <div
@@ -46,6 +44,7 @@ export default function Login({ login, redirectPath, sourcePath }) {
           value={password}
           onChange={e => setPassword(e.target.value)}
           onKeyDown={e => e.key === "Enter" && handleLogin()}
+          autoFocus={true}
         />
 
         <button
