@@ -95,7 +95,7 @@ export default function RoomListView({ role = 'client' }) {
                                 return (
                                     <div key={room.id} className="flex flex-col justify-end items-end bg-gray-700 p-4 rounded-lg">
 
-                                        <div>
+                                        <div className="w-full">
                                             <div className="text-lg font-semibold">{room.title}</div>
                                             <div className="text-gray-300 text-sm">
                                                 {t("page.room-list.list.presenter-label")}: {
@@ -105,12 +105,27 @@ export default function RoomListView({ role = 'client' }) {
                                                 } · {t("page.room-list.list.location-label")
                                                 }: {room.location}
                                             </div>
-                                            <RoomStatus
-                                                status={isRoomAlive}
-                                                label={t("page.room-list.list.activity.label")}
-                                                labelActive={t("page.room-list.list.activity.on")}
-                                                labelInActive={t("page.room-list.list.activity.off")} >
-                                            </RoomStatus>
+                                            <div className="flex justify-start mt-2 gap-3 items-center">
+                                                <RoomStatus
+                                                    status={isRoomAlive}
+                                                    label={t("page.room-list.list.activity.label")}
+                                                    labelActive={t("page.room-list.list.activity.on")}
+                                                    labelInActive={t("page.room-list.list.activity.off")} >
+                                                </RoomStatus>
+                                                {
+                                                    (isRoomAlive && (
+                                                        <div className="flex justify-start items-center">
+                                                            <div className="text-gray-100 text-sm mr-1">
+                                                                {t("page.room-list.list.owner-label")}:
+                                                            </div>
+                                                            <div className={`text-gray-200 font-bold text-sm`}>
+                                                                {room.host_connection_id == connectionId ? "You" : (room.host_connection_id.substring(0, 3) + "...")}
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+
+                                            </div>
                                         </div>
                                         <button
                                             className={`px-4 py-2 rounded font-bold

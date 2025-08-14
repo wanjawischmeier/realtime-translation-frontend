@@ -6,7 +6,7 @@ export default function RoomStatus({ status, label, labelActive, labelInActive }
   const { t } = useTranslation();
 
   return (
-    <div className="flex justify-start mt-2 items-center">
+    <div className="flex justify-start items-center">
       <div className="text-gray-100 text-sm mr-1">
         {label}:
       </div>

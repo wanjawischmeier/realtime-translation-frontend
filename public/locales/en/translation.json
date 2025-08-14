@@ -46,7 +46,8 @@
           "label":"Activity",
           "on":"Live",
           "off":"Inactive"
-        }
+        },
+        "owner-label": "Owner"
       },
       "back": "Back"
     },
