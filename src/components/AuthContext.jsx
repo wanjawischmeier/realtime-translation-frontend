@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
+import { useTranslation } from "react-i18next";
 import Spinner from "./Spinner";
+import { useToast } from "./ToastProvider";
 
 const AuthContext = createContext();
 
@@ -8,7 +10,10 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const authCheckInterval = useRef();
+  const { addToast } = useToast();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const runValidation = async () => {
@@ -25,23 +30,43 @@ export const AuthProvider = ({ children }) => {
   });
 
   async function login(password, role = null) {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password, role }),
-    });
+    var response;
+    try {
+      response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password, role }),
+      });
+    } catch (error) {
+      addToast({
+        title: "Failed to sign in",
+        message: `${error.name}: ${error.message}`,
+        type: "error",
+      });
+    }
 
     if (response.ok) {
       setIsAuthenticated(true);
       const json = await response.json()
       setRole(json.power)
       Cookies.set("authenticated", json.key, { expires: json.expire_hours / 24 });
-
       return true;
+    } else if (response.status === 503) {
+      Cookies.remove("authenticated");
+      addToast({
+        title: t("popup.login.failed.title"),
+        message: t("popup.login.failed.wrong-password"),
+        type: "error",
+      });
     } else {
       Cookies.remove("authenticated");
+      addToast({
+        title: t("popup.login.failed.title"),
+        message: response.statusText,
+        type: "error",
+      });
       return false;
     }
   }
@@ -104,5 +129,9 @@ export const AuthProvider = ({ children }) => {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return context;
 }

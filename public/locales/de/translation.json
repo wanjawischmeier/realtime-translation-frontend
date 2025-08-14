@@ -5,7 +5,10 @@
       "input-label": "Geben Sie Ihre Anmeldedaten ein",
       "back": "Zurück",
       "submit": "Einreichen",
-      "wrong-password": "Falsches Passwort eingegeben."
+      "failed": {
+        "title": "Anmeldung fehlgeschlagen",
+        "wrong-password": "Falsches Passwort eingegeben."
+      }
     }
   },
   "component": {

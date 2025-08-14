@@ -5,7 +5,10 @@
       "input-label": "Enter your credentials",
       "back": "Back",
       "submit": "Submit",
-      "wrong-password": "Wrong password entered."
+      "failed": {
+        "title": "Failed to sign in",
+        "wrong-password": "Wrong password entered."
+      }
     }
   },
   "component": {
@@ -43,9 +46,9 @@
         "unknown-presenter-name": "Unknown",
         "location-label": "Location",
         "activity": {
-          "label":"Activity",
-          "on":"Live",
-          "off":"Inactive"
+          "label": "Activity",
+          "on": "Live",
+          "off": "Inactive"
         },
         "owner-label": "Owner"
       },

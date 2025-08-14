@@ -18,7 +18,7 @@ export default function RoomListView({ role = 'client' }) {
     const serverReachable = useServerHealth();
     const { addToast } = useToast();
 
-    const { isAuthenticated, authenticate, getKey } = useAuth();
+    const { getKey } = useAuth();
 
     function handleJoin(room) {
         if (role == 'client') {

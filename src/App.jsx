@@ -16,8 +16,8 @@ import LocalizationSelect from "./components/LocalizationSelect";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <ToastProvider>
+    <ToastProvider>
+      <AuthProvider>
         <ServerHealthProvider>
           <Router>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 svg-bg">
@@ -62,7 +62,7 @@ export default function App() {
             </div>
           </Router>
         </ServerHealthProvider>
-      </ToastProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </ToastProvider>
   );
 }

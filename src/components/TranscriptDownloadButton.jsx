@@ -76,9 +76,9 @@ export default function TranscriptDownloadButton({ roomId, targetLang, disabled=
         <button
             className={`
                 flex items-center justify-center
-                h-12 px-4
+                h-12 px-4 font-medium
                 rounded-lg shadow-md transition
-                bg-blue-700 text-white hover:bg-blue-900 font-medium
+                bg-blue-700 text-white hover:bg-blue-900
                 disabled:bg-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed
             `}
             onClick={handleDownload}

@@ -71,7 +71,7 @@ export default function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex flex-col-reverse items-center gap-2 z-50">
+      <div className="fixed bottom-4 left-4 flex flex-col-reverse items-center gap-2 z-50">
         {toasts.map((toast) => {
           const { icon, iconBg, titleDefault } =
             toastTypeInfo[toast.type] || toastTypeInfo.info;

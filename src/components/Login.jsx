@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useServerHealth } from "./ServerHealthContext";
 
-export default function Login ({ login,redirectPath,sourcePath }) {
+export default function Login({ login, redirectPath, sourcePath }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const serverReachable = useServerHealth();
 
   const { t } = useTranslation();
 
-  async function handleLogin () {
-    // Replace with your actual authentication logic
+  async function handleLogin() {
     if (await login(password)) {
       navigate(redirectPath);
     } else {
-      alert(t("popup.login.wrong-password"));
+      setPassword("");
     }
   };
 
-  function onClose () {
+  function onClose() {
     navigate(sourcePath);
   };
 
@@ -48,8 +49,13 @@ export default function Login ({ login,redirectPath,sourcePath }) {
         />
 
         <button
-          className="w-full py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700"
+          className={`
+            w-full py-2 rounded-lg font-bold
+          bg-blue-700 text-white hover:bg-blue-900
+          disabled:bg-gray-900 disabled:text-gray-300 disabled:cursor-not-allowed
+          `}
           onClick={handleLogin}
+          disabled={!serverReachable || !password}
         >
           {t("popup.login.submit")}
         </button>
