@@ -19,7 +19,7 @@ export default function Spinner() {
                         fill="currentFill"
                     />
                 </svg>
-                <span className="sr-only">Loading...</span>
+                <span className="sr-only">{t("component.spinner.loading")}</span>
             </div>
         </div>
     );
