@@ -12,6 +12,15 @@
     "transcript-display": {
       "teaser": "Transcript Preview",
       "speaker": "Speaker"
+    },
+    "restart-room-button": {
+      "label": "Restart Room"
+    },
+    "loader": {
+      "loading": "Loading ..."
+    },
+    "spinner": {
+      "back": "Back"
     }
   },
   "page": {
@@ -35,7 +44,6 @@
         "location-label": "Location"
       },
       "back": "Back"
-      
     },
     "transcript": {
       "title": "Transcript",
