@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useToast } from "./ToastProvider";
 import trackUmami from '../help/umamiHelper';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () => { }, onError = (code, message) => { }, serverReachable, isHost }) => {
     const wsRef = useRef(null);
@@ -11,6 +12,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
     const currentPathName = useRef(null);
     const { addToast } = useToast();
     const location = useLocation();
+    const { validate } = useAuth()
 
     useEffect(() => {
         currentWsUrlRef.current = wsUrl
@@ -90,6 +92,15 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
                     message: e.reason,
                     type: "error",
                 });
+            } else if (e.code == 1008) {
+                // Authentication close
+                onError(e.code, e.reason);
+                addToast({
+                    title: "Websocket authentication failed",
+                    message: e.reason,
+                    type: "error",
+                });
+                validate()
             } else if(e.wasClean) {
                 addToast({
                     title: "Websocket connection closed",
@@ -105,6 +116,7 @@ const WebSocketHandler = ({ wsUrl, onMessage, onOpen = () => { }, onClose = () =
             }
 
             setWsConnected(false)
+            
             if (serverReachable && connectUrl == currentWsUrlRef.current && currentPathName == location.pathname) {
                 reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
             }

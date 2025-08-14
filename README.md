@@ -58,10 +58,10 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Implement umami stats (see [umami](#umami))
 - [x] (Some stuff appears to be fetched twice in a row)
     - `/room_list` gets recieved twice
-- [ ] Handle websocket error disconnect
+- [x] Handle websocket error disconnect
     - [x] Revert back to home screen and show error message toast if error code is 1003
         - 1003 means that backend consciously disconnected the client from that room (propably a good reason for the client not to be in the room, e.g. incorrect password)
-        - [ ] Clear password cookie if reason is invalid password (though we should in theory never get to this point in that case)
+        - [x] Clear password cookie if reason is invalid password (though we should in theory never get to this point in that case)
     - [x] Handle disconnect with other codes, currently leads to nullref exeptions
         - Maybe try to reconnect if error is not 1003
 - [x] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved

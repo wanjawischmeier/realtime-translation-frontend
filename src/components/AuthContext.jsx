@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, getKey, role }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, getKey, role, validate }}>
       {loading ? (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 svg-bg">
           <div className="relative bg-gray-800 shadow-lg w-full sm:w-auto min-h-screen sm:min-h-[600px] sm:rounded-xl sm:min-w-[600px] p-4">
