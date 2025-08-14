@@ -22,6 +22,14 @@ export default function TranscriptDownloadButton({ serverReachable, roomId, targ
         try {
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${roomId}/transcript/${targetLang}`);
             const text = await res.text();
+            if (!text) {
+                addToast({
+                    title: "No transcript",
+                    message: `Couldn't find any transcriptions for ${roomId} in ${targetLang}. Sorry :/`,
+                    type: "warning",
+                });
+                return;
+            }
 
             const blob = new Blob([text], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
