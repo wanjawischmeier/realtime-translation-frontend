@@ -117,7 +117,6 @@ function WhisperLiveKitStreamer() {
 
           {/* Right side: Download */}
           <TranscriptDownloadButton
-            serverReachable={serverReachable}
             roomId={room_id}
             targetLang={targetLang}
           />

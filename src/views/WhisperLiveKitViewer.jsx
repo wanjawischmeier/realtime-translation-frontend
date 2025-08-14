@@ -5,19 +5,20 @@ import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";
 import useWhisperLines from "../components/WhisperLines";
 import { useEffect } from "react";
-import { RoomsProvider } from "../components/RoomsProvider";
 import LanguageSelect from "../components/LanguageSelect";
+import { RoomsProvider } from "../components/RoomsProvider";
+import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
-import Spinner from "../components/Spinner";
 import LoadHandler from "../components/LoadHandler";
 import { useTranslation } from "react-i18next";
 
 export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
+  const { room_id } = useParams();
   const serverReachable = useServerHealth();
+  const { availableTranscriptInfos } = TranscriptListProvider();
 
   const { t } = useTranslation();
-
   const navigate = useNavigate();
   const { onWsMessage, lines, incompleteSentence } = useWhisperLines();
   const { } = WebSocketHandler({
@@ -26,9 +27,17 @@ export default function WhisperLiveKitViewer() {
     onError: (code, message) => navigate('/')
   });
 
-  const { room_id } = useParams();
   const { rooms, availableTargetLangs } = RoomsProvider();
   const [targetLang, setTargetLang] = useState(null);
+  const [canDownload, setCanDownload] = useState(false);
+
+  useEffect(() => {
+    const matchingAvailableTranscripts = availableTranscriptInfos.filter(
+      transcriptInfo => transcriptInfo.code === room_id
+    );
+
+    setCanDownload(matchingAvailableTranscripts.length > 0);
+  }, [availableTranscriptInfos]);
 
   useEffect(() => {
     if (targetLang) {
@@ -81,9 +90,9 @@ export default function WhisperLiveKitViewer() {
         <div className="flex items-center w-full justify-end mb-4 mt-2">
           {/* Right side: Download */}
           <TranscriptDownloadButton
-            serverReachable={serverReachable}
             roomId={room_id}
             targetLang={targetLang}
+            disabled={!canDownload}
           />
         </div>
         <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">

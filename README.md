@@ -48,7 +48,9 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Option on homescreen to show list of old transcripts
         - [x] Make the list a scrollview
         - [x] Add room info
-    - [ ] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
+    - [x] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
+        - [x] Only show in transcript list if has access
+        - [x] Only show download button on viewer side if public
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [x] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
