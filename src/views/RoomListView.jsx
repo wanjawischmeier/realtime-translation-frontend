@@ -95,18 +95,23 @@ export default function RoomListView({ role = 'client' }) {
                                         <div>
                                             <div className="text-lg font-semibold">{room.title}</div>
                                             <div className="text-gray-300 text-sm">
-                                                {t("page.room-list.list.presenter-label")}: {room.presenter} · {t("page.room-list.list.location-label")}: {room.location}
+                                                {t("page.room-list.list.presenter-label")}: {
+                                                    room.presenter === "Unknown"
+                                                        ? t("page.room-list.list.unknown-presenter-name")
+                                                        : room.presenter
+                                                } · {t("page.room-list.list.location-label")
+                                                }: {room.location}
                                             </div>
                                         </div>
                                         <button
                                             className={`ml-4 px-4 py-2 rounded font-bold
-                                            ${isAdmin ? 
-                                                (canClose ?
-                                                "bg-red-600 hover:bg-red-700 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed") : (
-                                                    canJoin
-                                                        ? "bg-blue-600 hover:bg-blue-700 text-white"
-                                                        : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                                                )}`}
+                                            ${isAdmin ?
+                                                    (canClose ?
+                                                        "bg-red-600 hover:bg-red-700 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed") : (
+                                                        canJoin
+                                                            ? "bg-blue-600 hover:bg-blue-700 text-white"
+                                                            : "bg-gray-500 text-gray-300 cursor-not-allowed"
+                                                    )}`}
                                             onClick={() => {
                                                 if (canClose) {
                                                     handleClose(room);

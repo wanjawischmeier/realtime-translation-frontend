@@ -73,17 +73,15 @@ export default function TranscriptListView() {
                                 className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
                             >
                                 <div>
-                                    <div className="text-lg font-semibold">{transcriptInfo.id}</div>
+                                    <div className="text-lg font-semibold">{transcriptInfo.title}</div>
                                     <div className="text-gray-300 text-sm">
-                                        {t("page.transcript.timestamp.first-title")}: {formatTimestamp(transcriptInfo.firstChunkTimestamp)}
-                                    </div>
-                                    <div className="text-gray-300 text-sm">
-                                        {t("page.transcript.timestamp.last-title")}: {formatTimestamp(transcriptInfo.lastChunkTimestamp)}
+                                        {t("page.room-list.list.presenter-label")}: {
+                                            transcriptInfo.persons[0]?.name ?? t("page.room-list.list.unknown-presenter-name")} · {t("page.room-list.list.location-label")}: {transcriptInfo.room}
                                     </div>
                                 </div>
                                 <button
                                     className={`ml-4 px-4 py-2 rounded font-bold
-                                ${serverReachable
+                                        ${serverReachable
                                             ? "bg-blue-600 text-white hover:bg-blue-700"
                                             : "bg-gray-500 text-gray-300 cursor-not-allowed"
                                         }`}
@@ -111,9 +109,9 @@ export default function TranscriptListView() {
                                         document.body.removeChild(link);
                                         window.URL.revokeObjectURL(url);
                                         trackUmami('transcript-downloaded', {
-                                                'room_id': transcriptInfo.id,
-                                                'lang': lang
-                                            });
+                                            'room_id': transcriptInfo.id,
+                                            'lang': lang
+                                        });
                                     }}
                                     disabled={!serverReachable}
                                 >

@@ -14,6 +14,7 @@ export function TranscriptListProvider() {
     // TODO: error handling?
     const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transcript_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
     const data = await res.json();
+    console.log(data);
     console.log('Recieved available transcript list:')
     console.log(data);
 

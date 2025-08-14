@@ -31,6 +31,7 @@
       "title": "Available Rooms",
       "list": {
         "presenter-label": "Presenter",
+        "unknown-presenter-name": "Unknown",
         "location-label": "Location"
       },
       "back": "Back"
