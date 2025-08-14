@@ -7,6 +7,7 @@ import { useAuth } from "../components/AuthContext";
 import { useTranslation } from "react-i18next";
 import Cookies from "js-cookie";
 import trackUmami from "../help/umamiHelper";
+import RoomStatus from "../components/RoomStatus";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
@@ -86,12 +87,14 @@ export default function RoomListView({ role = 'client' }) {
                                     allowedIn = room.host_connection_id != '';
                                 }
 
+                                const isRoomAlive = room.host_connection_id != '';
                                 const canJoin = serverReachable && allowedIn;
                                 const isAdmin = serverReachable && role == 'admin';
                                 const canClose = isAdmin && room.host_connection_id != '';
 
                                 return (
-                                    <div key={room.id} className="flex justify-between items-center bg-gray-700 p-4 rounded-lg">
+                                    <div key={room.id} className="flex flex-col justify-end items-end bg-gray-700 p-4 rounded-lg">
+
                                         <div>
                                             <div className="text-lg font-semibold">{room.title}</div>
                                             <div className="text-gray-300 text-sm">
@@ -102,9 +105,15 @@ export default function RoomListView({ role = 'client' }) {
                                                 } · {t("page.room-list.list.location-label")
                                                 }: {room.location}
                                             </div>
+                                            <RoomStatus
+                                                status={isRoomAlive}
+                                                label={t("page.room-list.list.activity.label")}
+                                                labelActive={t("page.room-list.list.activity.on")}
+                                                labelInActive={t("page.room-list.list.activity.off")} >
+                                            </RoomStatus>
                                         </div>
                                         <button
-                                            className={`ml-4 px-4 py-2 rounded font-bold
+                                            className={`px-4 py-2 rounded font-bold
                                             ${isAdmin ?
                                                     (canClose ?
                                                         "bg-red-600 hover:bg-red-700 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed") : (

@@ -1,4 +1,4 @@
-export default function StatusLED({ status }) {
+export default function HealthStatusLED({ status }) {
   const color = status ? "bg-green-500" : "bg-red-500";
   return (
     <span className="absolute top-4 right-4 flex items-center z-20">

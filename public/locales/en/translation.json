@@ -41,7 +41,12 @@
       "list": {
         "presenter-label": "Presenter",
         "unknown-presenter-name": "Unknown",
-        "location-label": "Location"
+        "location-label": "Location",
+        "activity": {
+          "label":"Activity",
+          "on":"Live",
+          "off":"Inactive"
+        }
       },
       "back": "Back"
     },
