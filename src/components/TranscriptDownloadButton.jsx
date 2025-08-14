@@ -24,7 +24,6 @@ export default function TranscriptDownloadButton({ roomId, targetLang, disabled=
     const handleDownload = async () => {
         setDownloading(true);
         try {
-            console.log('testd')
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${roomId}/transcript/${targetLang}`, {
                 method: "POST",
                 cache: 'no-cache',
