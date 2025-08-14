@@ -50,7 +50,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                     }
                                 })}
                                 {
-                                    (incompleteSentence && (<span style={{ lineHeight: '1.2' }} className="text-gray-300 fade-in">{incompleteSentence}</span>))
+                                    (incompleteSentence.length > 0 && (<span style={{ lineHeight: '1.2' }} className="text-gray-700 fade-in">{incompleteSentence}</span>))
                                 }
                                 
                             </div>
