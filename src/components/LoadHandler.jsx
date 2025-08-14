@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { useTranslation } from "react-i18next";
 
 export default function LoadHandler({ title, backNavigation }) {
     const navigate = useNavigate();
+
+    const { t } = useTranslation();
 
     return (
         <div className="h-100 flex flex-col p-4">
