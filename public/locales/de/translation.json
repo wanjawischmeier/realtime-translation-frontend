@@ -1,0 +1,58 @@
+{
+  "popup": {
+    "login": {
+      "title": "Login",
+      "input-label": "Enter your credentials",
+      "back": "Back",
+      "submit": "Submit",
+      "wrong-password": "Wrong password entered."
+    }
+  },
+  "component": {
+    "transcript-display": {
+      "teaser": "Transcript Preview",
+      "speaker": "Speaker"
+    }
+  },
+  "page": {
+    "help": {
+      "title": "Help Center",
+      "back": "Back"
+    },
+    "startpage": {
+      "title": "Hi",
+      "join-host": "Join as Host",
+      "join-viewer": "Join as Viewer",
+      "download-transcript": "Download Transcript",
+      "help": "Help",
+      "admin": "Admin Page"
+    },
+    "room-list": {
+      "title": "Available Rooms",
+      "list": {
+        "presenter-label": "Presenter",
+        "unknown-presenter-name": "Unknown",
+        "location-label": "Location"
+      },
+      "back": "Back"
+      
+    },
+    "transcript": {
+      "title": "Transcript",
+      "language-select-label": "Select Language",
+      "timestamp": {
+        "first-title": "First Recording",
+        "last-title": "Last Recording"
+      },
+      "download": "Download"
+    },
+    "host": {
+      "title": "Host",
+      "language-select": {
+        "source-label": "Source Language",
+        "target-label": "Target Language"
+      },
+      "back": "Back"
+    }
+  }
+}

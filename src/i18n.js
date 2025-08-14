@@ -8,16 +8,14 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    supportedLngs: ["en"],
-    fallbackLng: "en",
-    ns: ["common"],
-    defaultNS: "common",
+    supportedLngs: ["en","de"],
+    fallbackLng: "de",
     debug: false,
     interpolation: {
       escapeValue: false
     },
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json"  // This points to /public/locales
+      loadPath: "/locales/{{lng}}/translation.json"  // This points to /public/locales
     }
   });
 

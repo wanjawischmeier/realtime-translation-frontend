@@ -14,7 +14,7 @@ export default function LocalizationSelect() {
             <LanguageSelect 
                 className="px-2 text-gray-100" 
                 lang={i18n.language} 
-                languages={i18n.languages} 
+                languages={i18n.options.supportedLngs} 
                 setLang={i18n.changeLanguage} 
             />
         </div>
