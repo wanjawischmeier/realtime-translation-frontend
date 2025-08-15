@@ -1,17 +1,33 @@
 {
+  "dom-title": "Realtime translation",
   "popup": {
     "login": {
       "title": "Login",
       "input-label": "Enter your credentials",
       "back": "Back",
       "submit": "Submit",
-      "wrong-password": "Wrong password entered."
+      "failed": {
+        "title": "Failed to sign in",
+        "wrong-password": "Wrong password entered."
+      }
     }
   },
   "component": {
     "transcript-display": {
       "teaser": "Transcript Preview",
       "speaker": "Speaker"
+    },
+    "restart-room-button": {
+      "label": "Restart Room"
+    },
+    "loader": {
+      "loading": "Loading ..."
+    },
+    "spinner": {
+      "back": "Back"
+    },
+    "project-links": {
+      "github": "GitHub"
     }
   },
   "page": {
@@ -20,22 +36,34 @@
       "back": "Back"
     },
     "startpage": {
-      "title": "Welcome to the Platform",
+      "title": "Startpage",
       "join-host": "Join as Host",
       "join-viewer": "Join as Viewer",
       "download-transcript": "Download Transcript",
       "help": "Help",
-      "admin": "Admin Page"
+      "admin": "Admin Page",
+      "maintenance": {
+        "header": "Maintenance in Progress",
+        "message": "We're experiencing some issues right now. As a result, the service is temporarely not available. Please try again later."
+      }
     },
     "room-list": {
       "title": "Available Rooms",
       "list": {
         "presenter-label": "Presenter",
         "unknown-presenter-name": "Unknown",
-        "location-label": "Location"
+        "location-label": "Location",
+        "activity": {
+          "label": "Activity",
+          "on": "Live",
+          "off": "Inactive"
+        },
+        "owner": {
+          "label": "Owner",
+          "you": "Du"
+        }
       },
       "back": "Back"
-      
     },
     "transcript": {
       "title": "Transcript",
@@ -46,12 +74,16 @@
       },
       "download": "Download"
     },
-    "host": {
-      "title": "Host",
+    "room-view": {
+      "host": "Host",
+      "viewer": "Viewer",
+      "viewing": "Viewing",
+      "hosting": "Hosting",
       "language-select": {
         "source-label": "Source Language",
         "target-label": "Target Language"
       },
+      "download-transcript": "Download Transcript",
       "back": "Back"
     }
   }

@@ -12,6 +12,8 @@ export default function HelpView() {
     const { t } = useTranslation();
 
     useEffect(() => {
+        document.title = t("page.help.title") + " - " + t('dom-title')
+
         const url = import.meta.env.VITE_HELP_MARKDOWN_URL;
         if (!url) {
             setError('Help markdown URL not configured');
@@ -30,17 +32,16 @@ export default function HelpView() {
         <div className='h-full flex flex-col p-4 bg-gray-800 text-white'>
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center">{t("page.help.title")}</h1>
-            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+            <hr className="h-px mb-3 text-gray-600 border-2 bg-gray-600"></hr>
 
-            {/* Scrollable Main Content */}
-            <div className='overflow-y-auto pr-2 flex-grow max-h-[calc(100vh-250px)]'>
-                {error && <div className='text-red-400'>{error}</div>}
 
-                {markdown === null && !error && (
-                    <Spinner></Spinner>
-                )}
+            {markdown === null && !error && (
+                <Spinner></Spinner>
+            )}
 
-                {markdown !== null && !error && (
+            {markdown !== null && !error && (
+                < div className='overflow-y-auto pr-2 flex-grow max-h-[calc(100vh-250px)]'>
+                    {error && <div className='text-red-400'>{error}</div>}
                     <div className='space-y-4'>
                         <ReactMarkdown
                             components={{
@@ -90,8 +91,10 @@ export default function HelpView() {
                             {markdown}
                         </ReactMarkdown>
                     </div>
-                )}
-            </div>
+                </div>
+            )
+            }
+
 
             {/* Back Button */}
             <button
@@ -100,6 +103,6 @@ export default function HelpView() {
             >
                 {t("page.help.back")}
             </button>
-        </div>
+        </div >
     );
 }

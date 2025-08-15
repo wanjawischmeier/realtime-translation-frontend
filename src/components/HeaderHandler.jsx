@@ -1,11 +1,10 @@
-import StatusLED from "./StatusLED"
+import HealthStatusLED from "./HealthStatusLED"
 import { useServerHealth } from "./ServerHealthContext";
 
 export default function HeaderHandler() {
   const serverReachable = useServerHealth();
 
   return (
-    
-    <StatusLED status={serverReachable} />
+    <HealthStatusLED status={serverReachable} />
   );
 }

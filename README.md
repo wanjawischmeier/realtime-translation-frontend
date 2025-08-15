@@ -30,6 +30,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Start host with current target lang if room already active
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
+    - [x] Fix incomplete sentences alone not updating view
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
     - [ ] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
 - [x] Fehlgeschlagene /auth buggy, muss gefixt werden
@@ -40,7 +41,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] (Incomplete sentence buffer auch anzeigen (ausgegraut?) für responsiveres Gefühl)
 - [x] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
 - [x] (Animate in new text of transcript?)
-- [ ] Option to download transcript (filename could for example be timestamp of download)
+- [x] Option to download transcript (filename could for example be timestamp of download)
     - Assume this endpoint: `@app.get("/room/{room_id}/transcript/{target_lang}")` (returns placeholder transcript rn)
     - [x] `TranscriptDownloadButton` widget
     - [x] Add to `WhisperLiveKitStreamer`
@@ -48,7 +49,9 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Option on homescreen to show list of old transcripts
         - [x] Make the list a scrollview
         - [x] Add room info
-    - [ ] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
+    - [x] Respect user preferences on wether to allow clients to download transcripts (@substratoo)
+        - [x] Only show in transcript list if has access
+        - [x] Only show download button on viewer side if public
 - [x] Show loading animation whilst connecting websocket (can take a couple of seconds, especially when joining as host)
     - Page otherwise appears unresponsive
     - [x] (Generell Ladeanimationen wenn was gefetcht wird wären nice to have, aber brauchen wir nicht unbedingt)
@@ -80,3 +83,10 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Ability to force close rooms
 - [x] Add background svg :)
 - [x] Language switcher somewhere
+- [x] Add server maintenance status message
+- [x] Add github repo link
+- [x] Add fullscreen mode for transcript display
+- [x] Add tab title
+- [x] Fix transcript scrolling behaviour
+- [x] Scroll login into view on mobile to work with digital keyboard
+- [x] Add track color strip in room list

@@ -1,46 +1,30 @@
 import { useEffect, useState } from "react";
-import { FiDownload } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
-import { useServerHealth } from "../components/ServerHealthContext";
 import { TranscriptListProvider } from "../components/TranscriptListProvider";
-import { useToast } from "../components/ToastProvider";
 import { RoomsProvider } from "../components/RoomsProvider";
 import Spinner from "../components/Spinner";
+import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import { useTranslation } from "react-i18next";
-import trackUmami from "../help/umamiHelper";
 
 export default function TranscriptListView() {
     const { availableTranscriptInfos } = TranscriptListProvider();
     const [lang, setLang] = useState(null);
 
     const { t } = useTranslation();
-
     const navigate = useNavigate();
-    const { addToast } = useToast();
-    const serverReachable = useServerHealth();
     const { availableTargetLangs } = RoomsProvider();
 
+    useEffect(() => { document.title = t('page.transcript.title') + " - " + t('dom-title')});
+    
     useEffect(() => {
         if (availableTargetLangs) {
             setLang(availableTargetLangs[0]);
         }
     }, [availableTargetLangs]);
 
-    // TODO: Is also defined in TranscriptDownloadButton, remove duplicate
-    const getTimestampedTranscriptFilename = (roomId, targetLang) => {
-        const now = new Date();
-        const pad = n => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1); // Months are 0-indexed
-        const day = pad(now.getDate());
-        const hour = pad(now.getHours());
-        const minute = pad(now.getMinutes());
-        return `transcript_${roomId}_${targetLang}_${year}-${month}-${day}_${hour}-${minute}.txt`;
-    }
-
     return (
-        <div className="h-full flex flex-col p-4 text-white">
+        <div className="h-full flex flex-col p-4 text-white w-full">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center">
                 {t("page.transcript.title")}
@@ -54,66 +38,32 @@ export default function TranscriptListView() {
             </div>
 
             {/* Scrollable List Area */}
-            <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
-                {
-                    (availableTranscriptInfos.length > 0) ?
-                        availableTranscriptInfos.map((transcriptInfo) => (
-                            <div
-                                key={transcriptInfo.id}
-                                className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
-                            >
-                                <div>
-                                    <div className="text-lg font-semibold">{transcriptInfo.title}</div>
-                                    <div className="text-gray-300 text-sm">
-                                        {t("page.room-list.list.presenter-label")}: {
-                                            transcriptInfo.persons[0]?.name ?? t("page.room-list.list.unknown-presenter-name")} · {t("page.room-list.list.location-label")}: {transcriptInfo.room}
-                                    </div>
-                                </div>
-                                <button
-                                    className={`ml-4 px-4 py-2 rounded font-bold
-                                        ${serverReachable
-                                            ? "bg-blue-600 text-white hover:bg-blue-700"
-                                            : "bg-gray-500 text-gray-300 cursor-not-allowed"
-                                        }`}
-                                    onClick={async () => {
-                                        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${transcriptInfo.code}/transcript/${lang}`);
-                                        const text = await res.text();
-                                        if (!text) {
-                                            addToast({
-                                                title: "No transcript",
-                                                message: `Couldn't find any transcriptions for ${transcriptInfo.code} in ${lang}. Sorry :/`,
-                                                type: "warning",
-                                            });
-                                            return;
-                                        }
 
-                                        const blob = new Blob([text], { type: 'text/plain' });
-                                        const url = window.URL.createObjectURL(blob);
-
-                                        const link = document.createElement('a');
-                                        link.href = url;
-                                        link.download = getTimestampedTranscriptFilename(transcriptInfo.code, lang);
-                                        document.body.appendChild(link);
-                                        link.click();
-
-                                        document.body.removeChild(link);
-                                        window.URL.revokeObjectURL(url);
-                                        trackUmami('transcript-downloaded', {
-                                            'room_id': transcriptInfo.id,
-                                            'lang': lang
-                                        });
-                                    }}
-                                    disabled={!serverReachable}
+            {
+                (availableTranscriptInfos.length > 0) ?
+                    <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
+                        {
+                            availableTranscriptInfos.map((transcriptInfo) => (
+                                <div
+                                    key={transcriptInfo.id}
+                                    className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
                                 >
-                                    <FiDownload className="inline mr-2" />
-                                    {t("page.transcript.download")}
-                                </button>
-                            </div>
-                        )) : (
-                            <Spinner></Spinner>
-                        )
-                }
-            </div>
+                                    <div>
+                                        <div className="text-lg font-semibold">{transcriptInfo.title}</div>
+                                        <div className="text-gray-300 text-sm">
+                                            {t("page.room-list.list.presenter-label")}: {
+                                                transcriptInfo.persons[0]?.name ?? t("page.room-list.list.unknown-presenter-name")} · {t("page.room-list.list.location-label")}: {transcriptInfo.room}
+                                        </div>
+                                    </div>
+                                    <TranscriptDownloadButton roomId={transcriptInfo.code} targetLang={lang} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    : <Spinner />
+            }
+
+
 
             {/* Back Button */}
             <button

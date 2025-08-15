@@ -1,58 +1,90 @@
 {
+  "dom-title": "Echtzeit-Übersetzung",
   "popup": {
     "login": {
-      "title": "Login",
-      "input-label": "Enter your credentials",
-      "back": "Back",
-      "submit": "Submit",
-      "wrong-password": "Wrong password entered."
+      "title": "Anmelden",
+      "input-label": "Geben Sie Ihre Anmeldedaten ein",
+      "back": "Zurück",
+      "submit": "Einreichen",
+      "failed": {
+        "title": "Anmeldung fehlgeschlagen",
+        "wrong-password": "Falsches Passwort eingegeben."
+      }
     }
   },
   "component": {
     "transcript-display": {
-      "teaser": "Transcript Preview",
-      "speaker": "Speaker"
+      "teaser": "Transkriptvorschau",
+      "speaker": "Sprecher"
+    },
+    "restart-room-button": {
+      "label": "Raum neu starten"
+    },
+    "loader": {
+      "loading": "Lädt ..."
+    },
+    "spinner": {
+      "back": "Zurück"
+    },
+    "project-links": {
+      "github": "GitHub"
     }
   },
   "page": {
     "help": {
-      "title": "Help Center",
-      "back": "Back"
+      "title": "Hilfezentrum",
+      "back": "Zurück"
     },
     "startpage": {
-      "title": "Hi",
-      "join-host": "Join as Host",
-      "join-viewer": "Join as Viewer",
-      "download-transcript": "Download Transcript",
-      "help": "Help",
-      "admin": "Admin Page"
+      "title": "Startseite",
+      "join-host": "Als Gastgeber beitreten",
+      "join-viewer": "Als Zuschauer beitreten",
+      "download-transcript": "Transkript herunterladen",
+      "help": "Hilfe",
+      "admin": "Admin-Seite",
+      "maintenance": {
+        "header": "Wartung im Gange",
+        "message": "Wir haben gerade ein Problem mit dem Server. Deshalb ist der Dienst leider vorrübergehend nicht verfügbar. Bitte versuch es später nochmal."
+      }
     },
     "room-list": {
-      "title": "Available Rooms",
+      "title": "Verfügbare Räume",
       "list": {
-        "presenter-label": "Presenter",
-        "unknown-presenter-name": "Unknown",
-        "location-label": "Location"
+        "presenter-label": "Präsentator",
+        "unknown-presenter-name": "Unbekannt",
+        "location-label": "Standort",
+        "activity": {
+          "label": "Aktivität",
+          "on": "Live",
+          "off": "Inaktiv"
+        },
+        "owner": {
+          "label": "Besitzer*in",
+          "you": "Du"
+        }
       },
-      "back": "Back"
-      
+      "back": "Zurück"
     },
     "transcript": {
-      "title": "Transcript",
-      "language-select-label": "Select Language",
+      "title": "Transkript",
+      "language-select-label": "Sprache auswählen",
       "timestamp": {
-        "first-title": "First Recording",
-        "last-title": "Last Recording"
+        "first-title": "Erste Aufnahme",
+        "last-title": "Letzte Aufnahme"
       },
-      "download": "Download"
+      "download": "Herunterladen"
     },
-    "host": {
-      "title": "Host",
+    "room-view": {
+      "host": "Gastgeber*in",
+      "viewer": "Zuschauer*in",
+      "viewing": "Viewing",
+      "hosting": "Hosting",
       "language-select": {
-        "source-label": "Source Language",
-        "target-label": "Target Language"
+        "source-label": "Quellsprache",
+        "target-label": "Zielsprache"
       },
-      "back": "Back"
+      "download-transcript": "Transkript herunterladen",
+      "back": "Zurück"
     }
   }
 }

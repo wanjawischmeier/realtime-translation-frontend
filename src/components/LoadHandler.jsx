@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { useTranslation } from "react-i18next";
 
 export default function LoadHandler({ title, backNavigation }) {
     const navigate = useNavigate();
+
+    const { t } = useTranslation();
 
     return (
         <div className="h-100 flex flex-col p-4">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{title}</h1>
-            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+            <hr className="h-px mb-3 text-gray-600 border-2 bg-gray-600"></hr>
 
             <Spinner></Spinner>
 
@@ -17,7 +20,7 @@ export default function LoadHandler({ title, backNavigation }) {
                 className="mt-20 mb-20 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
                 onClick={() => navigate(`"${backNavigation}"`)}
             >
-                Back
+                {t("component.spinner.back")}
             </button>
         </div>
     );

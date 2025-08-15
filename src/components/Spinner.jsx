@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 export default function Spinner() {
+    const { t } = useTranslation();
+
     return (
         <div className="flex-grow flex justify-center items-center">
             {/* https://flowbite.com/docs/components/spinner */}
@@ -19,7 +23,7 @@ export default function Spinner() {
                         fill="currentFill"
                     />
                 </svg>
-                <span className="sr-only">Loading...</span>
+                <span className="sr-only">{t("component.spinner.loading")}</span>
             </div>
         </div>
     );

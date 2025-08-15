@@ -1,23 +1,23 @@
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import { useServerHealth } from "../components/ServerHealthContext";
 import WhisperStreamerHandler from "../components/WhisperStreamerHandler";
 import WebSocketHandler from "../components/WebSocketHandler";
 import useWhisperLines from "../components/WhisperLines";
-import { useParams } from "react-router-dom";
 import LanguageSelect from "../components/LanguageSelect";
 import RecorderButton from "../components/RecorderButton";
 import RestartButton from "../components/RestartButton";
 import { RoomsProvider } from "../components/RoomsProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
-import { useTranslation } from "react-i18next";
+import { useFullscreen } from "../help/useFullscreen";
 
 function WhisperLiveKitStreamer() {
   const [wsUrl, setWsUrl] = useState(null);
   const serverReachable = useServerHealth();
-
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -40,6 +40,11 @@ function WhisperLiveKitStreamer() {
   const { rooms, availableSourceLangs, availableTargetLangs } = RoomsProvider();
   const [sourceLang, setSourceLang] = useState(null);
   const [targetLang, setTargetLang] = useState(null);
+
+  useEffect(() => {
+    const room = rooms.find(r => r.id === room_id);
+     document.title = t("page.room-view.hosting") + ": " + (room ? room.title : "...") + " - " + t('dom-title')
+  },[rooms,room_id]);
 
   useEffect(() => {
     if (sourceLang) {
@@ -73,13 +78,6 @@ function WhisperLiveKitStreamer() {
     setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/host/${sourceLang}/${targetLang}`)
   }, [sourceLang, targetLang]);
 
-  const scrollRef = useRef(null);
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [lines, incompleteSentence, targetLang]);
-
   const restartBackend = () => {
     setReadyToRecieveAudio(false);
     reset();
@@ -89,18 +87,20 @@ function WhisperLiveKitStreamer() {
 
   if (!wsUrl) {
     return (
-      <LoadHandler title={t("page.host.title")} backNavigation={"/rooms/host"}></LoadHandler>
+      <LoadHandler title={t("page.room-view.host")} backNavigation={"/rooms/host"}></LoadHandler>
     );
   } else {
 
     return (
-      <div className="p-4">
+      <div className="h-full flex flex-col p-4 text-white w-full">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.host.title")}</h1>
-        <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">
+          {t("page.room-view.host")}
+        </h1>
+        <hr className="h-px mb-3 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex items-center w-full justify-between mb-4 mt-2">
-          {/* Left side: Recorder and Restart */}
+
           <div className="flex items-center gap-2">
             <RecorderButton
               disabled={!serverReachable || !wsConnected || !readyToRecieveAudio}
@@ -114,18 +114,17 @@ function WhisperLiveKitStreamer() {
               onClick={restartBackend}
             />
           </div>
-
-          {/* Right side: Download */}
           <TranscriptDownloadButton
-            serverReachable={serverReachable}
             roomId={room_id}
             targetLang={targetLang}
           />
+
         </div>
-        <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-          <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">{t("page.host.language-select.source-label")}:</span>
+        <div className="flex flex-col w-full gap-4 mb-4">
+          <div className="flex items-center gap-4 w-full">
+            <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.source-label")}:</span>
             <LanguageSelect
+              customClassName="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 flex-grow"
               lang={sourceLang}
               setLang={(lang) => {
                 setSourceLang(lang);
@@ -135,9 +134,10 @@ function WhisperLiveKitStreamer() {
               languages={availableSourceLangs}
             />
           </div>
-          <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">{t("page.host.language-select.target-label")}:</span>
+          <div className="flex items-center gap-4 w-full">
+            <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.target-label")}:</span>
             <LanguageSelect
+              customClassName="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 flex-grow"
               lang={targetLang}
               setLang={(lang) => {
                 setTargetLang(lang);
@@ -147,13 +147,19 @@ function WhisperLiveKitStreamer() {
             />
           </div>
         </div>
-        <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence} targetLang={targetLang}></TranscriptDisplay>
+
+        {/* Transcript Area */}
+        <TranscriptDisplay
+          lines={lines}
+          incompleteSentence={incompleteSentence}
+          targetLang={targetLang}
+        />
 
         <button
-          className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+          className="mt-4 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms/host")}
         >
-          {t("page.host.back")}
+          {t("page.room-view.back")}
         </button>
       </div>
     );
