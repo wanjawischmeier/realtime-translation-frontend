@@ -12,7 +12,7 @@ function StartView() {
     const isMaintenance = import.meta.env.VITE_SERVER_MAINTENANCE === "true";
 
     return (
-        <div className="h-full flex flex-col p-4 text-white">
+        <div className="h-full flex flex-col p-4 text-white w-full">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 text-center select-none">
                 {t("page.startpage.title")}

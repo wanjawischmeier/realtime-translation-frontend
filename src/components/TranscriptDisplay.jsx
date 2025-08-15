@@ -30,7 +30,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
     }, [lines, incompleteSentence, targetLang]);
 
     return (
-        <div className="w-full mb-4 mt-2" style={{ height: isFullscreen ? "100vh" : '250px' }}>
+        <div className="w-full mb-4 mt-2">
             <div
                 ref={containerRef}
                 className="w-full bg-gray-900 rounded-lg sm:rounded-none p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
@@ -52,7 +52,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                 {line.speaker === -1 ? "" : t("component.transcript-display.speaker") + (line.speaker + 1) + " · "}
                                 {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>
-                            <div className="text-lg leading-relaxed flex flex-wrap">
+                            <div className="text-lg leading-relaxed flex flex-wrap overflow-y-auto">
                                 {line.sentences.map((sentence, i) => {
                                     if (sentence.content && sentence.content[targetLang]) {
                                         return (

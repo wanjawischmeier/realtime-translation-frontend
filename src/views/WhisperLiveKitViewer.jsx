@@ -85,10 +85,10 @@ export default function WhisperLiveKitViewer() {
     );
   } else {
     return (
-      <div className="p-4">
+      <div className="h-full flex flex-col p-4 text-white w-full">
         {/* Header */}
         <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.room-view.viewer")}</h1>
-        <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+        <hr className="h-px mb-3 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex items-center w-full justify-end mb-4 mt-2">
           {/* Right side: Download */}

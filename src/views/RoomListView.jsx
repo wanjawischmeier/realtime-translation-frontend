@@ -61,7 +61,7 @@ export default function RoomListView({ role = 'client' }) {
     }
 
     return (
-        <div className="h-full flex flex-col p-4 text-white">
+        <div className="h-full flex flex-col p-4 text-white w-full">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center">{t("page.room-list.title")}</h1>
             <hr className="h-px mb-4 text-gray-600 border-2 bg-gray-600" />

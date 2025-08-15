@@ -11,7 +11,7 @@ export default function LoadHandler({ title, backNavigation }) {
         <div className="h-100 flex flex-col p-4">
             {/* Header */}
             <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{title}</h1>
-            <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
+            <hr className="h-px mb-3 text-gray-600 border-2 bg-gray-600"></hr>
 
             <Spinner></Spinner>
 
