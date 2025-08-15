@@ -33,7 +33,7 @@ export default function TranscriptListView() {
 
             {/* Language Selector */}
             <div className="flex items-center space-x-3 mb-4">
-                <span className="font-medium select-none">{t("page.transcript.language-select-label")}:</span>
+                <span className="font-medium select-none whitespace-nowrap">{t("page.transcript.language-select-label")}:</span>
                 <LanguageSelect lang={lang} setLang={setLang} languages={availableTargetLangs} />
             </div>
 
