@@ -24,6 +24,9 @@
     },
     "spinner": {
       "back": "Back"
+    },
+    "project-links": {
+      "github": "GitHub"
     }
   },
   "page": {

@@ -21,7 +21,7 @@ function StartView() {
 
             {isMaintenance ? (
                 // Maintenance message
-                <div className="flex-grow flex flex-col items-center justify-center text-center">
+                <div className="flex-grow flex flex-col items-center justify-center text-center mt-8">
                     <MdBuild size={60} className="text-yellow-400 mb-6" />
                     <div className="text-2xl font-semibold mb-2">
                         {t("page.startpage.maintenance.header")}

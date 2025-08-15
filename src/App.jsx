@@ -12,6 +12,7 @@ import RoomSetupGuard from "./components/RoomSetupGuard"
 import ToastProvider from "./components/ToastProvider"
 import HelpView from "./views/HelpView";
 import LocalizationSelect from "./components/LocalizationSelect";
+import ProjectLinks from "./components/ProjectLinks";
 
 
 export default function App() {
@@ -23,7 +24,8 @@ export default function App() {
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 svg-bg">
               <div className="relative bg-gray-800 shadow-lg w-full min-h-screen sm:min-h-[600px] sm:rounded-xl sm:w-[600px] p-4">
                 <HeaderHandler />
-                <LocalizationSelect></LocalizationSelect>
+                <ProjectLinks />
+                <LocalizationSelect />
                 <Routes>
                   <Route path="/" element={<StartView />} />
                   <Route path="*" element={<Navigate to="/" />} />

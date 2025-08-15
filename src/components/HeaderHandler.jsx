@@ -5,7 +5,6 @@ export default function HeaderHandler() {
   const serverReachable = useServerHealth();
 
   return (
-    
     <HealthStatusLED status={serverReachable} />
   );
 }
