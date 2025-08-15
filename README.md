@@ -19,6 +19,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - `closed-room-admin-failed`
 
 # TODOs
+## Important
 - [x] Gibt ein paar Bugs für Host beim Streamen, wenn Verbindung abricht während Aufnahme läuft (easy fix möglich :))
 - [x] Sprachauswahl nutzen um Übersetzung anzuzeigen (Backend sendet jetzt nötige Daten über RoomsProvider)
     - [x] RoomsProvider parses information to be used in RoomListView
@@ -29,14 +30,14 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Show transcript in selected language and not in english
     - [x] Start host with current target lang if room already active
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
-- [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
+- [x] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
     - [x] Fix incomplete sentences alone not updating view
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
-    - [ ] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
+    - [x] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
 - [x] Fehlgeschlagene /auth buggy, muss gefixt werden
     - Auch wenn das backend sagt, dass das Passwort falsch ist, verhält sich das Frontend so, als ob alles ok wäre (speichert pw in cookie und geht zur Raumübersicht und versucht als host mit falschem PW zu joinen)
 - [x] Back Button bei Streamer/Viewer
-- [ ] Show proper room info, show if room is active (status led?)
+- [x] Show proper room info, show if room is active (status led?)
 - [x] Fix: Weirdes scaling des Streaming/Viewing Fensters basierend darauf, wie viel Text im Transkript steht
 - [x] (Incomplete sentence buffer auch anzeigen (ausgegraut?) für responsiveres Gefühl)
 - [x] Mobile friendly layout (entweder ausschließlich oder mit automatischer Erkennung)
@@ -69,8 +70,6 @@ Used for tracking certain events and pageviews. The server is expected to be ran
         - Maybe try to reconnect if error is not 1003
 - [x] Bug: First incomplete sentence that comes in does not get displayed, only after a complete one has been recieved
 - [x] Handle initial "ready" package
-- [ ] For room list etc: refresh on connection reestablished
-    - [ ] On connected callback in ServerHealthProvider
 - [x] Add restart room logic
 - [x] Bug: not always recognizing when password cookie expires, should be asking for pw again in that case. Implement new system for authentication
 - [x] Add connection_id cookie
@@ -90,3 +89,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Fix transcript scrolling behaviour
 - [x] Scroll login into view on mobile to work with digital keyboard
 - [x] Add track color strip in room list
+
+## For potential future updates
+- [ ] For room list etc: refresh on connection reestablished
+    - [ ] On connected callback in ServerHealthProvider
