@@ -20,7 +20,7 @@ export default function LoadHandler({ title, backNavigation }) {
                 className="mt-20 mb-20 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
                 onClick={() => navigate(`"${backNavigation}"`)}
             >
-                {t("component.loader.back")}
+                {t("component.spinner.back")}
             </button>
         </div>
     );

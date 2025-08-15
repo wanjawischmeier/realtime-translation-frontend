@@ -30,6 +30,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
     - [x] Start host with current target lang if room already active
 - [x] Roomprovider mit Backend verbinden (Im moment nur Hardcoded liste und fehlt noch Endpoint im Backend)
 - [ ] Transcript Parsing and Display UI optimieren für längere Transscripts (Warten bis Übersetzung da sind vor dem Implementieren)
+    - [x] Fix incomplete sentences alone not updating view
 - [x] (Debugging: Ne Toast message im Frontend mit passthrough der Fehlermeldung, falls das Backend die Verbindung mit 1003 schließt)
     - [ ] Extensive Toasts bei Warnungen/Fehlern um vor Ort debuggen zu können
 - [x] Fehlgeschlagene /auth buggy, muss gefixt werden

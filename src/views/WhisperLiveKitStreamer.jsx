@@ -46,11 +46,6 @@ function WhisperLiveKitStreamer() {
   const onToggleFullscreen = () => {
     if (fullscreenContainerRef.current) {
       toggleFullscreen(fullscreenContainerRef.current);
-
-      if (isMobile) {
-        // Optionally: additional logic for mobile fullscreen toggle
-        // e.g. use Screen Orientation API or other hacks if needed
-      }
     }
   };
 

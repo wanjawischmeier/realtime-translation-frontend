@@ -38,11 +38,6 @@ export default function WhisperLiveKitViewer() {
   const onToggleFullscreen = () => {
     if (fullscreenContainerRef.current) {
       toggleFullscreen(fullscreenContainerRef.current);
-
-      if (isMobile) {
-        // Optionally: additional logic for mobile fullscreen toggle
-        // e.g. use Screen Orientation API or other hacks if needed
-      }
     }
   };
 
@@ -89,7 +84,7 @@ export default function WhisperLiveKitViewer() {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [lines]);
+  }, [lines, incompleteSentence, targetLang]);
 
   if (!wsUrl) {
     return (
