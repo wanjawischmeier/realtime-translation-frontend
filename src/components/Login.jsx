@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useServerHealth } from "./ServerHealthContext";
@@ -8,6 +8,23 @@ export default function Login({ login, redirectPath, sourcePath }) {
   const navigate = useNavigate();
   const serverReachable = useServerHealth();
   const { t } = useTranslation();
+
+  const inputRef = useRef(null);
+  const popupRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current && popupRef.current) {
+      inputRef.current.focus({ preventScroll: true });
+
+      setTimeout(() => {
+        popupRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }, 200);  // 200ms delay to allow mobile keyboard viewport resizing
+    }
+  }, []);
 
   async function handleLogin() {
     if (await login(password)) {
@@ -27,6 +44,7 @@ export default function Login({ login, redirectPath, sourcePath }) {
       onClick={onClose}
     >
       <div
+        ref={popupRef}
         className="bg-gray-700 p-6 rounded-xl shadow-lg w-full max-w-xs relative"
         onClick={e => e.stopPropagation()} // Prevent closing when clicking inside the popup
       >
@@ -39,12 +57,12 @@ export default function Login({ login, redirectPath, sourcePath }) {
         <div className="text-white text-2xl mb-4">{t("popup.login.title")}</div>
         <div className="text-white text-lg mb-4">{t("popup.login.input-label")}:</div>
         <input
+          ref={inputRef}
           type="password"
           className="w-full mb-2 px-4 py-2 rounded-lg bg-gray-800 text-gray-100"
           value={password}
           onChange={e => setPassword(e.target.value)}
           onKeyDown={e => e.key === "Enter" && handleLogin()}
-          autoFocus={true}
         />
 
         <button

@@ -88,3 +88,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add fullscreen mode for transcript display
 - [x] Add tab title
 - [x] Fix transcript scrolling behaviour
+- [x] Scroll login into view on mobile to work with digital keyboard
