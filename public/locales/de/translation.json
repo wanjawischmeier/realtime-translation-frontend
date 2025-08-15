@@ -37,7 +37,11 @@
       "join-viewer": "Als Zuschauer beitreten",
       "download-transcript": "Transkript herunterladen",
       "help": "Hilfe",
-      "admin": "Admin-Seite"
+      "admin": "Admin-Seite",
+      "maintenance": {
+        "header": "Wartung im Gange",
+        "message": "Wir haben gerade ein Problem mit dem Server. Deshalb ist der Dienst leider vorrübergehend nicht verfügbar. Bitte versuch es später nochmal."
+      }
     },
     "room-list": {
       "title": "Verfügbare Räume",

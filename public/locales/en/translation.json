@@ -37,7 +37,11 @@
       "join-viewer": "Join as Viewer",
       "download-transcript": "Download Transcript",
       "help": "Help",
-      "admin": "Admin Page"
+      "admin": "Admin Page",
+      "maintenance": {
+        "header": "Maintenance in Progress",
+        "message": "We're experiencing some issues right now. As a result, the service is temporarely not available. Please try again later."
+      }
     },
     "room-list": {
       "title": "Available Rooms",

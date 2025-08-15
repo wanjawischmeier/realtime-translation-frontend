@@ -1,5 +1,11 @@
 export default function HealthStatusLED({ status }) {
-  const color = status ? "bg-green-500" : "bg-red-500";
+  var color;
+  if (import.meta.env.VITE_SERVER_MAINTENANCE) {
+    color = "bg-orange-500";
+  } else {
+    color = status ? "bg-green-500" : "bg-red-500";
+  }
+
   return (
     <span className="absolute top-4 right-4 flex items-center z-20">
       <span className="relative flex h-3 w-3 mr-1">

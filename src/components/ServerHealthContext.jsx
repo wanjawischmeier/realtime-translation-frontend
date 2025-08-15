@@ -17,6 +17,10 @@ export function ServerHealthProvider({ children }) {
       }
     };
 
+    if (import.meta.env.VITE_SERVER_MAINTENANCE) {
+      return;
+    }
+    
     checkHealth();
     healthCheckInterval.current = setInterval(checkHealth, 5000);
     return () => {
