@@ -36,26 +36,32 @@ export default function TranscriptListView() {
             </div>
 
             {/* Scrollable List Area */}
-            <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
-                {
-                    (availableTranscriptInfos.length > 0) ?
-                        availableTranscriptInfos.map((transcriptInfo) => (
-                            <div
-                                key={transcriptInfo.id}
-                                className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
-                            >
-                                <div>
-                                    <div className="text-lg font-semibold">{transcriptInfo.title}</div>
-                                    <div className="text-gray-300 text-sm">
-                                        {t("page.room-list.list.presenter-label")}: {
-                                            transcriptInfo.persons[0]?.name ?? t("page.room-list.list.unknown-presenter-name")} · {t("page.room-list.list.location-label")}: {transcriptInfo.room}
+
+            {
+                (availableTranscriptInfos.length > 0) ?
+                    <div className="flex-grow overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)]">
+                        {
+                            availableTranscriptInfos.map((transcriptInfo) => (
+                                <div
+                                    key={transcriptInfo.id}
+                                    className="flex justify-between items-center bg-gray-700 p-4 rounded-lg"
+                                >
+                                    <div>
+                                        <div className="text-lg font-semibold">{transcriptInfo.title}</div>
+                                        <div className="text-gray-300 text-sm">
+                                            {t("page.room-list.list.presenter-label")}: {
+                                                transcriptInfo.persons[0]?.name ?? t("page.room-list.list.unknown-presenter-name")} · {t("page.room-list.list.location-label")}: {transcriptInfo.room}
+                                        </div>
                                     </div>
+                                    <TranscriptDownloadButton roomId={transcriptInfo.code} targetLang={lang} />
                                 </div>
-                                <TranscriptDownloadButton roomId={transcriptInfo.code} targetLang={lang} />
-                            </div>
-                        )) : <Spinner />
-                }
-            </div>
+                            ))
+                        }
+                    </div>
+                    : <Spinner />
+            }
+
+
 
             {/* Back Button */}
             <button
