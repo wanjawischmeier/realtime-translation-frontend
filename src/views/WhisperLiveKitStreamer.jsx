@@ -81,13 +81,6 @@ function WhisperLiveKitStreamer() {
     setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/host/${sourceLang}/${targetLang}`)
   }, [sourceLang, targetLang]);
 
-  const scrollRef = useRef(null);
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [lines, incompleteSentence, targetLang]);
-
   const restartBackend = () => {
     setReadyToRecieveAudio(false);
     reset();
@@ -179,6 +172,7 @@ function WhisperLiveKitStreamer() {
             lines={lines}
             incompleteSentence={incompleteSentence}
             targetLang={targetLang}
+            isFullscreen={isFullscreen}
           />
         </div>
 

@@ -79,13 +79,6 @@ export default function WhisperLiveKitViewer() {
     setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/client/${undefined}/${targetLang}`)
   }, [targetLang]);
 
-  const scrollRef = useRef(null);
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [lines, incompleteSentence, targetLang]);
-
   if (!wsUrl) {
     return (
       <LoadHandler title={t("page.room-view.viewer")} backNavigation={"/rooms/view"}></LoadHandler>
@@ -138,6 +131,7 @@ export default function WhisperLiveKitViewer() {
             lines={lines}
             incompleteSentence={incompleteSentence}
             targetLang={targetLang}
+            isFullscreen={isFullscreen}
           />
         </div>
         

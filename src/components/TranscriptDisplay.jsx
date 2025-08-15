@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 function formatTime(t) {
@@ -12,13 +13,27 @@ function formatTime(t) {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
+export default function TranscriptDisplay({ lines, incompleteSentence, targetLang, isFullscreen }) {
     const { t } = useTranslation();
+    const containerRef = useRef(null);
+
+    const SCROLL_THRESHOLD = 100;
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+        if (distanceFromBottom < SCROLL_THRESHOLD) {
+            container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        }
+    }, [lines, incompleteSentence, targetLang]);
 
     return (
-        <div className="w-full mb-4 mt-2">
+        <div className="w-full mb-4 mt-2" style={{ height: isFullscreen ? "100vh" : '250px' }}>
             <div
-                className="w-full bg-gray-900 rounded-lg p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
+                ref={containerRef}
+                className="w-full bg-gray-900 rounded-lg sm:rounded-none p-4 text-gray-100 text-base flex flex-col space-y-4 h-full overflow-y-auto"
                 style={{ minHeight: 120 }}
             >
                 {lines.length === 0 && (!incompleteSentence || incompleteSentence.length === 0) && (
@@ -28,13 +43,13 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                 {lines.map((line, idx) => (
                     <div
                         key={idx}
-                        className={`flex ${line.speaker % 2 === 1 ? "justify-start" : "justify-start"}`}
+                        className="flex justify-start"
                     >
                         <div
-                            className={`rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 text-white`}
+                            className="rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 text-white"
                         >
                             <div className="mb-1 text-xs text-gray-300">
-                                {line.speaker == -1 ? "" : t("component.transcript-display.speaker") + (line.speaker + 1) + " · "}
+                                {line.speaker === -1 ? "" : t("component.transcript-display.speaker") + (line.speaker + 1) + " · "}
                                 {formatTime(line.beg)} - {formatTime(line.end)}
                             </div>
                             <div className="text-lg leading-relaxed flex flex-wrap">
@@ -53,7 +68,6 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                     return null;
                                 })}
 
-                                {/* Only add incomplete sentence inline inside the last line */}
                                 {idx === lines.length - 1 && incompleteSentence && incompleteSentence.length > 0 && (
                                     <span
                                         className="text-gray-700 fade-in"
@@ -67,10 +81,9 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                     </div>
                 ))}
 
-                {/* If no lines but incompleteSentence exists, show incomplete sentence alone */}
                 {lines.length === 0 && incompleteSentence && incompleteSentence.length > 0 && (
                     <div
-                        className="rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 text-gray-700 fade-in mx-auto"
+                        className="rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 text-gray-700 fade-in"
                         style={{ lineHeight: "1.2", textAlign: 'left' }}
                     >
                         {incompleteSentence}
