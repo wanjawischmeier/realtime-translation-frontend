@@ -86,5 +86,5 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add server maintenance status message
 - [x] Add github repo link
 - [x] Add fullscreen mode for transcript display
-- [ ] Add tab title
+- [x] Add tab title
 - [x] Fix transcript scrolling behaviour

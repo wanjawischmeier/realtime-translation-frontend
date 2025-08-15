@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import StartView from "./views/StartView";
 import RoomListView from "./views/RoomListView";
 import TranscriptListView from "./views/TranscriptListView";
@@ -16,6 +18,9 @@ import ProjectLinks from "./components/ProjectLinks";
 
 
 export default function App() {
+  const { t } = useTranslation();
+  useEffect(() => { document.title = t('dom-title') });
+
   return (
     <ToastProvider>
       <AuthProvider>
