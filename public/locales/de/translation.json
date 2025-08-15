@@ -51,7 +51,16 @@
       "list": {
         "presenter-label": "Präsentator",
         "unknown-presenter-name": "Unbekannt",
-        "location-label": "Standort"
+        "location-label": "Standort",
+        "activity": {
+          "label": "Aktivität",
+          "on": "Live",
+          "off": "Inaktiv"
+        },
+        "owner": {
+          "label": "Besitzer*in",
+          "you": "Du"
+        }
       },
       "back": "Zurück"
     },

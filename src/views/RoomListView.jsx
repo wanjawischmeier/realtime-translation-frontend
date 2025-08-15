@@ -116,10 +116,10 @@ export default function RoomListView({ role = 'client' }) {
                                                     (isRoomAlive && (
                                                         <div className="flex justify-start items-center">
                                                             <div className="text-gray-100 text-sm mr-1">
-                                                                {t("page.room-list.list.owner-label")}:
+                                                                {t("page.room-list.list.owner.label")}:
                                                             </div>
                                                             <div className={`text-gray-200 font-bold text-sm`}>
-                                                                {room.host_connection_id == connectionId ? "You" : (room.host_connection_id.substring(0, 3) + "...")}
+                                                                {room.host_connection_id == connectionId ? t("page.room-list.list.owner.you") : (room.host_connection_id.substring(0, 3) + "...")}
                                                             </div>
                                                         </div>
                                                     ))

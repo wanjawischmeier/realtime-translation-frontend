@@ -57,7 +57,10 @@
           "on": "Live",
           "off": "Inactive"
         },
-        "owner-label": "Owner"
+        "owner": {
+          "label": "Owner",
+          "you": "You"
+        }
       },
       "back": "Back"
     },
