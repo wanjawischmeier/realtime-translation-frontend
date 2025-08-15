@@ -73,12 +73,14 @@
       },
       "download": "Herunterladen"
     },
-    "host": {
-      "title": "Gastgeber",
+    "room-view": {
+      "host": "Gastgeber*in",
+      "viewer": "Zuschauer*in",
       "language-select": {
         "source-label": "Quellsprache",
         "target-label": "Zielsprache"
       },
+      "download-transcript": "Transkript herunterladen",
       "back": "Zurück"
     }
   }

@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 import { useServerHealth } from "../components/ServerHealthContext";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import WebSocketHandler from "../components/WebSocketHandler";
@@ -10,7 +12,7 @@ import { RoomsProvider } from "../components/RoomsProvider";
 import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
-import { useTranslation } from "react-i18next";
+import { useFullscreen } from "../help/useFullscreen";
 
 export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
@@ -30,6 +32,19 @@ export default function WhisperLiveKitViewer() {
   const { rooms, availableTargetLangs } = RoomsProvider();
   const [targetLang, setTargetLang] = useState(null);
   const [canDownload, setCanDownload] = useState(false);
+
+  const fullscreenContainerRef = useRef(null);
+  const { isFullscreen, toggleFullscreen, isMobile } = useFullscreen();
+  const onToggleFullscreen = () => {
+    if (fullscreenContainerRef.current) {
+      toggleFullscreen(fullscreenContainerRef.current);
+
+      if (isMobile) {
+        // Optionally: additional logic for mobile fullscreen toggle
+        // e.g. use Screen Orientation API or other hacks if needed
+      }
+    }
+  };
 
   useEffect(() => {
     const matchingAvailableTranscripts = availableTranscriptInfos.filter(
@@ -78,13 +93,13 @@ export default function WhisperLiveKitViewer() {
 
   if (!wsUrl) {
     return (
-      <LoadHandler title={t("page.room-view.title")} backNavigation={"/rooms/view"}></LoadHandler>
+      <LoadHandler title={t("page.room-view.viewer")} backNavigation={"/rooms/view"}></LoadHandler>
     );
   } else {
     return (
       <div className="p-4">
         {/* Header */}
-        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.room-view.title")}</h1>
+        <h1 className="text-3xl font-bold mb-4 select-none text-center text-white">{t("page.room-view.viewer")}</h1>
         <hr className="h-px mb-8 text-gray-600 border-2 bg-gray-600"></hr>
 
         <div className="flex items-center w-full justify-end mb-4 mt-2">
@@ -106,8 +121,31 @@ export default function WhisperLiveKitViewer() {
           </div>
         </div>
 
-        <TranscriptDisplay lines={lines} incompleteSentence={incompleteSentence} targetLang={targetLang}></TranscriptDisplay>
+        {/* Transcript Area */}
+        <div
+          ref={fullscreenContainerRef}
+          className={`relative rounded-lg bg-gray-900 overflow-auto ${isFullscreen ? "fixed top-0 left-0 w-full h-full z-50" : ""
+            }`}
+          style={{ transition: "all 0.3s ease" }}
+        >
+          {/* Fullscreen toggle button */}
+          <button
+            onClick={onToggleFullscreen}
+            className="absolute top-2 right-2 z-50 bg-gray-700 rounded p-1 hover:bg-gray-600 text-white"
+            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            type="button"
+          >
+            {isFullscreen ? <MdFullscreenExit size={24} /> : <MdFullscreen size={24} />}
+          </button>
 
+          {/* Transcript Display */}
+          <TranscriptDisplay
+            lines={lines}
+            incompleteSentence={incompleteSentence}
+            targetLang={targetLang}
+          />
+        </div>
+        
         <button
           className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms")}
@@ -117,6 +155,4 @@ export default function WhisperLiveKitViewer() {
       </div>
     );
   }
-
-
 }

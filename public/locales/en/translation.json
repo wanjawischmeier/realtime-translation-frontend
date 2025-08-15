@@ -59,7 +59,7 @@
         },
         "owner": {
           "label": "Owner",
-          "you": "You"
+          "you": "Du"
         }
       },
       "back": "Back"
@@ -73,12 +73,14 @@
       },
       "download": "Download"
     },
-    "host": {
-      "title": "Host",
+    "room-view": {
+      "host": "Host",
+      "viewer": "Viewer",
       "language-select": {
         "source-label": "Source Language",
         "target-label": "Target Language"
       },
+      "download-transcript": "Download Transcript",
       "back": "Back"
     }
   }

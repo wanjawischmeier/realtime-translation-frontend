@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { FiDownload } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import { useToast } from "./ToastProvider";
 import { useServerHealth } from "./ServerHealthContext";
 import { useAuth } from "./AuthContext";
 
-export default function TranscriptDownloadButton({ roomId, targetLang, disabled=false }) {
+export default function TranscriptDownloadButton({ roomId, targetLang, disabled = false }) {
     const [downloading, setDownloading] = useState(false);
     const serverReachable = useServerHealth();
+    const { t } = useTranslation();
     const { addToast } = useToast();
     const { getKey } = useAuth();
 
@@ -84,7 +86,7 @@ export default function TranscriptDownloadButton({ roomId, targetLang, disabled=
             disabled={downloading || !serverReachable || disabled}
         >
             <FiDownload className="inline mr-2" />
-            {downloading ? 'Downloading...' : 'Download Transcript'}
+            {t('page.room-view.download-transcript')}
         </button>
     );
 }
