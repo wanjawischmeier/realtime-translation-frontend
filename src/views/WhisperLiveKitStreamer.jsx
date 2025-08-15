@@ -41,14 +41,6 @@ function WhisperLiveKitStreamer() {
   const [sourceLang, setSourceLang] = useState(null);
   const [targetLang, setTargetLang] = useState(null);
 
-  const fullscreenContainerRef = useRef(null);
-  const { isFullscreen, toggleFullscreen, isMobile } = useFullscreen();
-  const onToggleFullscreen = () => {
-    if (fullscreenContainerRef.current) {
-      toggleFullscreen(fullscreenContainerRef.current);
-    }
-  };
-
   useEffect(() => {
     if (sourceLang) {
       // Languages already initialized
@@ -123,10 +115,11 @@ function WhisperLiveKitStreamer() {
           />
 
         </div>
-        <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-          <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">{t("page.room-view.language-select.source-label")}:</span>
+        <div className="flex flex-col w-full gap-4 mb-4">
+          <div className="flex items-center gap-4 w-full">
+            <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.source-label")}:</span>
             <LanguageSelect
+              customClassName="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 flex-grow"
               lang={sourceLang}
               setLang={(lang) => {
                 setSourceLang(lang);
@@ -136,9 +129,10 @@ function WhisperLiveKitStreamer() {
               languages={availableSourceLangs}
             />
           </div>
-          <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">{t("page.room-view.language-select.target-label")}:</span>
+          <div className="flex items-center gap-4 w-full">
+            <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.target-label")}:</span>
             <LanguageSelect
+              customClassName="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 flex-grow"
               lang={targetLang}
               setLang={(lang) => {
                 setTargetLang(lang);
@@ -150,33 +144,14 @@ function WhisperLiveKitStreamer() {
         </div>
 
         {/* Transcript Area */}
-        <div
-          ref={fullscreenContainerRef}
-          className={`relative rounded-lg bg-gray-900 overflow-auto ${isFullscreen ? "fixed top-0 left-0 w-full h-full z-50" : ""
-            }`}
-          style={{ transition: "all 0.3s ease" }}
-        >
-          {/* Fullscreen toggle button */}
-          <button
-            onClick={onToggleFullscreen}
-            className="absolute top-2 right-2 z-50 bg-gray-700 rounded p-1 hover:bg-gray-600 text-white"
-            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-            type="button"
-          >
-            {isFullscreen ? <MdFullscreenExit size={24} /> : <MdFullscreen size={24} />}
-          </button>
-
-          {/* Transcript Display */}
-          <TranscriptDisplay
-            lines={lines}
-            incompleteSentence={incompleteSentence}
-            targetLang={targetLang}
-            isFullscreen={isFullscreen}
-          />
-        </div>
+        <TranscriptDisplay
+          lines={lines}
+          incompleteSentence={incompleteSentence}
+          targetLang={targetLang}
+        />
 
         <button
-          className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+          className="mt-4 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms/host")}
         >
           {t("page.room-view.back")}

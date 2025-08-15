@@ -33,14 +33,6 @@ export default function WhisperLiveKitViewer() {
   const [targetLang, setTargetLang] = useState(null);
   const [canDownload, setCanDownload] = useState(false);
 
-  const fullscreenContainerRef = useRef(null);
-  const { isFullscreen, toggleFullscreen, isMobile } = useFullscreen();
-  const onToggleFullscreen = () => {
-    if (fullscreenContainerRef.current) {
-      toggleFullscreen(fullscreenContainerRef.current);
-    }
-  };
-
   useEffect(() => {
     const matchingAvailableTranscripts = availableTranscriptInfos.filter(
       transcriptInfo => transcriptInfo.code === room_id
@@ -98,10 +90,11 @@ export default function WhisperLiveKitViewer() {
             disabled={!canDownload}
           />
         </div>
-        <div className="flex flex-col w-full space-x-4 mb-4 mt-2 space-y-4">
-          <div className="flex items-center space-x-3 mb-6">
-            <span className="text-white font-medium select-none">{t("page.room-view.language-select.target-label")}:</span>
+        <div className="flex flex-col w-full gap-4 mb-4">
+          <div className="flex items-center gap-4 w-full">
+            <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.target-label")}:</span>
             <LanguageSelect
+              customClassName="px-4 p-2 box-border rounded-lg bg-gray-700 text-gray-100 flex-grow"
               lang={targetLang}
               setLang={setTargetLang}
               languages={availableTargetLangs}
@@ -109,34 +102,14 @@ export default function WhisperLiveKitViewer() {
           </div>
         </div>
 
-        {/* Transcript Area */}
-        <div
-          ref={fullscreenContainerRef}
-          className={`relative rounded-lg bg-gray-900 overflow-auto ${isFullscreen ? "fixed top-0 left-0 w-full h-full z-50" : ""
-            }`}
-          style={{ transition: "all 0.3s ease" }}
-        >
-          {/* Fullscreen toggle button */}
-          <button
-            onClick={onToggleFullscreen}
-            className="absolute top-2 right-2 z-50 bg-gray-700 rounded p-1 hover:bg-gray-600 text-white"
-            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-            type="button"
-          >
-            {isFullscreen ? <MdFullscreenExit size={24} /> : <MdFullscreen size={24} />}
-          </button>
+        <TranscriptDisplay
+          lines={lines}
+          incompleteSentence={incompleteSentence}
+          targetLang={targetLang}
+        />
 
-          {/* Transcript Display */}
-          <TranscriptDisplay
-            lines={lines}
-            incompleteSentence={incompleteSentence}
-            targetLang={targetLang}
-            isFullscreen={isFullscreen}
-          />
-        </div>
-        
         <button
-          className="mt-8 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
+          className="mt-4 w-full py-3 rounded-lg bg-gray-600 text-white font-bold hover:bg-gray-700"
           onClick={() => navigate("/rooms")}
         >
           {t("page.room-view.back")}
