@@ -24,8 +24,8 @@ export default function App() {
       <AuthProvider>
         <ServerHealthProvider>
           <Router>
-            <div className="flex flex-col h-small bg-gray-900 svg-bg">
-              <div className="flex-grow w-full h-[calc(100dvh-80px)]">
+            <div className="flex flex-col h-[calc(100svh)] bg-gray-900 svg-bg">
+              <div className="flex-grow w-full h-[calc(100svh-80px)]">
               <div className="flex flex-col justify-center items-center w-full h-full sm:pt-4">
               <div className="flex relative bg-gray-800 shadow-lg w-full h-full sm:h-[600px] sm:rounded-xl sm:w-[600px] p-4">
                 <HeaderHandler />
