@@ -15,6 +15,8 @@ export default function TranscriptListView() {
     const navigate = useNavigate();
     const { availableTargetLangs } = RoomsProvider();
 
+    useEffect(() => { document.title = t('page.transcript.title') + " - " + t('dom-title')});
+    
     useEffect(() => {
         if (availableTargetLangs) {
             setLang(availableTargetLangs[0]);

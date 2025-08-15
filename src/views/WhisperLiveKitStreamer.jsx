@@ -42,6 +42,11 @@ function WhisperLiveKitStreamer() {
   const [targetLang, setTargetLang] = useState(null);
 
   useEffect(() => {
+    const room = rooms.find(r => r.id === room_id);
+     document.title = t("page.room-view.hosting") + ": " + (room ? room.title : "...") + " - " + t('dom-title')
+  },[rooms,room_id]);
+
+  useEffect(() => {
     if (sourceLang) {
       // Languages already initialized
       return;

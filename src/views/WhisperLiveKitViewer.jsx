@@ -42,6 +42,11 @@ export default function WhisperLiveKitViewer() {
   }, [availableTranscriptInfos]);
 
   useEffect(() => {
+    const room = rooms.find(r => r.id === room_id);
+    document.title = t("page.room-view.viewing") + (room ? room.title : "...") + " - " + t('dom-title')
+  }, [room_id]);
+
+  useEffect(() => {
     if (targetLang) {
       // Target language already initialized
       return;

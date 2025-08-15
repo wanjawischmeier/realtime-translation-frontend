@@ -36,7 +36,7 @@
       "back": "Zurück"
     },
     "startpage": {
-      "title": "Willkommen auf der Plattform",
+      "title": "Startseite",
       "join-host": "Als Gastgeber beitreten",
       "join-viewer": "Als Zuschauer beitreten",
       "download-transcript": "Transkript herunterladen",
@@ -77,6 +77,8 @@
     "room-view": {
       "host": "Gastgeber*in",
       "viewer": "Zuschauer*in",
+      "viewing": "Viewing",
+      "hosting": "Hosting",
       "language-select": {
         "source-label": "Quellsprache",
         "target-label": "Zielsprache"

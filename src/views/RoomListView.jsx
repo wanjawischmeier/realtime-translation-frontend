@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import Cookies from "js-cookie";
 import trackUmami from "../help/umamiHelper";
 import RoomStatus from "../components/RoomStatus";
+import { useEffect } from "react";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
@@ -19,6 +20,8 @@ export default function RoomListView({ role = 'client' }) {
     const { addToast } = useToast();
 
     const { getKey } = useAuth();
+
+    useEffect(() => { document.title = t("page.room-list.title") + " - " + t('dom-title')});
 
     function handleJoin(room) {
         if (role == 'client') {

@@ -2,11 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../components/AuthContext";
 import { MdBuild } from "react-icons/md";
+import { useEffect } from "react";
 
 function StartView() {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { role } = useAuth();
+
+    useEffect(() => { document.title = t('page.startpage.title') + " - " + t('dom-title')});
 
     // Evaluate "true" string as Boolean
     const isMaintenance = import.meta.env.VITE_SERVER_MAINTENANCE === "true";

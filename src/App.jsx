@@ -18,7 +18,6 @@ import ProjectLinks from "./components/ProjectLinks";
 
 export default function App() {
   const { t } = useTranslation();
-  useEffect(() => { document.title = t('dom-title') });
 
   return (
     <ToastProvider>
