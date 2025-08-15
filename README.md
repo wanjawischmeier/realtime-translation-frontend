@@ -89,3 +89,4 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [x] Add tab title
 - [x] Fix transcript scrolling behaviour
 - [x] Scroll login into view on mobile to work with digital keyboard
+- [x] Add track color strip in room list
