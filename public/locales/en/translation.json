@@ -35,7 +35,13 @@
       "title": "Help Center",
       "back": "Back"
     },
+    "vote": {
+      "vote": "{{votes}} Votes",
+      "add-vote-button":"Vote",
+      "remove-vote-button":"Remove Vote"
+    },
     "startpage": {
+      "vote": "Vote",
       "title": "Startpage",
       "join-host": "Join as Host",
       "join-viewer": "Join as Viewer",
