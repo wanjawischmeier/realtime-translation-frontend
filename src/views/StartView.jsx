@@ -9,7 +9,7 @@ function StartView() {
     const { t } = useTranslation();
     const { role } = useAuth();
 
-    useEffect(() => { document.title = t('page.startpage.title') + " - " + t('dom-title')});
+    useEffect(() => { document.title = t('page.startpage.title') + " - " + t('dom-title') });
 
     // Evaluate "true" string as Boolean
     const isMaintenance = import.meta.env.VITE_SERVER_MAINTENANCE === "true";
@@ -55,6 +55,13 @@ function StartView() {
                         onClick={() => navigate("/transcripts")}
                     >
                         {t("page.startpage.download-transcript")}
+                    </button>
+
+                    <button
+                        className="w-full py-3 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700 text-white"
+                        onClick={() => navigate("/rooms/vote")}
+                    >
+                        {t("page.startpage.vote")}
                     </button>
 
                     <button
