@@ -17,6 +17,10 @@ export default function Login({ login, redirectPath, sourcePath }) {
       inputRef.current.focus({ preventScroll: true });
 
       setTimeout(() => {
+        if (!popupRef.current) {
+          return;
+        }
+
         popupRef.current.scrollIntoView({
           behavior: "smooth",
           block: "center",

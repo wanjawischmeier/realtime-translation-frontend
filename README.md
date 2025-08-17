@@ -89,7 +89,13 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - [ ] Fix transcript scrolling behaviour
 - [x] Scroll login into view on mobile to work with digital keyboard
 - [x] Add track color strip in room list
+- [ ] Fix host disconnect after long time
+    - No idea why it happens, seems like frontend just decides to disconnect cleanly with 1005
+    - [ ] Workaround: Reconnect on 1005
 
 ## For potential future updates
 - [ ] For room list etc: refresh on connection reestablished
     - [ ] On connected callback in ServerHealthProvider
+- [ ] Enter on mobile to confirm password on login screen
+- [ ] Transcript delay indicator
+- [ ] Fix host disconnect after long time
