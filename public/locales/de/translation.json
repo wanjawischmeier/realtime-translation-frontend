@@ -35,7 +35,13 @@
       "title": "Hilfezentrum",
       "back": "Zurück"
     },
+    "vote": {
+      "vote": "{{votes}} Stimmen",
+      "add-vote-button":"Abstimmen",
+      "remove-vote-button":"Stimme entfernen"
+    },
     "startpage": {
+      "vote": "Abstimmen",
       "title": "Startseite",
       "join-host": "Als Gastgeber beitreten",
       "join-viewer": "Als Zuschauer beitreten",
