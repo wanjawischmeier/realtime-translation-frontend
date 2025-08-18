@@ -28,13 +28,15 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
     };
 
     const SCROLL_THRESHOLD = 100;
+    const loadTimeRef = useRef(Date.now());
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
-        if (distanceFromBottom < SCROLL_THRESHOLD) {
+        const timeSinceLoad = Date.now() - loadTimeRef.current;
+        if (distanceFromBottom < SCROLL_THRESHOLD || timeSinceLoad < 2000) {
             container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
         }
     }, [lines, incompleteSentence, targetLang]);
