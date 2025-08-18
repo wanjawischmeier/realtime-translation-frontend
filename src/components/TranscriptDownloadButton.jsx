@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiDownload } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import trackUmami from '../help/umamiHelper';
 import { useToast } from "./ToastProvider";
 import { useServerHealth } from "./ServerHealthContext";
 import { useAuth } from "./AuthContext";
@@ -57,7 +58,8 @@ export default function TranscriptDownloadButton({ roomId, targetLang, disabled 
 
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-
+            
+            trackUmami('transcript-downloaded');
             addToast({
                 title: 'Full transcript downloading...',
                 message: `Saving as ${link.download}`,
