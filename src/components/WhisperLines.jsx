@@ -52,7 +52,6 @@ const useWhisperLines = () => {
 
   const onWsMessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log(data)
     if ('info' in data) {
       // Recieved message with infos
       Object.entries(data.info).forEach(([key, info]) => {

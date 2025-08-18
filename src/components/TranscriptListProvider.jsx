@@ -24,7 +24,6 @@ export function TranscriptListProvider() {
             body: JSON.stringify({ key: getKey() }),
         });
         const data = await response.json();
-        console.log(data);
         console.log('Recieved available transcript list:')
         console.log(data);
 

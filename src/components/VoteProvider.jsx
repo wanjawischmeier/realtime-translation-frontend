@@ -58,7 +58,6 @@ export function VoteProvider() {
     }
 
     if (response.ok) {
-      console.log(rooms)
       const roomsClone = JSON.parse(JSON.stringify(rooms))
       for (let i = 0; i < roomsClone.length; i++) {
         if(roomsClone[i].code == room.code)
@@ -72,7 +71,6 @@ export function VoteProvider() {
         Cookies.remove(`voted-${room.code}`);
       else
         Cookies.set(`voted-${room.code}`, true);
-      console.log(myVotes)
       const myVotesClone = JSON.parse(JSON.stringify(myVotes))
       myVotesClone[room.code] = add;
       setMyVotes(myVotesClone)
