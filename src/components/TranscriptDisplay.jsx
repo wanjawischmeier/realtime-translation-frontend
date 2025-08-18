@@ -116,6 +116,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                         </div>
                     )}
                 </div>
+                <div className="h-[50%] w-full"></div>
             </div>
 
         </div>
