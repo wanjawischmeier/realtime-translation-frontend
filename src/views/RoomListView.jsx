@@ -154,7 +154,7 @@ export default function RoomListView({ role = 'client' }) {
                                                 }}
                                                 disabled={!canJoin && role != "admin"}
                                             >
-                                                {isAdmin ? "Close room" : role == "client" ? "Join as Viewer" : "Enter as Presenter"}
+                                                {isAdmin ? "Close room" : role == "client" ? t("page.startpage.join-viewer") : t("page.startpage.join-host")}
                                             </button>
                                         </div>
                                     </div>
