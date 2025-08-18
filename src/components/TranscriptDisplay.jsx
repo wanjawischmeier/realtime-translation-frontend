@@ -74,7 +74,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                             className="flex justify-start"
                         >
                             <div
-                                className="rounded-xl px-4 py-3 max-w-[80%] transition-all duration-200 text-white"
+                                className="rounded-xl px-4 py-3 max-w-[250px] transition-all duration-200 text-white"
                             >
                                 <div className="mb-1 text-xs text-gray-300">
                                     {line.speaker === -1 ? "" : t("component.transcript-display.speaker") + (line.speaker + 1) + " · "}
@@ -87,7 +87,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                                 <span
                                                     key={i}
                                                     className="text-white-400 fade-in"
-                                                    style={{ lineHeight: "1.2", marginRight: "0.25rem" }}
+                                                    style={{ lineHeight: "1.4", marginRight: "0.25rem" }}
                                                 >
                                                     {sentence.content[targetLang]}
                                                 </span>
