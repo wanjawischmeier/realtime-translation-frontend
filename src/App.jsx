@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useWakeLock } from 'react-screen-wake-lock';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import StartView from "./views/StartView";
@@ -19,6 +19,18 @@ import ProjectLinks from "./components/ProjectLinks";
 
 export default function App() {
   const { t } = useTranslation();
+  const { isSupported, request } = useWakeLock({
+    onRequest: () => console.log('Screen Wake Lock: requested!'),
+    onError: () => console.log('Screen wake lock: An error happened'),
+    onRelease: () => console.log('Screen Wake Lock: released!'),
+    reacquireOnPageVisible: true,
+  });
+
+  if (isSupported) {
+    request();
+  } else {
+    console.log('Screen wake lock: not supported');
+  }
 
   return (
     <ToastProvider>
