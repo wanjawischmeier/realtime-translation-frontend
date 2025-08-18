@@ -3,19 +3,19 @@
   "popup": {
     "login": {
       "title": "Anmelden",
-      "input-label": "Geben Sie Ihre Anmeldedaten ein",
+      "input-label": "Gib das Passwort ein das du von der Dolmetsch-Orga bekommen hast.",
       "back": "Zurück",
-      "submit": "Einreichen",
+      "submit": "Weiter",
       "failed": {
         "title": "Anmeldung fehlgeschlagen",
-        "wrong-password": "Falsches Passwort eingegeben."
+        "wrong-password": "Falsches Passwort."
       }
     }
   },
   "component": {
     "transcript-display": {
-      "teaser": "Transkriptvorschau",
-      "speaker": "Sprecher"
+      "teaser": "Transkript Vorschau",
+      "speaker": "Sprecher*in"
     },
     "restart-room-button": {
       "label": "Raum neu starten"
@@ -32,7 +32,7 @@
   },
   "page": {
     "help": {
-      "title": "Hilfezentrum",
+      "title": "Hilfe",
       "back": "Zurück"
     },
     "vote": {
@@ -43,8 +43,8 @@
     "startpage": {
       "vote": "Abstimmen",
       "title": "Startseite",
-      "join-host": "Als Gastgeber beitreten",
-      "join-viewer": "Als Zuschauer beitreten",
+      "join-host": "Als Sprecher*in beitreten",
+      "join-viewer": "Als Zuschauer*in beitreten",
       "download-transcript": "Transkript herunterladen",
       "help": "Hilfe",
       "admin": "Admin-Seite",
@@ -56,16 +56,16 @@
     "room-list": {
       "title": "Verfügbare Räume",
       "list": {
-        "presenter-label": "Präsentator",
+        "presenter-label": "Sprecher*in",
         "unknown-presenter-name": "Unbekannt",
-        "location-label": "Standort",
+        "location-label": "Ort",
         "activity": {
           "label": "Aktivität",
-          "on": "Live",
+          "on": "Läuft gerade",
           "off": "Inaktiv"
         },
         "owner": {
-          "label": "Besitzer*in",
+          "label": "Sprecher*in",
           "you": "Du"
         }
       },
@@ -75,16 +75,16 @@
       "title": "Transkript",
       "language-select-label": "Sprache auswählen",
       "timestamp": {
-        "first-title": "Erste Aufnahme",
-        "last-title": "Letzte Aufnahme"
+        "first-title": "Start",
+        "last-title": "Ende"
       },
       "download": "Herunterladen"
     },
     "room-view": {
-      "host": "Gastgeber*in",
+      "host": "Sprecher*in",
       "viewer": "Zuschauer*in",
-      "viewing": "Viewing",
-      "hosting": "Hosting",
+      "viewing": "Schaue zu",
+      "hosting": "Spreche",
       "language-select": {
         "source-label": "Quellsprache",
         "target-label": "Zielsprache"
