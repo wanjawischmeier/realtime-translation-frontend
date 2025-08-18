@@ -1,0 +1,96 @@
+{
+  "dom-title": "Interpretación en tiempo real",
+  "popup": {
+    "login": {
+      "title": "Login",
+      "input-label": "Introduzca sus credenciales",
+      "back": "Vover",
+      "submit": "Avanzar",
+      "failed": {
+        "title": "No se ha podido iniciar sesión",
+        "wrong-password": "Contraseña incorrecta."
+      }
+    }
+  },
+  "component": {
+    "transcript-display": {
+      "teaser": "Vista previa de la transcripción",
+      "speaker": "Hablante"
+    },
+    "restart-room-button": {
+      "label": "Rearrancar Cuarto"
+    },
+    "loader": {
+      "loading": "Cargando ..."
+    },
+    "spinner": {
+      "back": "Volver"
+    },
+    "project-links": {
+      "github": "GitHub"
+    }
+  },
+  "page": {
+    "help": {
+      "title": "Centro de Ayuda",
+      "back": "Volver"
+    },
+    "vote": {
+      "vote": "{{votes}} Votos",
+      "add-vote-button":"Votar",
+      "remove-vote-button":"remover Voto"
+    },
+    "startpage": {
+      "vote": "Votar",
+      "title": "Portal",
+      "join-host": "Entrar como Hablante",
+      "join-viewer": "Entrar como Público",
+      "download-transcript": "Descargar Transcripción",
+      "help": "Ayuda",
+      "admin": "Administrador",
+      "maintenance": {
+        "header": "Mantenimiento corriente...",
+        "message": "Estamos experimentando algunos problemas en este momento. Como resultado, el servicio no está disponible temporalmente. Vuelva a intentarlo más tarde."
+      }
+    },
+    "room-list": {
+      "title": "Cuertas Disponibles",
+      "list": {
+        "presenter-label": "Hablante Desconocido",
+        "unknown-presenter-name": "",
+        "location-label": "Lugar",
+        "activity": {
+          "label": "Actividad",
+          "on": "En directo",
+          "off": "Inactivo"
+        },
+        "owner": {
+          "label": "Hablante",
+          "you": "Tú"
+        }
+      },
+      "back": "Volver"
+    },
+    "transcript": {
+      "title": "Transcripción",
+      "language-select-label": "Seleccionar Lenguaje",
+      "timestamp": {
+        "first-title": "Comienzo",
+        "last-title": "Final"
+      },
+      "download": "Descargar"
+    },
+    "room-view": {
+      "host": "Hablante",
+      "viewer": "Público",
+      "viewing": "mirando",
+      "hosting": "hablando",
+      "language-select": {
+        "source-label": "Lenguaje hablada",
+        "target-label": "Lenguaje vista (solamente para tí)"
+      },
+      "download-transcript": "Descargar Transcripción",
+      "back": "Volver"
+    }
+  }
+}
