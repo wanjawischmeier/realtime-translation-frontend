@@ -122,6 +122,7 @@ function WhisperLiveKitStreamer() {
 
         </div>
         <div className="flex flex-col w-full gap-4 mb-4">
+          {/** 
           <div className="flex items-center gap-4 w-full">
             <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.source-label")}:</span>
             <LanguageSelect
@@ -135,6 +136,7 @@ function WhisperLiveKitStreamer() {
               languages={availableSourceLangs}
             />
           </div>
+          */}
           <div className="flex items-center gap-4 w-full">
             <span className="text-white font-medium select-none whitespace-nowrap">{t("page.room-view.language-select.target-label")}:</span>
             <LanguageSelect
@@ -147,6 +149,7 @@ function WhisperLiveKitStreamer() {
               languages={availableTargetLangs}
             />
           </div>
+          
         </div>
 
         {/* Transcript Area */}
