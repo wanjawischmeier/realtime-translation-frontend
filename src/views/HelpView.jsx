@@ -9,12 +9,12 @@ export default function HelpView() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const { t } = useTranslation();
+    const { t,i18n } = useTranslation();
 
     useEffect(() => {
         document.title = t("page.help.title") + " - " + t('dom-title')
-
-        const url = import.meta.env.VITE_HELP_MARKDOWN_URL;
+        console.log(import.meta.env.VITE_HELP_MARKDOWN_URL.replace("%lang",i18n.language))
+        const url = import.meta.env.VITE_HELP_MARKDOWN_URL.replace("%lang",i18n.language);
         if (!url) {
             setError('Help markdown URL not configured');
             return;
