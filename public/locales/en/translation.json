@@ -3,7 +3,7 @@
   "popup": {
     "login": {
       "title": "Login",
-      "input-label": "Enter your credentials",
+      "input-label": "Enter the Password you got from Interpretation Orga",
       "back": "Back",
       "submit": "Submit",
       "failed": {
@@ -14,7 +14,7 @@
   },
   "component": {
     "transcript-display": {
-      "teaser": "Transcript Preview",
+      "teaser": "Transcript View",
       "speaker": "Speaker"
     },
     "restart-room-button": {
@@ -43,7 +43,7 @@
     "startpage": {
       "vote": "Vote",
       "title": "Startpage",
-      "join-host": "Join as Host",
+      "join-host": "Join as Speaker",
       "join-viewer": "Join as Viewer",
       "download-transcript": "Download Transcript",
       "help": "Help",
@@ -56,7 +56,7 @@
     "room-list": {
       "title": "Available Rooms",
       "list": {
-        "presenter-label": "Presenter",
+        "presenter-label": "Speaker",
         "unknown-presenter-name": "Unknown",
         "location-label": "Location",
         "activity": {
@@ -75,19 +75,19 @@
       "title": "Transcript",
       "language-select-label": "Select Language",
       "timestamp": {
-        "first-title": "First Recording",
-        "last-title": "Last Recording"
+        "first-title": "Start",
+        "last-title": "End"
       },
       "download": "Download"
     },
     "room-view": {
-      "host": "Host",
+      "host": "Speaker",
       "viewer": "Viewer",
       "viewing": "Viewing",
-      "hosting": "Hosting",
+      "hosting": "Speaking",
       "language-select": {
-        "source-label": "Source Language",
-        "target-label": "Target Language"
+        "source-label": "Speaker Language",
+        "target-label": "View Language (just for you)"
       },
       "download-transcript": "Download Transcript",
       "back": "Back"
