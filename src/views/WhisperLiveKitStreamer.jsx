@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import TranscriptDisplay from "../components/TranscriptDisplay";
 import { useServerHealth } from "../components/ServerHealthContext";
@@ -13,7 +12,6 @@ import RestartButton from "../components/RestartButton";
 import { RoomsProvider } from "../components/RoomsProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
-import { useFullscreen } from "../help/useFullscreen";
 
 function WhisperLiveKitStreamer() {
   const [wsUrl, setWsUrl] = useState(null);
@@ -58,6 +56,9 @@ function WhisperLiveKitStreamer() {
       if (room.source_lang && availableSourceLangs.includes(room.source_lang)) {
         // Room already initialized with a language
         initialSourceLang = room.source_lang;
+      } else if (availableSourceLangs.includes('de')) {
+        // Default to german if available
+        initialSourceLang = 'de';
       } else {
         // Otherwise just default to the first one
         initialSourceLang = availableSourceLangs[0];
