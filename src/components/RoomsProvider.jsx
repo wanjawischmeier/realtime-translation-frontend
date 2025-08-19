@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerHealth } from "./ServerHealthContext";
+import { getBackendUrl } from "../help/url";
 
 export function RoomsProvider() {
   const [rooms, setRooms] = useState([]);
@@ -15,7 +16,7 @@ export function RoomsProvider() {
     }
 
     // TODO: error handling?
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+    const res = await fetch(`${getBackendUrl()}/room_list`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
     const data = await res.json();
     console.log('Recieved room list:')
     console.log(data);

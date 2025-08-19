@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerHealth } from "./ServerHealthContext";
 import { useAuth } from "./AuthContext";
+import { getBackendUrl } from "../help/url";
 
 export function TranscriptListProvider() {
     const [availableTranscriptInfos, setAvailableTranscriptInfos] = useState([]);
@@ -14,7 +15,7 @@ export function TranscriptListProvider() {
         }
 
         // TODO: error handling?
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/transcript_list`, {
+        const response = await fetch(`${getBackendUrl()}/transcript_list`, {
             method: "POST",
             cache: 'no-cache',
             headers: {

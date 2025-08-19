@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useTranslation } from "react-i18next";
 import Spinner from "./Spinner";
 import { useToast } from "./ToastProvider";
+import { getBackendUrl } from "../help/url";
 
 const AuthContext = createContext();
 
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   async function login(password, role = null) {
     var response;
     try {
-      response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+      response = await fetch(`${getBackendUrl()}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     const key = getKey()
     if (key) {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
+        const response = await fetch(`${getBackendUrl()}/auth`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

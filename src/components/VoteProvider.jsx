@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerHealth } from "./ServerHealthContext";
 import Cookies from "js-cookie";
+import { getBackendUrl } from "../help/url";
 
 export function VoteProvider() {
   const [rooms, setRooms] = useState([]);
@@ -14,7 +15,7 @@ export function VoteProvider() {
     }
 
     // TODO: error handling?
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/vote`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" } });
+    const res = await fetch(`${getBackendUrl()}/vote`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" } });
     const data = await res.json();
 
     setRooms(data);
@@ -43,7 +44,7 @@ export function VoteProvider() {
   async function handleVote(room, add) {
     var response;
     try {
-      response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/vote/${room.code}/${add ? "add" : "remove"}`, {
+      response = await fetch(`${getBackendUrl()}/vote/${room.code}/${add ? "add" : "remove"}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

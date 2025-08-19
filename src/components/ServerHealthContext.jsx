@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { getBackendUrl } from "../help/url";
 
 const ServerHealthContext = createContext();
 
@@ -9,7 +10,7 @@ export function ServerHealthProvider({ children }) {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
+        const res = await fetch(`${getBackendUrl()}/health`, { method: "GET", cache: 'no-cache', headers: { "ngrok-skip-browser-warning": "true" }});
         setServerReachable(res.ok);
 
       } catch {

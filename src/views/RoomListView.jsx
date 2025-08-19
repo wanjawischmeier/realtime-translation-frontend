@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import trackUmami from "../help/umamiHelper";
 import RoomStatus from "../components/RoomStatus";
 import { useEffect } from "react";
+import { getBackendUrl } from "../help/url";
 
 export default function RoomListView({ role = 'client' }) {
     const { rooms, roomCapacityReached, fetchUpdate } = RoomsProvider();
@@ -41,7 +42,7 @@ export default function RoomListView({ role = 'client' }) {
             });
         }
 
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${room.id}/close`, {
+        fetch(`${getBackendUrl()}/room/${room.id}/close`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import trackUmami from '../help/umamiHelper';
 import { useToast } from "./ToastProvider";
 import { useServerHealth } from "./ServerHealthContext";
 import { useAuth } from "./AuthContext";
+import { getBackendUrl } from '../help/url';
 
 export default function TranscriptDownloadButton({ roomId, targetLang, disabled = false }) {
     const [downloading, setDownloading] = useState(false);
@@ -27,7 +28,7 @@ export default function TranscriptDownloadButton({ roomId, targetLang, disabled 
     const handleDownload = async () => {
         setDownloading(true);
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/${roomId}/transcript/${targetLang}`, {
+            const response = await fetch(`${getBackendUrl()}/room/${roomId}/transcript/${targetLang}`, {
                 method: "POST",
                 cache: 'no-cache',
                 headers: {

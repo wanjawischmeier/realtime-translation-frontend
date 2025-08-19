@@ -12,6 +12,7 @@ import RestartButton from "../components/RestartButton";
 import { RoomsProvider } from "../components/RoomsProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
+import { getBackendWs } from "../help/url";
 
 function WhisperLiveKitStreamer() {
   const [wsUrl, setWsUrl] = useState(null);
@@ -76,7 +77,7 @@ function WhisperLiveKitStreamer() {
       return;
     }
 
-    setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/host/${sourceLang}/${targetLang}`)
+    setWsUrl(`${getBackendWs()}/room/${room_id}/host/${sourceLang}/${targetLang}`)
   }, [sourceLang, targetLang]);
 
   const restartBackend = () => {

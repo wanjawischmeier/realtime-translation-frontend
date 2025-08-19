@@ -13,6 +13,7 @@ import { TranscriptListProvider } from "../components/TranscriptListProvider";
 import TranscriptDownloadButton from "../components/TranscriptDownloadButton";
 import LoadHandler from "../components/LoadHandler";
 import { useFullscreen } from "../help/useFullscreen";
+import { getBackendWs } from "../help/url";
 
 export default function WhisperLiveKitViewer() {
   const [wsUrl, setWsUrl] = useState(null);
@@ -73,7 +74,7 @@ export default function WhisperLiveKitViewer() {
     if (!targetLang) {
       return;
     }
-    setWsUrl(`${import.meta.env.VITE_BACKEND_WS}/room/${room_id}/client/${undefined}/${targetLang}`)
+    setWsUrl(`${getBackendWs()}/room/${room_id}/client/${undefined}/${targetLang}`)
   }, [targetLang]);
 
   if (!wsUrl) {
