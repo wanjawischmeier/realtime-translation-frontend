@@ -56,14 +56,14 @@ function StartView() {
                     >
                         {t("page.startpage.download-transcript")}
                     </button>
-
+                    { /*
                     <button
                         className="w-full py-3 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700 text-white"
                         onClick={() => navigate("/rooms/vote")}
                     >
                         {t("page.startpage.vote")}
                     </button>
-
+                    */ }
                     <button
                         className="w-full py-3 rounded-lg font-bold text-lg bg-gray-600 hover:bg-gray-700 text-white"
                         onClick={() => navigate("/help")}
