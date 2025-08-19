@@ -93,6 +93,8 @@ function WhisperLiveKitStreamer() {
     );
   } else {
 
+    const room = rooms.find(r => r.id === room_id);
+
     return (
       <div className="h-full flex flex-col p-4 text-white w-full">
         {/* Header */}
@@ -153,11 +155,13 @@ function WhisperLiveKitStreamer() {
           
         </div>
 
+
         {/* Transcript Area */}
         <TranscriptDisplay
           lines={lines}
           incompleteSentence={incompleteSentence}
           targetLang={targetLang}
+          sourceLang={room.source_lang}
         />
 
         <button

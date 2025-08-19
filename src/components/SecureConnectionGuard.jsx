@@ -7,8 +7,8 @@ export default function SecureConnectionGuard({ children }) {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  if (window.location.protocol !== 'https:')
+  console.log(window.location)
+  if (window.location.protocol !== 'https:' && !window.location.origin.startsWith('http://localhost'))
     return (
       <div className="h-100 flex flex-col p-4">
         {/* Header */}

@@ -15,7 +15,7 @@ function formatTime(t) {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-export default function TranscriptDisplay({ lines, incompleteSentence, targetLang }) {
+export default function TranscriptDisplay({ lines, incompleteSentence, sourceLang, targetLang }) {
     const { t } = useTranslation();
     const containerRef = useRef(null);
 
@@ -27,7 +27,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
         }
     };
 
-    const SCROLL_THRESHOLD = 100;
+    const SCROLL_THRESHOLD = 500;
     const loadTimeRef = useRef(Date.now());
 
     useEffect(() => {
@@ -59,13 +59,13 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
 
             <div className="flex-grow basis-0 w-full mb-4 mt-2 overflow-y-auto" ref={containerRef} style={{ height: isFullscreen ? "100vh" : '100%' }}>
                 <div
-                    
-                    className="w-full bg-gray-900 rounded-lg sm:rounded-none p-4 text-gray-100 text-base flex flex-col space-y-4 h-full"
+
+                    className="w-full bg-gray-900 rounded-lg sm:rounded-none p-4 text-gray-100 text-base flex flex-col space-y-4 min-h-full"
                     style={{ minHeight: 120 }}
                 >
                     {lines.length === 0 && (!incompleteSentence || incompleteSentence.length === 0) && (
                         <span className="text-gray-500">{t("component.transcript-display.teaser")}</span>
-                        
+
                     )}
 
                     {lines.map((line, idx) => (
@@ -82,16 +82,29 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                 </div>
                                 <div className="text-lg leading-relaxed flex flex-col gap-3">
                                     {line.sentences.map((sentence, i) => {
-                                        if (sentence.content && sentence.content[targetLang]) {
-                                            return (
-                                                <span
-                                                    key={i}
-                                                    className="text-white-400 fade-in"
-                                                    style={{ lineHeight: "1.4", marginRight: "0.25rem" }}
-                                                >
-                                                    {sentence.content[targetLang]}
-                                                </span>
-                                            );
+                                        if (sentence.content) {
+                                            if (sentence.content[targetLang] && sentence.content[targetLang] != "") {
+                                                return (
+                                                    <span
+                                                        key={i + "-" + (sentence.content[targetLang] != "")}
+                                                        className="text-white-400 fade-in"
+                                                        style={{ lineHeight: "1.4", marginRight: "0.25rem" }}
+                                                    >
+                                                        {sentence.content[targetLang]}
+                                                    </span>
+                                                );
+                                            } else {
+                                                return (
+                                                    <span
+                                                        key={i + "-" + (sentence.content[targetLang] != "")}
+                                                        className="text-gray-700 fade-in"
+                                                        style={{ lineHeight: "1.4", marginRight: "0.25rem" }}
+                                                    >
+                                                        {sentence.content[sourceLang]}
+                                                    </span>
+                                                );
+                                            }
+
                                         }
                                         return null;
                                     })}
@@ -99,7 +112,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                                     {idx === lines.length - 1 && incompleteSentence && incompleteSentence.length > 0 && (
                                         <span
                                             className="text-gray-700 fade-in"
-                                            style={{ lineHeight: "1.2" }}
+                                            style={{ lineHeight: "1.4" }}
                                         >
                                             {incompleteSentence}
                                         </span>
@@ -118,7 +131,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, targetLan
                         </div>
                     )}
                 </div>
-                <div className="h-[50%] w-full"></div>
+                <div className="h-[50px] w-full"></div>
             </div>
 
         </div>
