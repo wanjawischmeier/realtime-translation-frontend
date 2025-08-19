@@ -51,9 +51,11 @@ export default function App() {
                       <Route
                         path="/rooms/host"
                         element={
-                          <AuthGuard>
-                            <RoomListView role={'host'} />
-                          </AuthGuard>
+                          <SecureConnectionGuard>
+                            <AuthGuard>
+                              <RoomListView role={'host'} />
+                            </AuthGuard>
+                          </SecureConnectionGuard>
                         }
                       />
                       <Route

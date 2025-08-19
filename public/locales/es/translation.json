@@ -13,6 +13,10 @@
     }
   },
   "component": {
+    "secure-block": {
+      "title": "Secure connection required",
+      "back": "Back"
+    },
     "transcript-display": {
       "teaser": "Vista previa de la transcripción",
       "speaker": "Hablante"

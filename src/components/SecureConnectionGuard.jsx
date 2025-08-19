@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAuth } from "./AuthContext";
 import Login from "./Login";
 import { useLocation } from "react-router-dom";
@@ -7,6 +8,7 @@ export default function SecureConnectionGuard({ children }) {
   const { t } = useTranslation();
 
   const location = useLocation();
+  console.log(location.protocol)
   if (location.protocol !== 'https:')
     return (
       <div className="h-100 flex flex-col p-4">

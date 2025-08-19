@@ -13,6 +13,10 @@
     }
   },
   "component": {
+    "secure-block": {
+      "title": "Secure connection required",
+      "back": "Back"
+    },
     "transcript-display": {
       "teaser": "Transkript Vorschau",
       "speaker": "Sprecher*in"
@@ -37,8 +41,8 @@
     },
     "vote": {
       "vote": "{{votes}} Stimmen",
-      "add-vote-button":"Abstimmen",
-      "remove-vote-button":"Stimme entfernen"
+      "add-vote-button": "Abstimmen",
+      "remove-vote-button": "Stimme entfernen"
     },
     "startpage": {
       "vote": "Abstimmen",
