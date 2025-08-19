@@ -76,7 +76,7 @@ export default function RoomListView({ role = 'client' }) {
                         {/* Scrollable Room List */}
 
                         {
-                            rooms.sort((a, b) => (((a.host_connection_id != '' ? 2 : 0) - (b.host_connection_id != '' ? 2 : 0)) + a.location.localCompare(b.location))).map(room => {
+                            rooms.sort((a, b) => (((a.host_connection_id != '' ? 2 : 0) - (b.host_connection_id != '' ? 2 : 0)) + a.location.localeCompare(b.location))).map(room => {
                                 const connectionId = Cookies.get('connection_id') || '';
                                 let allowedIn = false;
 
