@@ -16,6 +16,7 @@ import HelpView from "./views/HelpView";
 import RoomVoting from "./views/RoomVoting";
 import LocalizationSelect from "./components/LocalizationSelect";
 import ProjectLinks from "./components/ProjectLinks";
+import SecureConnectionGuard from './components/SecureConnectionGuard';
 
 export default function App() {
   const { t } = useTranslation();
@@ -58,7 +59,7 @@ export default function App() {
                       <Route
                         path="/rooms/vote"
                         element={
-                          <RoomVoting/>
+                          <RoomVoting />
                         }
                       />
                       <Route
@@ -72,11 +73,14 @@ export default function App() {
                       <Route
                         path="/room/:room_id/host"
                         element={
-                          <AuthGuard>
-                            <RoomSetupGuard>
-                              <WhisperLiveKitStreamer />
-                            </RoomSetupGuard>
-                          </AuthGuard>
+                          <SecureConnectionGuard>
+                            <AuthGuard>
+                              <RoomSetupGuard>
+                                <WhisperLiveKitStreamer />
+                              </RoomSetupGuard>
+                            </AuthGuard>
+                          </SecureConnectionGuard>
+
                         }
                       />
                       <Route path="/room/:room_id/view" element={<WhisperLiveKitViewer />} />
