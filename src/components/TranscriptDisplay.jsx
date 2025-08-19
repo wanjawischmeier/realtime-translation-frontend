@@ -111,7 +111,7 @@ export default function TranscriptDisplay({ lines, incompleteSentence, sourceLan
 
                                     {idx === lines.length - 1 && incompleteSentence && incompleteSentence.length > 0 && (
                                         <span
-                                            className="text-gray-700 fade-in"
+                                            className="text-gray-600 fade-in"
                                             style={{ lineHeight: "1.4" }}
                                         >
                                             {incompleteSentence}
