@@ -1,13 +1,57 @@
 The frontend for [wanjawischmeier/realtime-translation-frontend](https://github.com/wanjawischmeier/realtime-translation-frontend). Expected to be ran alongside the backend.
 
-# Dependencies
+Uses [Tailwind](https://github.com/tailwindlabs/tailwindcss) and [React](https://github.com/facebook/react) for the ui and [i18next](https://github.com/i18next/i18next) for localization.
+
+# Permissions
+|                             | User               | Host                | Admin                |
+|-----------------------------|--------------------|---------------------|----------------------|
+| Join room                  | ✅                 | ✅                  | ✅                   |
+| Leave room                 | ✅                 | ✅                  | ✅                   |
+| Vote for room              | ✅                 | ✅                  | ✅                   |
+| Access help page           | ✅                 | ✅                  | ✅                   |
+| Download transcript        | 🟠 (if allowed by host)     | 🟠 (own)            | ✅                   |
+| Open room                 |                    | ✅                  | ✅                   |
+| Close room                |                    | 🟠 (own)            | ✅                   |
+| Restart room              |                    | 🟠 (own)            | ✅                   |
+| Close room (any)          |                    |                     | ✅                   |
+
+
+
+# Installation
+### Dependencies
 - react/npm
 - Do `npm install`
 
-# Run using
+### Run using
 ```bash
 npm run dev
 ```
+
+
+# Screenshots
+
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/042cc370-fe0d-47f6-bbc1-07fb81f10c58" height="383" alt="signal-2025-08-30-123006_004"></td>
+    <td><img src="https://github.com/user-attachments/assets/6afd6c23-07f7-47e5-b7bd-788824731b40" height="383" alt="signal-2025-08-30-123006_003"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/21c66d77-2725-456e-9086-751de09f1233" height="300" alt="signal-2025-08-30-123006_009"></td>
+    <td><img src="https://github.com/user-attachments/assets/47751925-0e95-4d4a-845c-ff2c2e7acdfd" height="300" alt="signal-2025-08-30-123006"></td>
+    <td><img src="https://github.com/user-attachments/assets/75948bb9-f942-41e4-8092-6b0401d63d5f" height="300" alt="signal-2025-08-30-123006_007"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/ca962e48-30c3-43cf-b63d-9616da212566" height="300" alt="signal-2025-08-30-123006_008"></td>
+    <td><img src="https://github.com/user-attachments/assets/85dd4fbc-8abf-41ab-93cc-753da5196498" height="300" alt="signal-2025-08-30-123006_002"></td>
+    <td><img src="https://github.com/user-attachments/assets/b0f49992-dff9-4f31-bce3-3e23e30be870" height="300" alt="signal-2025-08-30-123006_006"></td>
+  </tr>
+</table>
+
+
+
 
 # Umami
 Used for tracking certain events and pageviews. The server is expected to be ran from the [backend](https://github.com/substratoo/realtime-translation-backend#umami). The following custom events get triggered:
@@ -19,6 +63,7 @@ Used for tracking certain events and pageviews. The server is expected to be ran
 - `transcript-downloaded`
 - `closed-room-admin`
 - `closed-room-admin-failed`
+
 
 # TODOs
 ## Important
