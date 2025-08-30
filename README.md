@@ -1,3 +1,5 @@
+The frontend for [wanjawischmeier/realtime-translation-frontend](https://github.com/wanjawischmeier/realtime-translation-frontend). Expected to be ran alongside the backend.
+
 # Dependencies
 - react/npm
 - Do `npm install`
