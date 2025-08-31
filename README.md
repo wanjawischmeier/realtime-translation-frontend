@@ -1,4 +1,4 @@
-The frontend for [wanjawischmeier/realtime-translation-frontend](https://github.com/wanjawischmeier/realtime-translation-backend). Expected to be ran alongside the backend. For details on the communication between front- and backend, see the [README.md](https://github.com/wanjawischmeier/realtime-translation-backend/blob/a32cb7b227625db9b4b235b97e395bfb766c9b7a/README.md) of the backend.
+The frontend for [wanjawischmeier/realtime-translation-backend](https://github.com/wanjawischmeier/realtime-translation-backend). Expected to be ran alongside the backend. For details on the communication between front- and backend, see the [README.md](https://github.com/wanjawischmeier/realtime-translation-backend/blob/a32cb7b227625db9b4b235b97e395bfb766c9b7a/README.md) of the backend.
 
 Uses [Tailwind](https://github.com/tailwindlabs/tailwindcss) and [React](https://github.com/facebook/react) for the ui and [i18next](https://github.com/i18next/i18next) for localization.
 
