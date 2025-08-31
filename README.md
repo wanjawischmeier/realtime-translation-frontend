@@ -2,7 +2,7 @@ The frontend for our [realtime translation project](https://github.com/stars/wan
 
 This project is using the [wanjawischmeier/WhisperLiveKit](https://github.com/wanjawischmeier/WhisperLiveKit) fork of [QuentinFuxa's](https://github.com/QuentinFuxa) Whisper wrapper to transcribe audio locally and in realtime. It is able to translate this transcript into a list of dynamically requested languages using [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) and send out transcript chunks to the respective frontends using a websocket connection. This pipeline is able to support multiple streamers and viewers in a room system. When streamers connect to and activate a room, they are able to send their microphone audio to the server for processing.
 
-Uses [Tailwind](https://github.com/tailwindlabs/tailwindcss) and [React](https://github.com/facebook/react) for the ui and [i18next](https://github.com/i18next/i18next) for localization.
+Uses [Tailwind](https://github.com/tailwindlabs/tailwindcss) and [React](https://github.com/facebook/react) with [ViteJS](https://github.com/vitejs/vite) for the ui and [i18next](https://github.com/i18next/i18next) for localization.
 
 # Permissions
 |                             | User               | Host                | Admin                |
@@ -26,7 +26,38 @@ Uses [Tailwind](https://github.com/tailwindlabs/tailwindcss) and [React](https:/
 
 ### Run using
 ```bash
+# For development (only localhost access)
 npm run dev
+# Exposes http://localhost:5173
+
+# For production (exposing the frontend to the local network)
+npm run host
+# Exposes localhost and http(s)://<your-ip>:5173
+```
+
+### Environment variables
+Vite uses a `.env` file to set certain environment variables. Below is an example that configures secure as well as insecure contexts for a local network.
+```bash
+VITE_FRONTEND_SECURE_URL=https://host.lan
+
+# Here, nginx is set up to redirect all requests to /backend to the backend port (8000)
+VITE_BACKEND_URL=http://translation.lan/backend
+VITE_BACKEND_WS=ws://translation.lan/backend
+VITE_BACKEND_SECURE_URL=https://host.lan/backend
+VITE_BACKEND_SECURE_WS=wss://host.lan/backend
+
+VITE_COOKIE_EXPIRATION_HOURS=4
+VITE_TRANSCRIPT_DELAY_THRESHOLD=10
+
+VITE_HELP_MARKDOWN_URL=/help-%lang.md
+VITE_GITHUB_PROJECT_URL=https://github.com/stars/substratoo/lists/realtime-translation
+
+# Uncomment to show a maintenance message to all users
+# VITE_SERVER_MAINTENANCE=true
+
+# Umami can be set up and configured in the backend
+VITE_UMAMI_URL=http://localhost:3000/script.js
+VITE_UMAMI_WEBSITE_ID=ae5f065c-ae9f-4ed5-be74-3e8be96ee297
 ```
 
 
